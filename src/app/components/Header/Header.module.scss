@@ -1,0 +1,29 @@
+.header {
+  padding: 10px 20px;
+  background-color: var(--blue);
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+  .nav {
+    ul {
+      display: flex;
+      li {
+        & + li {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+  
+  .auth-controls {
+    a {
+      & + a {
+        margin-left: 10px;
+      }
+    }
+  }
+  
+  a {
+    color: var(--white);
+  }
+}

@@ -1,0 +1,14 @@
+.product-card {
+  display: flex;
+  .image {
+    flex: 0 0 45%;
+    max-width: 45%;
+    margin-right: 5px;
+  }
+
+  .details {
+    background-color: var(--yellow-light);
+    flex-grow: 1;
+    flex-shrink: 1;
+  }
+}

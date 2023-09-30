@@ -1,0 +1,20 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  background-color: var(--blue);
+  padding: 8px 15px;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 300;
+  border-radius: var(--button-br);
+
+  svg {
+    color: var(--white);
+  }
+
+  span {
+    margin-left: 5px;
+  }
+}

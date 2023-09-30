@@ -1,0 +1,14 @@
+.nav {
+  font-size: 13px;
+  margin-bottom: 10px;
+  display: flex;
+
+  li {
+    & + li {
+      margin-left: 10px;
+    }
+    a {
+      color: var(--black);
+    }
+  }
+}
