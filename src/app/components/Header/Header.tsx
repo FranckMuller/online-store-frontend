@@ -1,4 +1,5 @@
 import Link from "next/link";
+import AuthControls from "./AuthControls/AuthControls";
 
 import styles from "./Header.module.scss";
 
@@ -13,13 +14,14 @@ const Header = () => {
           <li>
             <Link href="/admin">admin panel</Link>
           </li>
+
+          <li>
+            <Link href="/profile">profile</Link>
+          </li>
         </ul>
       </nav>
 
-      <div className={styles["auth-controls"]}>
-        <Link href={"/signup"}>Registration</Link>
-        <Link href={"/signin"}>Login</Link>
-      </div>
+      <AuthControls />
     </header>
   );
 };

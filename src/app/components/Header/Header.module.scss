@@ -15,14 +15,6 @@
     }
   }
   
-  .auth-controls {
-    a {
-      & + a {
-        margin-left: 10px;
-      }
-    }
-  }
-  
   a {
     color: var(--white);
   }

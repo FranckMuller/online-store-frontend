@@ -1,0 +1,14 @@
+.auth-controls {
+  a {
+    padding: 0 5px;
+    font-size: 11px;
+    &:first-child {
+      border-right: 1px solid var(--white);
+    }
+  }
+  
+  .logout {
+    font-size: 11px;
+    color: var(--white);
+  }
+}

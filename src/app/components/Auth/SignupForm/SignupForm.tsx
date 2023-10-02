@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import * as Api from "@/api";
 import type { ISignupData } from "@/interfaces/auth.interface";
@@ -15,19 +16,27 @@ const initialData = {
 
 const SignupForm = () => {
   const [data, setData] = useState(initialData);
+  const [error, setError] = useState<string | null>(null);
   const {
     mutate: signup,
+    data: authData,
     isLoading,
     isSuccess,
-    isError,
-    error,
   } = useMutation({
     mutationFn: (signupData: ISignupData) => Api.auth.signup(signupData),
-    onSuccess: (data) => console.log(data)
+    onSuccess: (data) => console.log(data),
+    onError: (error) => {
+      if (axios.isAxiosError(error) && error.response) {
+        setError(error.response.data.message);
+      }
+    },
   });
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e);
+    if (error) {
+      setError(null);
+    }
+    
     setData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -93,8 +102,11 @@ const SignupForm = () => {
           />
         </div>
 
-        <div className={styles["submit-button-wrap"]}>
-          <button className={styles["submit-button"]}>Submit</button>
+        <div className={styles["error-button-wrap"]}>
+          <span className={styles["error"]}>{error && error}</span>
+          <div className={styles["button-wrap"]}>
+            <button className={styles["submit-button"]}>Submit</button>
+          </div>
         </div>
       </form>
     </div>
