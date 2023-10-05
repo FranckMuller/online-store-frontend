@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { store } from "@/store/store";
 import type { Metadata } from "next";
-import Header from "@/app/components/Header/Header";
+import Header from "@/app/components/modules/Header/Header";
 
 import styles from "./layout.module.scss";
 import "./globals.scss";

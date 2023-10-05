@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
+import { redirect } from "next/navigation";
 import * as Api from "@/api";
 import type { ISigninData } from "@/interfaces/auth.interface";
 
@@ -46,8 +47,13 @@ const SigninForm = () => {
     signin(data);
   };
 
+  console.log(isSuccess);
+
   useEffect(() => {
+  if(isSuccess) {
     setData(initialData);
+    redirect("/dashboard");
+  }
   }, [isSuccess]);
 
   return (

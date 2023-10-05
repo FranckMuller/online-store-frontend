@@ -1,6 +1,6 @@
 import { apiInstance } from "./api";
 import { ISignupData, ISigninData } from "@/interfaces/auth.interface";
-import { setAccessToken } from "./helpers";
+import { setAccessToken, removeAccessToken } from "./helpers";
 
 export interface ISignupResponse {
   user: {
@@ -22,10 +22,19 @@ export const signup = async (signupData: ISignupData) => {
   return response.data;
 };
 
-export const signin = async (signinData: ISigninData) => {};
-
-export const signout = async () => {
-  return await apiInstance.post("auth/signout");
+export const signin = async (signinData: ISigninData) => {
+  const response = await apiInstance.post("auth/signin", signinData);
+  setAccessToken(response.data.accessToken);
+  return response.data;
 };
 
-export const checkAuth = () => {};
+export const signout = async () => {
+  await apiInstance.post("auth/signout");
+  removeAccessToken();
+};
+
+export const checkAuth = async () => {
+  console.log("check auth");
+  const response = await apiInstance.get<ISignupResponse>("auth/check");
+  return response.data;
+};

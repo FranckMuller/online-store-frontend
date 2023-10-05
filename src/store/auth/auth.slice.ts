@@ -14,12 +14,13 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setCredentials: (state, { payload }: PayloadAction<IUser>) => {
+    setCredentials: (state, { payload }: PayloadAction<IUser | null>) => {
+    console.log(payload)
       state.user = payload;
     },
   },
 });
 
-export const {setCredentials} = authSlice.actions
+export const { setCredentials } = authSlice.actions;
 
-export default authSlice.reducer
+export default authSlice.reducer;

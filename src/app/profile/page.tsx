@@ -1,5 +1,12 @@
+"use client";
+
 const ProfilePage = () => {
-  return <h3>profile page</h3>;
+
+  return (
+    <section>
+      <h3>Fill your profile data here</h3>
+    </section>
+  );
 };
 
 export default ProfilePage;

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import AuthControls from "./AuthControls/AuthControls";
+import ProfileDropdown from "./ProfileDropdown/ProfileDropdown";
 
 import styles from "./Header.module.scss";
 
@@ -20,7 +21,7 @@ const Header = () => {
           </li>
         </ul>
       </nav>
-
+      <ProfileDropdown />
       <AuthControls />
     </header>
   );

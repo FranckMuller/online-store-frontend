@@ -1,23 +1,26 @@
 "use client";
-
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
+import { Routes } from "@/constants/routes";
+import PageSpinner from "@/app/components/ui/PageSpinner/PageSpinner";
 
 type Props = {
   children: React.ReactNode;
 };
 
 const ProfileLayout = ({ children }: Props) => {
-  const router = useRouter();
-  const { isAuth } = useAuth();
 
-  if (!isAuth) router.push("/dashboard");
+  const { isAuth, isAuthChecking, user } = useAuth();
+
+  if (isAuthChecking) return <PageSpinner />;
+
+  if (!isAuth) redirect("/signin");
 
   return (
-    <div>
+    <>
       <div>nav</div>
       <section>{children}</section>
-    </div>
+    </>
   );
 };
 
