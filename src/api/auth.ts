@@ -7,6 +7,7 @@ export interface ISignupResponse {
     id: string;
     username: string;
     email: string;
+    avatarMini: string;
   };
   accessToken: string;
 }
@@ -28,13 +29,13 @@ export const signin = async (signinData: ISigninData) => {
   return response.data;
 };
 
-export const signout = async () => {
-  await apiInstance.post("auth/signout");
+export const signout = async (userId: string) => {
+  const response = await apiInstance.post(`auth/signout/${userId}`);
   removeAccessToken();
+  return response.data;
 };
 
 export const checkAuth = async () => {
-  console.log("check auth");
   const response = await apiInstance.get<ISignupResponse>("auth/check");
   return response.data;
 };

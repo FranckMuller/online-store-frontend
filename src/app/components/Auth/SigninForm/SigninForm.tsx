@@ -4,6 +4,8 @@ import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { redirect } from "next/navigation";
 import * as Api from "@/api";
+import { useAppDispatch } from "@/hooks/useAppDispatch";
+import { setCredentials } from "@/store/auth/auth.slice";
 import type { ISigninData } from "@/interfaces/auth.interface";
 
 import styles from "./SigninForm.module.scss";
@@ -14,6 +16,7 @@ const initialData = {
 };
 
 const SigninForm = () => {
+  const dispatch = useAppDispatch();
   const [data, setData] = useState(initialData);
   const [error, setError] = useState<string | null>(null);
   const {
@@ -23,7 +26,7 @@ const SigninForm = () => {
     isSuccess,
   } = useMutation({
     mutationFn: (signinData: ISigninData) => Api.auth.signin(signinData),
-    onSuccess: (data) => console.log(data),
+    onSuccess: (data) => data.data,
     onError: (error) => {
       if (axios.isAxiosError(error) && error.response) {
         setError(error.response.data.message);
@@ -47,14 +50,14 @@ const SigninForm = () => {
     signin(data);
   };
 
-  console.log(isSuccess);
-
   useEffect(() => {
-  if(isSuccess) {
-    setData(initialData);
-    redirect("/dashboard");
-  }
-  }, [isSuccess]);
+    if (isSuccess && authData) {
+      console.log(authData);
+      setData(initialData);
+      dispatch(setCredentials(authData.user));
+      redirect("/dashboard");
+    }
+  }, [isSuccess, authData]);
 
   return (
     <div className={styles["signin-form"]}>

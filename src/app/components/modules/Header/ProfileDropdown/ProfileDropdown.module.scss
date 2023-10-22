@@ -1,4 +1,14 @@
-.logout {
-    font-size: 11px;
-    color: var(--white);
+.profile-dropdown {
+  position: relative;
+  .dropdown {
+    position: absolute;
+    right: 5px;
+    top: 100%;
+    background-color: var(--white);
+    padding: 5px 5px;
+    .logout {
+      font-size: 11px;
+      /* color: var(--white); */
+    }
   }
+}

@@ -15,6 +15,7 @@ export interface ISignupResponse {
     id: string;
     username: string;
     email: string;
+    avatarMini: string
   };
   accessToken: string;
 }

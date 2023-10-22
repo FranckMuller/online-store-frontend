@@ -1,10 +1,10 @@
 "use client";
+import Profile from "@/app/components/templates/Profile/Profile";
 
 const ProfilePage = () => {
-
   return (
     <section>
-      <h3>Fill your profile data here</h3>
+      <Profile />
     </section>
   );
 };
