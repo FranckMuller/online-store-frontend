@@ -1,14 +1,29 @@
 .profile-dropdown {
   position: relative;
+  font-size: 13px;
+  /* font-weight: 600; */
+
   .dropdown {
     position: absolute;
     right: 5px;
     top: 100%;
+    margin-top: 5px;
     background-color: var(--white);
     padding: 5px 5px;
+    box-shadow: 1px 1px 8px 0px rgba(97, 97, 97, 0.1);
+    color: var(--gray-dark);
+
+    .credentials {
+      margin-bottom: 5px;
+      border-bottom: 1px solid var(--gray-dark);
+    p + p{
+        margin-top: 3px;
+        margin-bottom: 5px;
+      }
+    }
     .logout {
-      font-size: 11px;
-      /* color: var(--white); */
+      color: var(--gray-dark);
+      /* font-weight: 600; */
     }
   }
 }

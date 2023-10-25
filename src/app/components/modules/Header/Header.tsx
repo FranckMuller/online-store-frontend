@@ -15,7 +15,6 @@ const Header = () => {
           <li>
             <Link href="/admin">admin panel</Link>
           </li>
-
           <li>
             <Link href="/profile">profile</Link>
           </li>

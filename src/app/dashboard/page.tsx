@@ -1,5 +1,5 @@
-const AdminPage = () => {
-  return <h1>welcome to admin panel</h1>
-}
+const DashboardPage = () => {
+  return <h1>welcome to dashoard</h1>;
+};
 
-export default AdminPage
+export default DashboardPage;

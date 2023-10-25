@@ -1,50 +1,38 @@
-"use client";
-
-import { useEffect } from "react";
-import { useMutation } from "@tanstack/react-query";
-import { redirect } from "next/navigation";
-import { useAppSelector } from "@/hooks/useAppSelector";
-import { selectUser } from "@/store/auth/auth.selectors";
-import * as Api from "@/api";
-
+import { forwardRef } from "react";
 import AvatarMini from "../AvatarMini/AvatarMini";
-import { FaUserCircle } from "react-icons/fa";
+import { useAuth } from "@/hooks/useAuth";
+import { withClickOutside, DropdownProps } from "@/utils/withClickOutside";
 
 import styles from "./ProfileDropdown.module.scss";
 
-const ProfileDropdown = () => {
-  const user = useAppSelector(selectUser);
+const ProfileDropdown = forwardRef<HTMLDivElement, DropdownProps>(
+  ({ opened, toggleDropdown }, ref) => {
+    const { user } = useAuth();
+    if (!user) return null;
 
-  const { mutate, isLoading, isSuccess } = useMutation(["auth/logout"], {
-    mutationFn: (userId: string) => Api.auth.signout(userId),
-  });
+    const toggle = () => {
+      toggleDropdown(!opened);
+    };
 
-  useEffect(() => {
-    if (isSuccess) redirect("/signin");
-  }, [isSuccess]);
-
-  if (!user) return null;
-
-  const logout = () => {
-    mutate(user.id);
-  };
-
-  return (
-    <div className={styles["profile-dropdown"]}>
-      <div className={styles["avatar"]}>
-        <AvatarMini avatar={user.avatarMini} />
+    return (
+      <div ref={ref} className={styles["profile-dropdown"]}>
+        <div onClick={toggle}>
+          <AvatarMini avatar={user.avatarMini} />
+        </div>
+        {opened && (
+          <div className={styles["dropdown"]}>
+            <div className={styles["credentials"]}>
+              <p>{user.username}</p>
+              <p>{user.email}</p>
+            </div>
+            <button className={styles["logout"]}>logout</button>
+          </div>
+        )}
       </div>
-      <div className={styles['dropdown']}>
-      <div className={styles["credentials"]}>
-        <div className={styles["username"]}>{user.username}</div>
-        <div className={styles["email"]}>{user.email}</div>
-      </div>
-      <button onClick={logout} className={styles["logout"]}>
-        Logout
-      </button>
-      </div>
-    </div>
-  );
-};
+    );
+  }
+);
 
-export default ProfileDropdown;
+ProfileDropdown.displayName = "ProfileDropdown";
+
+export default withClickOutside(ProfileDropdown);

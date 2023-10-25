@@ -3,18 +3,15 @@ import { getAccessToken, setAccessToken } from "./helpers";
 import { store } from "@/store/store";
 
 const refreshToken = async () => {
-  let userId = store.getState().auth.user?.id;
-  if (userId) {
-    const response = await apiInstance.get(`auth/refresh/${userId}`);
+    const response = await apiInstance.get('auth/refresh');
     console.log(response.data.accessToken);
     setAccessToken(response.data.accessToken);
   }
-};
 
 export const apiInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   withCredentials: true,
-  headers: {
+  headers: {  
     "Content-Type": "application/json",
   },
 });
@@ -22,7 +19,7 @@ export const apiInstance = axios.create({
 apiInstance.interceptors.request.use(
   async (config) => {
     const token = getAccessToken();
-    console.log(token)
+    console.log(token);
     config.headers["Authorization"] = `Bearer ${token}`;
 
     return config;
@@ -34,8 +31,8 @@ apiInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-    console.log(originalRequest._isRetry);
     if (error.response.status === 401 && !originalRequest._isRetry) {
+      console.log(1111111);
       originalRequest._isRetry = true;
       await refreshToken();
       return axios(originalRequest);
