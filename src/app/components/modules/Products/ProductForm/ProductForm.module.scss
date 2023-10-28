@@ -23,6 +23,14 @@
         padding: 5px;
       }
     }
+    
+    .form-group__checkbox {
+      margin-top: 15px;
+      display: flex;
+      label {
+        margin-right: 10px;
+      }
+    }
 
     .submit-button-wrapper {
       display: flex;
