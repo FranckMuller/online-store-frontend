@@ -30,9 +30,11 @@ const ProductItem = ({ product }: Props) => {
             <p className={styles["description"]}>{product.description}</p>
             <p className={styles["price"]}>${product.price}</p>
             <ProductRating />
-            <div className={styles["button"]}>
-              <AddToCartButton productId={product.id} />
-            </div>
+            
+              <div className={styles["button"]}>
+                <AddToCartButton productId={product.id} />
+              </div>
+          
           </div>
 
           <AdminProductControls productId={product.id} />

@@ -8,6 +8,9 @@ const GeneralMenu = () => {
       <h3>General</h3>
       <ul>
         <li>
+          <Link href={"/profile/products"}>My products</Link>
+        </li>
+        <li>
           <Link href={"/settings/orders"}>Orders</Link>
         </li>
         <li>

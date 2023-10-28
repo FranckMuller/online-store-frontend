@@ -1,4 +1,5 @@
 "use client";
+import { usePathname } from "next/navigation";
 import { BsFillCartPlusFill } from "react-icons/bs";
 
 import styles from "./AddToCartButton.module.scss";
@@ -8,8 +9,13 @@ type Props = {
 };
 
 const AddToCartButton = ({ productId }: Props) => {
+  const path = usePathname();
+  console.log(path);
+
+  if (path.includes("profile")) return null;
+
   return (
-    <button className={styles['button']}>
+    <button className={styles["button"]}>
       <BsFillCartPlusFill />
       <span>Add to cart</span>
     </button>

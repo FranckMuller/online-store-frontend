@@ -1,5 +1,5 @@
 import * as Api from "@/api";
-import  ProductCard  from "@/app/components/Products/ProductCard/ProductCard";
+import ProductCard from "@/app/components/modules/Products/ProductCard/ProductCard";
 
 type Props = {
   params: {
@@ -19,4 +19,4 @@ const ProductPage = async ({ params: { productId } }: Props) => {
   return <ProductCard product={product} />;
 };
 
-export default ProductPage
+export default ProductPage;

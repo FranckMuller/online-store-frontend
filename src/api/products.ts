@@ -1,4 +1,5 @@
 import axios from "axios";
+import { apiInstance } from "./api";
 import type { IProducts, IProduct } from "@/interfaces/products.interface";
 
 interface CreateProductResponse {
@@ -25,8 +26,8 @@ export const getById = async (id: string) => {
 };
 
 export const create = async (data: FormData) => {
-  const response = await axios.post<CreateProductResponse>(
-    "http://localhost:3500/api/products",
+  const response = await apiInstance.post<CreateProductResponse>(
+    "products",
     data,
     {
       headers: { "Content-Type": "multipart/form-data" },
@@ -41,4 +42,10 @@ export const deleteProduct = async (productId: string) => {
     `http://localhost:3500/api/products/${productId}`
   );
   return response;
+};
+
+export const getMyProducts = async () => {
+  const response = await apiInstance.get<IProducts>("/products/my");
+console.log(response)
+  return response.data;
 };

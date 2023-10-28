@@ -1,6 +1,6 @@
 import type { IProduct } from "@/interfaces/products.interface";
 import Image from "next/image";
-import ProductRating from "@/app/components/Products/ProductRating/ProductRating";
+import ProductRating from "@/app/components/modules/Products/ProductRating/ProductRating";
 
 import styles from "./ProductCard.module.scss";
 
