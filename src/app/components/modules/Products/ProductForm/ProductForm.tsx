@@ -62,10 +62,11 @@ const ProductForm = () => {
     let data = new FormData();
     if (isValid) {
       try {
+        // check if toString work
         data.append("name", formData.name);
         data.append("description", formData.description);
         data.append("price", formData.price);
-        data.append("published", published);
+        data.append("published", published.toString());
         for (let i = 0; i < images.length; i++) {
           data.append("images", images[i]);
         }

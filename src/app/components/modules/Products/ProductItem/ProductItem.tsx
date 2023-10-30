@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { IProduct } from "@/interfaces/products.interface";
-import AdminProductControls from "../AdminProductControls/AdminProductControls";
+import EditControls from "./EditControls/EditControls";
 import AddToCartButton from "../AddToCartButton/AddToCartButton";
 import ProductRating from "../ProductRating/ProductRating";
 
@@ -30,14 +30,13 @@ const ProductItem = ({ product }: Props) => {
             <p className={styles["description"]}>{product.description}</p>
             <p className={styles["price"]}>${product.price}</p>
             <ProductRating />
-            
-              <div className={styles["button"]}>
-                <AddToCartButton productId={product.id} />
-              </div>
-          
+
+            <div className={styles["button"]}>
+              <AddToCartButton productId={product.id} />
+            </div>
           </div>
 
-          <AdminProductControls productId={product.id} />
+          <EditControls productId={product.id} />
         </div>
       </Link>
     </div>

@@ -3,21 +3,21 @@ import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import DeleteButton from "./DeleteButton/DeleteButton";
 
-import styles from "./AdminProductControls.module.scss";
+import styles from "./EditControls.module.scss";
 
 type Props = {
   productId: string;
 };
 
-const AdminProductControls = ({ productId }: Props) => {
+const EditControls = ({ productId }: Props) => {
   const pathname = usePathname();
   const router = useRouter();
-  const isAdminPanel = pathname.includes("/admin");
+  const canEdit = pathname.includes("/profile");
 
-  if (!isAdminPanel) return null;
+  if (!canEdit) return null;
 
   const onEditClick = () => {
-    router.push(`/admin/my-products/edit/${productId}`);
+    router.push(`/profile/products/edit/${productId}`);
   };
 
   return (
@@ -32,4 +32,4 @@ const AdminProductControls = ({ productId }: Props) => {
   );
 };
 
-export default AdminProductControls;
+export default EditControls;

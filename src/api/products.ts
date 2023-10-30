@@ -38,14 +38,13 @@ export const create = async (data: FormData) => {
 };
 
 export const deleteProduct = async (productId: string) => {
-  const response = await axios.delete(
-    `http://localhost:3500/api/products/${productId}`
+  const response = await apiInstance.delete(
+    `products/${productId}`
   );
   return response;
 };
 
 export const getMyProducts = async () => {
   const response = await apiInstance.get<IProducts>("/products/my");
-console.log(response)
   return response.data;
 };
