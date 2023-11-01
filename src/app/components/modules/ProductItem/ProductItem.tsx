@@ -2,8 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import type { IProduct } from "@/interfaces/products.interface";
 import EditControls from "./EditControls/EditControls";
-import AddToCartButton from "../AddToCartButton/AddToCartButton";
-import ProductRating from "../ProductRating/ProductRating";
+import AddToCartButton from "../Products/AddToCartButton/AddToCartButton";
+import ProductRating from "../Products/ProductRating/ProductRating";
 
 import styles from "./ProductItem.module.scss";
 
@@ -14,7 +14,7 @@ type Props = {
 const ProductItem = ({ product }: Props) => {
   return (
     <div className={styles["product-item"]}>
-      <Link href={`/products/${product.id}`}>
+      <Link href={`products/${product.id}`}>
         <div className={styles["content"]}>
           <div className={styles["image"]}>
             <Image

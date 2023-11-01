@@ -1,4 +1,4 @@
-import ProductItem from "../ProductItem/ProductItem";
+import ProductItem from "../../ProductItem/ProductItem";
 import type { IProducts, IProduct } from "@/interfaces/products.interface";
 
 import styles from "./ProductsList.module.scss";

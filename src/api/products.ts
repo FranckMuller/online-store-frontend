@@ -10,17 +10,14 @@ interface CreateProductResponse {
 }
 
 export const getAll = async () => {
-  const response = await axios.get<IProducts>(
-    "http://localhost:3500/api/products"
-  );
+  const response = await apiInstance.get<IProducts>("products");
 
   return response.data;
 };
 
 export const getById = async (id: string) => {
-  const response = await axios.get<IProduct>(
-    `http://localhost:3500/api/products/${id}`
-  );
+  console.log(id)
+  const response = await apiInstance.get<IProduct>(`products/${id}`);
 
   return response.data;
 };
@@ -38,9 +35,7 @@ export const create = async (data: FormData) => {
 };
 
 export const deleteProduct = async (productId: string) => {
-  const response = await apiInstance.delete(
-    `products/${productId}`
-  );
+  const response = await apiInstance.delete(`products/${productId}`);
   return response;
 };
 

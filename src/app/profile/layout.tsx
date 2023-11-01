@@ -6,10 +6,9 @@ type Props = {
 
 const ProfileLayout = ({ children }: Props) => {
   return (
-    <>
-      <div>nav</div>
+    
       <section>{children}</section>
-    </>
+  
   );
 };
 

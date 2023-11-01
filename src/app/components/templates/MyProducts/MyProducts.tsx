@@ -6,7 +6,7 @@ import ProductsList from "@/app/components/modules/Products/ProductsList/Product
 import * as Api from "@/api";
 
 import styles from "./MyProducts.module.scss";
-
+// TODO confirm delete product
 const MyProducts = () => {
   const [isShowedModal, setIsShowedModal] = useState(false);
   const {
@@ -20,7 +20,6 @@ const MyProducts = () => {
   if (isLoading) return <div>loading products...</div>;
   if (error) return <div>{JSON.stringify(error)}</div>;
 
-  const addProduct = () => {};
   const toggleAddProductModal = () => {
     setIsShowedModal((prev) => !prev);
   };

@@ -1,0 +1,53 @@
+.edit-product-form {
+  background-color: var(--white);
+  padding: 20px 10px;
+  /*-webkit-box-shadow: 3px 9px 18px -7px rgba(198, 198, 198 , 0.91);
+  -moz-box-shadow: 3px 9px 18px -7px rgba(198, 198, 198, 0.91);
+  box-shadow: 3px 9px 18px -7px rgba(198, 198, 198, 0.91); */
+  .form {
+    font-size: 13px;
+    .form-group {
+      display: flex;
+      flex-direction: column;
+
+      & + .form-group {
+        margin-top: 10px;
+      }
+
+      label {
+        margin-bottom: 5px;
+        font-weight: 600;
+      }
+
+      textarea,
+      input {
+        border-bottom: 1px solid #ddd;
+        padding: 5px;
+      }
+    }
+
+    .form-group__checkbox {
+      margin-top: 15px;
+      display: flex;
+      label {
+        margin-right: 10px;
+      }
+    }
+
+    .submit-button-wrapper {
+      display: flex;
+      justify-content: flex-end;
+      .submit-button {
+        margin-top: 20px;
+        padding: 5px 10px;
+        font-size: 13px;
+        color: var(--white);
+        border: none;
+        background-color: var(--blue);
+        font-weight: 600;
+        text-transform: uppercase;
+        border-radius: var(--button-br);
+      }
+    }
+  }
+}

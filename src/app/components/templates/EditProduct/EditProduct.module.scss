@@ -1,0 +1,20 @@
+.edit-block {
+  display: flex;
+
+  .item {
+    margin-right: 20px;
+    flex: 0 0 auto;
+
+    .item-button {
+      margin-top: 10px;
+      width: 100%;
+      background-color: var(--green);
+      padding: 5px;
+      color: var(--white);
+    }
+  }
+
+  .form {
+    flex: 1 1 auto;
+  }
+}

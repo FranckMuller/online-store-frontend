@@ -1,4 +1,4 @@
-import ProductForm from "@/app/components/modules/Products/ProductForm/ProductForm";
+import ProductForm from "@/app/components/modules/ProductForm/ProductForm";
 import { AiOutlineClose } from "react-icons/ai";
 
 import styles from "./AddProductModal.module.scss";
