@@ -11,6 +11,7 @@ type Props = {
   product: IProduct;
 };
 
+// TODO optimize images on mobile
 const ProductItem = ({ product }: Props) => {
   return (
     <div className={styles["product-item"]}>
@@ -22,6 +23,7 @@ const ProductItem = ({ product }: Props) => {
               alt={product.name}
               width={200}
               height={200}
+              className="hidden md:block"
             />
           </div>
 

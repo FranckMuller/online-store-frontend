@@ -6,6 +6,7 @@ import { store } from "@/store/store";
 import type { Metadata } from "next";
 import Header from "@/app/components/modules/Header/Header";
 import { useAuth } from "@/hooks/useAuth";
+import { inter } from "./ui/fonts";
 
 import styles from "./layout.module.scss";
 import "./globals.scss";
@@ -32,7 +33,7 @@ const RootLayout = ({ children }: Props) => {
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
         <html lang="en">
-          <body>
+          <body className={`${inter.className}`}>
             <Header />
             <main className={styles["main"]}>{children}</main>
           </body>
