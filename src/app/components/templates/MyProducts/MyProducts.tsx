@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import AddProductModal from "./AddProductModal/AddProductModal";
-import ProductsList from "@/app/components/modules/Products/ProductsList/ProductsList";
+import ProductsList from "@/app/components/modules/ProductsList/ProductsList";
 import * as Api from "@/api";
 
 import styles from "./MyProducts.module.scss";

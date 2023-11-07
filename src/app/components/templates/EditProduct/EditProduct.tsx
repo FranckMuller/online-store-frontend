@@ -20,25 +20,30 @@ enum Mode {
   Preview = "preview",
 }
 
-const initialData = {
+const initialData: IProduct = {
   name: "",
   description: "",
   price: "",
   images: [{ id: "", filename: "", path: "" }],
+  mainImage: { id: "", filename: "", path: "" },
   id: "",
   published: false,
+};
+
+type MutationProps = {
+  productData: FormData;
+  productId: string;
 };
 
 const EditProduct = () => {
   // TODO isolate into hook
   const [mode, setMode] = useState<Mode>(Mode.Edit);
   const [files, setFiles] = useState<Array<File | IProductImage>>([]);
-  const [productData, setProductData] = useState(initialData);
+  const [productData, setProductData] = useState<IProduct>(initialData);
   const [previewImages, setPreviewImages] = useState<
     Array<IProductPreviewImage>
   >([]);
   const [mainImage, setMainImage] = useState<File | IProductImage>();
-  const [fileList, setFileList] = useState<FileList | null>(null);
   const params = useParams();
 
   const {
@@ -55,8 +60,8 @@ const EditProduct = () => {
     isLoading: isLoadingMutation,
     error: mutationError,
   } = useMutation({
-    mutationFn: (productData: FormData) =>
-      Api.products.update(productData, product.id),
+    mutationFn: ({ productData, productId }: MutationProps) =>
+      Api.products.update(productData, productId),
   });
 
   useEffect(() => {
@@ -89,13 +94,7 @@ const EditProduct = () => {
 
   const handleChangeFileInput = (e: ChangeEvent<HTMLInputElement>) => {
     if (previewImages.length > 4) return;
-
     const filesList = e.target.files;
-    if (fileList) {
-      setFileList((prev) => [...prev, ...filesList]);
-    } else {
-      setFileList(filesList);
-    }
     const files: File[] = [] as File[];
 
     if (filesList) {
@@ -120,7 +119,7 @@ const EditProduct = () => {
     const imageIdx = Number(e.currentTarget.getAttribute("data-idx"));
     setMainImage(files[imageIdx]);
 
-    let newMainImg;
+    let newMainImg: IProductPreviewImage;
     const newPreviewImages = previewImages.map((i, idx) => {
       if (i.isMain && idx !== imageIdx) {
         return {
@@ -139,16 +138,17 @@ const EditProduct = () => {
 
       return { ...i };
     });
+
     setPreviewImages(newPreviewImages);
 
     setProductData((prev) => ({
       ...prev,
-      images: [newMainImg],
-      mainImage: previewImages[imageIdx],
+      mainImage: previewImages[imageIdx] as IProductImage,
     }));
   };
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    console.log(productData);
     e.preventDefault();
     const { name, description, price, images } = productData;
     // todo is can send
@@ -159,24 +159,23 @@ const EditProduct = () => {
       data.append("description", description);
       data.append("price", price);
 
-      const existImages = files.filter((f) => f.id);
-      const newImages = files.filter((f) => !f.id);
+      const newImages = files.filter((f) => !(f as IProductImage).id);
 
-      if (mainImage.id) {
-        data.append("mainImageId", mainImage.id);
-      } else {
-        data.append("mainImage", mainImage);
+      if (mainImage && (mainImage as IProductImage).id) {
+        data.append("mainImageId", (mainImage as IProductImage).id);
       }
 
-      for (let i = 0; i < existImages.length; i++) {
-        data.append("existImages", existImages[i]);
+      if (mainImage && !(mainImage as IProductImage).id) {
+        data.append("mainImage", mainImage as Blob);
       }
 
       for (let i = 0; i < newImages.length; i++) {
-        data.append("images", newImages[i]);
+        data.append("images", newImages[i] as Blob);
       }
 
-      updateProduct(data);
+      if (product && product.id) {
+        updateProduct({ productData: data, productId: product.id });
+      }
     } catch (error: any) {
       console.log(error);
     }

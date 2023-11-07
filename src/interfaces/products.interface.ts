@@ -16,7 +16,7 @@ export interface IProduct {
 
 export interface IProductPreviewImage {
   path: string;
-  isMain: boolean;
+  isMain?: boolean;
 }
 
 export interface IProducts extends Array<IProduct> {}

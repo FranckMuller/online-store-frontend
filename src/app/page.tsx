@@ -1,5 +1,5 @@
 import * as Api from "@/api";
-import ProductsList from "@/app/components/modules/Products/ProductsList/ProductsList";
+import ProductsList from "@/app/components/modules/ProductsList/ProductsList";
 
 import styles from "./page.module.css";
 
