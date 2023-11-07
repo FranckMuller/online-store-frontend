@@ -1,71 +1,43 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import type { ChangeEvent } from "react";
+import Image from "next/image";
 import { useMutation } from "@tanstack/react-query";
 import * as Api from "@/api";
-import type { IProduct } from "@/interfaces/products.interface";
+import type {
+  IProduct,
+  IProductPreviewImage,
+} from "@/interfaces/products.interface";
+import PreviewImages from "./PreviewImages/PreviewImages";
 
 import styles from "./EditProductForm.module.scss";
 
-type ProductFormData = {
-  name: string;
-  description: string;
-  price: string;
-  images: string[];
-  id: string;
-};
-
 type Props = {
-  product: IProduct;
-  onChangeInput: (
+  formData: IProduct;
+  changeInput: (
     e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
+  changeImage: (e: ChangeEvent<HTMLInputElement>) => void;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  setMainImage: (e: React.MouseEvent<HTMLDivElement>) => void;
+  previewImages: Array<IProductPreviewImage>;
 };
 
-const EditProductForm = ({ product, onChangeInput }: Props) => {
-  const {
-    mutate: createProduct,
-    isLoading,
-    isSuccess,
-    isError,
-    error,
-    data,
-  } = useMutation({
-    mutationFn: (productData: FormData) => Api.products.create(productData),
-  });
+const EditProductForm = ({
+  formData,
+  changeInput,
+  changeImage,
+  onSubmit,
+  previewImages,
+  setMainImage,
+}: Props) => {
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const [images, setImages] = useState<FileList | null>(null);
-
-  const onChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
-    setImages(e.target.files);
-  };
-
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const { name, description, price } = product;
-    const isValid = images && name && description && price;
-    let data = new FormData();
-    if (isValid) {
-      try {
-        data.append("name", product.name);
-        data.append("description", product.description);
-        data.append("price", product.price);
-        for (let i = 0; i < images.length; i++) {
-          data.append("images", images[i]);
-        }
-
-        createProduct(data);
-      } catch (error: any) {
-        console.log(error);
-      }
-    } else {
-      return null;
+  const onUploadFile = () => {
+    if (fileInputRef?.current) {
+      fileInputRef.current.click();
     }
   };
-
-  useEffect(() => {
-    setImages(null);
-  }, [isSuccess]);
 
   return (
     <div className={styles["edit-product-form"]}>
@@ -77,8 +49,8 @@ const EditProductForm = ({ product, onChangeInput }: Props) => {
             id="name"
             name="name"
             placeholder="Enter product name"
-            onChange={onChangeInput}
-            value={product.name}
+            onChange={changeInput}
+            value={formData.name}
           />
         </div>
 
@@ -89,19 +61,8 @@ const EditProductForm = ({ product, onChangeInput }: Props) => {
             id="description"
             name="description"
             placeholder="Enter product description"
-            onChange={onChangeInput}
-            value={product.description}
-          />
-        </div>
-
-        <div className={styles["form-group"]}>
-          <label htmlFor="description">Product images:</label>
-          <input
-            type="file"
-            multiple={true}
-            className={styles["form-control"]}
-            placeholder="Select product images"
-            onChange={onChangeImage}
+            onChange={changeInput}
+            value={formData.description}
           />
         </div>
 
@@ -112,8 +73,45 @@ const EditProductForm = ({ product, onChangeInput }: Props) => {
             id="price"
             name="price"
             placeholder="Enter product price"
-            onChange={onChangeInput}
-            value={product.price}
+            onChange={changeInput}
+            value={formData.price}
+          />
+        </div>
+
+        <div className={styles["form-group"]}>
+          <label htmlFor="description">Product images:</label>
+          <input
+            ref={fileInputRef}
+            style={{ display: "none" }}
+            type="file"
+            multiple={true}
+            className={styles["form-control"]}
+            placeholder="Select product images"
+            onChange={changeImage}
+          />
+
+          <PreviewImages setMainImage={setMainImage} images={previewImages} />
+
+          <div>
+            <button
+              type="button"
+              onClick={onUploadFile}
+              className={styles["upload-button"]}
+            >
+              Choose images
+            </button>
+          </div>
+        </div>
+
+        <div className={styles["form-group__checkbox"]}>
+          <label htmlFor="published">Publish:</label>
+          <input
+            className={styles["form-control"]}
+            id="published"
+            name="published"
+            checked={formData.published}
+            onChange={() => {}}
+            type="checkbox"
           />
         </div>
 

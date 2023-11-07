@@ -1,0 +1,33 @@
+.preview-images {
+  display: flex;
+  margin: 5px 5px 10px;
+  flex-wrap: wrap;
+  .preview {
+    border: 1px solid var(--gray-light);
+    border-radius: var(--common-br);
+    position: relative;
+    transition: 0.3s ease;
+
+    & + .preview {
+      margin-left: 10px;
+    }
+
+    &.main {
+      border-color: var(--blue-light);
+    }
+
+    .delete-button {
+      position: absolute;
+      right: -7px;
+      top: -7px;
+      color: var(--red);
+      background-color: var(--white);
+      width: 20px;
+      height: 20px;
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}

@@ -24,12 +24,19 @@
         border-bottom: 1px solid #ddd;
         padding: 5px;
       }
+
+      .upload-button {
+        color: var(--gray-dark);
+        border: 1px solid var(--gray);
+        padding: 5px 10px;
+      }
     }
 
     .form-group__checkbox {
       margin-top: 15px;
       display: flex;
       label {
+        font-weight: 600;
         margin-right: 10px;
       }
     }

@@ -18,7 +18,6 @@ export const apiInstance = axios.create({
 apiInstance.interceptors.request.use(
   async (config) => {
     const token = getAccessToken();
-    console.log(token);
     config.headers["Authorization"] = `Bearer ${token}`;
 
     return config;

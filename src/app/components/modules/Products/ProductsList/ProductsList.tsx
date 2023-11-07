@@ -11,7 +11,7 @@ const ProductsList = ({ products }: Props) => {
   return (
     <div className={styles['products-list']}>
       {products.length ? (
-        products.map((p) => <ProductItem key={p.id} product={p} />)
+        products.map((p) => <div className={styles['item']}><ProductItem key={p.id} product={p} /></div>)
       ) : (
         <p>Products not found</p>
       )}

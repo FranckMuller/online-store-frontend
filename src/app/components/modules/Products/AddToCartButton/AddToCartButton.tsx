@@ -10,7 +10,6 @@ type Props = {
 
 const AddToCartButton = ({ productId }: Props) => {
   const path = usePathname();
-  console.log(path);
 
   if (path.includes("profile")) return null;
 

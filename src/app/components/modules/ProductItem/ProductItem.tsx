@@ -19,7 +19,11 @@ const ProductItem = ({ product }: Props) => {
         <div className={styles["content"]}>
           <div className={styles["image"]}>
             <Image
-              src={`/${product.images[0]}`}
+              src={
+                product.mainImage
+                  ? product.mainImage.path
+                  : `/${product.images[0]}`
+              }
               alt={product.name}
               width={200}
               height={200}

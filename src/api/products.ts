@@ -16,7 +16,6 @@ export const getAll = async () => {
 };
 
 export const getById = async (id: string) => {
-  console.log(id)
   const response = await apiInstance.get<IProduct>(`products/${id}`);
 
   return response.data;
@@ -25,6 +24,18 @@ export const getById = async (id: string) => {
 export const create = async (data: FormData) => {
   const response = await apiInstance.post<CreateProductResponse>(
     "products",
+    data,
+    {
+      headers: { "Content-Type": "multipart/form-data" },
+    }
+  );
+
+  return response.data;
+};
+
+export const update = async (data: FormData, productId: string) => {
+  const response = await apiInstance.patch<CreateProductResponse>(
+    `products/${productId}`,
     data,
     {
       headers: { "Content-Type": "multipart/form-data" },

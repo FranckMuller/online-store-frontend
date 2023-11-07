@@ -1,6 +1,7 @@
+@import "_variables";
+
 .edit-block {
   display: flex;
-
   .item {
     margin-right: 20px;
     flex: 0 0 auto;
@@ -16,5 +17,20 @@
 
   .form {
     flex: 1 1 auto;
+  }
+}
+
+@media only screen {
+  @media (max-width: $screen-xs-max) {
+  }
+}
+
+@media (max-width: 600px) {
+  .edit-block {
+    flex-direction: column;
+    .item {
+      margin-right: 0;
+      margin-bottom: 15px;
+    }
   }
 }

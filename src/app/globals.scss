@@ -1,15 +1,80 @@
+
+
+/*320px—480px: Mobile devices
+481px—768px: iPads, Tablets
+769px—1024px: Small screens, laptops
+1025px—1200px: Desktops, large screens
+1201px and more — Extra large screens, TV */
+
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+
+@media (min-width: 1281px) {
+  /* CSS */
+}
+
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  /* CSS */
+}
+
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  /* CSS */
+}
+
+/* 
+  ##Device = Tablets, Ipads (landscape)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  /* CSS */
+}
+
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+
+@media (min-width: 481px) and (max-width: 767px) {
+  /* CSS */
+}
+
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+
+@media (min-width: 320px) and (max-width: 480px) {
+  /* CSS */
+}
+$screen-xs-min: 320px;
+$screen-xs-max: 480px;
 :root {
   --main-bg: #f6f7fb;
   --blue: #3562bd;
+  --blue-light: #2585db;
   --white: #fff;
   --black: #202125;
   --gray: #8c8c8c;
   --gray-dark: #4c4c4c;
+  --gray-light: #dddddd;
   --red: #e91927;
   --yellow: #fecb00;
   --yellow-light: #fef3b5;
   --green-light: #05d000;
-  --green:#04a700;
+  --green: #04a700;
   --common-br: 3px;
   --button-br: 3px;
 }
