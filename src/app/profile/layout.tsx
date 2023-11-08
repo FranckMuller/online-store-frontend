@@ -1,15 +1,11 @@
-"use client";
+import styles from "./profile.module.scss";
 
 type Props = {
   children: React.ReactNode;
 };
 
 const ProfileLayout = ({ children }: Props) => {
-  return (
-    
-      <section>{children}</section>
-  
-  );
+  return <section className={styles["layout"]}>{children}</section>;
 };
 
 export default ProfileLayout;

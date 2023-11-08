@@ -2,32 +2,46 @@ import Link from "next/link";
 
 import styles from "./GeneralMenu.module.scss";
 
+const items = [
+  {
+    href: "profile/products",
+    name: "My products",
+  },
+  {
+    href: "profile/orders",
+    name: "Orders",
+  },
+  {
+    href: "profile/favorites-shops",
+    name: "Favorites shops",
+  },
+  {
+    href: "profile/cupons",
+    name: "Cupons",
+  },
+  {
+    href: "profile/products-reviews",
+    name: "Products reviwes",
+  },
+  {
+    href: "profile/mesages",
+    name: "Messages",
+  },
+];
+
 const GeneralMenu = () => {
   return (
     <div className={styles["menu"]}>
-      <h3>General</h3>
+      <h3 className={styles["heading"]}>General</h3>
       <ul>
-        <li>
-          <Link href={"/profile/products"}>My products</Link>
-        </li>
-        <li>
-          <Link href={"/settings/orders"}>Orders</Link>
-        </li>
-        <li>
-          <Link href={"/settings/favorites"}>Favorites</Link>
-        </li>
-        <li>
-          <Link href={"/settings/favorites-shops"}>Favorites shops</Link>
-        </li>
-        <li>
-          <Link href={"/settings/cupons"}>Cupons</Link>
-        </li>
-        <li>
-          <Link href={"/settings/products-reviews"}>Products reviwes</Link>
-        </li>
-        <li>
-          <Link href={"/mesages"}>Messages</Link>
-        </li>
+        {items && items.length &&
+          items.map((i) => (
+            <li key={i.name}>
+              <Link href={i.href}>
+                <span>{i.name}</span>
+              </Link>
+            </li>
+          ))}
       </ul>
     </div>
   );

@@ -1,1 +1,67 @@
-$screen-xs-max: 480px
+$screen-xs-max: 480px;
+$screen-xs-min: 320px;
+
+$screen-sm-max: 767px;
+$screen-sm-min: 481px;
+
+$screen-md-max: 1024px;
+$screen-md-min: 768px;
+
+$screen-lg-max: 1280px;
+$screen-lg-min: 1025px;
+
+$screen-xl-min: 1281px;
+
+/*
+  320px—480px: Mobile devices
+  481px—768px: iPads, Tablets
+  769px—1024px: Small screens, laptops
+  1025px—1200px: Desktops, large screens
+  1201px and more — Extra large screens, TV 
+*/
+
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+
+@media (min-width: 1281px) {
+}
+
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+}
+
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) {
+}
+
+/* 
+  ##Device = Tablets, Ipads (landscape)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+}
+
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+
+@media (min-width: 481px) and (max-width: 767px) {
+  
+}
+
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/

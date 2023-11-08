@@ -1,12 +1,14 @@
+@import "@styles/variables";
 .preview-images {
   display: flex;
-  margin: 5px 5px 10px;
+  margin: 5px 5px 0;
   flex-wrap: wrap;
   .preview {
     border: 1px solid var(--gray-light);
     border-radius: var(--common-br);
     position: relative;
     transition: 0.3s ease;
+    margin-bottom: 10px;
 
     & + .preview {
       margin-left: 10px;
@@ -27,6 +29,16 @@
       svg {
         width: 20px;
         height: 20px;
+      }
+    }
+  }
+}
+
+@media screen {
+  @media (max-width: $screen-xs-max) {
+    .preview {
+      &:nth-child(5n) {
+        margin-left: 0 !important;
       }
     }
   }

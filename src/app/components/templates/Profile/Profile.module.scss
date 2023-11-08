@@ -1,0 +1,48 @@
+@import "@styles/variables";
+
+.profile {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: start;
+  flex-grow: 1;
+  .info {
+    padding: 10px 10px 20px 20px;
+  }
+
+  .nav {
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--gray-light);
+    padding: 10px 20px 10px;
+    box-shadow: 4px -1px 15px -8px rgba(209, 209, 209, 0.68);
+
+    .menu {
+      flex-grow: 1;
+      margin-bottom: 20px;
+    }
+
+    .logout-btn {
+      color: var(--white);
+      background-color: var(--blue);
+      padding: 8px;
+      border-radius: var(--button-br);
+    }
+  }
+}
+
+@media screen {
+  @media (max-width: $screen-xs-max) {
+    .profile {
+      flex-direction: column;
+      .nav {
+        border-top: 1px solid var(--gray-light);
+        box-shadow: 0px 4px 15px -8px rgba(209, 209, 209, 0.68);
+        flex-grow: 1;
+
+        .logout-btn {
+          margin-bottom: 60px;
+        }
+      }
+    }
+  }
+}

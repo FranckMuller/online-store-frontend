@@ -1,0 +1,11 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+  .profile-page {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+}
