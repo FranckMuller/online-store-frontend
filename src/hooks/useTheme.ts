@@ -9,6 +9,8 @@ export const useTheme = () => {
   const theme = useAppSelector(selectTheme);
 
   const toggleTheme = () => {
+    document.body.classList.toggle("dark_mode");
+
     if (theme === ThemeMode.Light) {
       dispatch(setTheme(ThemeMode.Dark));
       localStorage.setItem("theme", ThemeMode.Dark);
@@ -20,6 +22,7 @@ export const useTheme = () => {
 
   useEffect(() => {
     const theme = localStorage.getItem("theme");
+    document.body.classList.add(theme === ThemeMode.Light ? "dark_mode" : "body");
     if (theme) {
       dispatch(setTheme(theme));
     }

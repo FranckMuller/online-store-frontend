@@ -25,7 +25,7 @@ const MyProducts = () => {
   };
 
   return (
-    <>
+    <div className={styles["my-products"]}>
       {products?.length ? (
         <ProductsList products={products} />
       ) : (
@@ -39,10 +39,10 @@ const MyProducts = () => {
         />
       )}
 
-      <button onClick={toggleAddProductModal} className={styles["add-button"]}>
+      <button onClick={toggleAddProductModal} className={`${styles["add-button"]} btn-primary`}>
         Add product
       </button>
-    </>
+    </div>
   );
 };
 

@@ -30,6 +30,33 @@ body {
   flex-direction: column;
   min-height: 100vh;
   color: var(--black);
+
+  .header {
+    background-color: var(--blue);
+  }
+
+  .product-item {
+    background-color: var(--white);
+  }
+  
+  .btn-primary {
+    background-color: var(--blue);
+    color: var(--white);
+    padding: 5px;
+    border-radius: var(--button-br);
+  }
+
+  &.dark_mode {
+    color: var(--white);
+    background-color: var(--black);
+    .header {
+      /* background-color: var(--blue-light); */
+    }
+
+    .product-item {
+      /* background-color: var(--gray); */
+    }
+  }
 }
 
 ul {

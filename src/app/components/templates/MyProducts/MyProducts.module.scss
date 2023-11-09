@@ -1,0 +1,10 @@
+.my-products {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .add-button {
+    margin-bottom: 60px;
+  }
+}

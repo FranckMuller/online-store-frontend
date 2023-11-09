@@ -14,7 +14,7 @@ type Props = {
 // TODO optimize images on mobile
 const ProductItem = ({ product }: Props) => {
   return (
-    <div className={styles["product-item"]}>
+    <div className={`${styles["product-item"]} product-item`}>
       <Link href={`products/${product.id}`}>
         <div className={styles["content"]}>
           <div className={styles["image"]}>

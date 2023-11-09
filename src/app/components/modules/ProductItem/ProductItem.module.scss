@@ -1,12 +1,12 @@
 .product-item {
+  padding: 0 5px 5px;
   a {
     color: var(--black);
     display: block;
   }
   .content {
-    background-color: var(--white);
     .details {
-      padding: 5px 10px 10px;
+      padding: 5px 5px 10px;
       .name {
         font-weight: 400;
         font-size: 13px;

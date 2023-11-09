@@ -7,7 +7,7 @@ import styles from "./Header.module.scss";
 
 const Header = () => {
   return (
-    <header className={styles["header"]}>
+    <header className={`${styles["header"]} header`}>
       <nav className={styles["nav"]}>
         <ul>
           <li>
