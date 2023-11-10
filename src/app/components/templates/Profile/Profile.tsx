@@ -16,10 +16,6 @@ const Profile = () => {
     enabled: !!user?.id,
   });
 
-  useEffect(() => {
-    console.log(data);
-  }, [isSuccess]);
-
   if (!user) return null;
   if (isLoading) return <div>loading...</div>;
 
@@ -38,7 +34,7 @@ const Profile = () => {
             <div className={styles["menu"]}>
               <ProfileMenu />
             </div>
-            <button className={styles['logout-btn']}>Logout</button>
+            <button className={styles["logout-btn"]}>Logout</button>
           </div>
         </div>
       ) : (

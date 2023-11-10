@@ -1,6 +1,5 @@
 export interface IProductImage {
   id: string;
-  filename: string;
   path: string;
 }
 
@@ -15,6 +14,7 @@ export interface IProduct {
 }
 
 export interface IProductPreviewImage {
+  id: string;
   path: string;
   isMain?: boolean;
 }

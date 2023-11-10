@@ -8,7 +8,6 @@ import styles from "./ThemeButton.module.scss";
 const ThemeButton = () => {
   const { toggleTheme, theme } = useTheme();
   const classButtonMode = styles[theme];
-  console.log(classButtonMode);
   return (
     <button
       className={`${styles["button"]} ${classButtonMode}`}

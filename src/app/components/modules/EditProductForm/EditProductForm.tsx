@@ -4,8 +4,10 @@ import type { ChangeEvent } from "react";
 import Image from "next/image";
 import { useMutation } from "@tanstack/react-query";
 import * as Api from "@/api";
+import type { IEditProductFormData } from "@/app/components/templates/EditProduct/hooks/useEditProduct";
 import type {
   IProduct,
+  IProductImage,
   IProductPreviewImage,
 } from "@/interfaces/products.interface";
 import PreviewImages from "./PreviewImages/PreviewImages";
@@ -13,13 +15,17 @@ import PreviewImages from "./PreviewImages/PreviewImages";
 import styles from "./EditProductForm.module.scss";
 
 type Props = {
-  formData: IProduct;
+  formData: IEditProductFormData;
   changeInput: (
     e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   changeImage: (e: ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  setMainImage: (e: React.MouseEvent<HTMLDivElement>) => void;
+  setMainImage: (id: string) => void;
+  deleteImage: (
+    e: React.MouseEvent<HTMLButtonElement>,
+    id: string
+  ) => void;
   previewImages: Array<IProductPreviewImage>;
 };
 
@@ -30,6 +36,7 @@ const EditProductForm = ({
   onSubmit,
   previewImages,
   setMainImage,
+  deleteImage,
 }: Props) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -90,7 +97,11 @@ const EditProductForm = ({
             onChange={changeImage}
           />
 
-          <PreviewImages setMainImage={setMainImage} images={previewImages} />
+          <PreviewImages
+            deleteImage={deleteImage}
+            setMainImage={setMainImage}
+            images={previewImages}
+          />
 
           <div>
             <button

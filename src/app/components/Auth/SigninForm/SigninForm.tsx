@@ -52,7 +52,6 @@ const SigninForm = () => {
 
   useEffect(() => {
     if (isSuccess && authData) {
-      console.log(authData);
       setData(initialData);
       dispatch(setCredentials(authData.user));
       redirect("/dashboard");

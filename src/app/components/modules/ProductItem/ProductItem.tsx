@@ -8,7 +8,7 @@ import ProductRating from "../Products/ProductRating/ProductRating";
 import styles from "./ProductItem.module.scss";
 
 type Props = {
-  product: IProduct;
+  product: Omit<IProduct, "images">;
 };
 
 // TODO optimize images on mobile
@@ -19,11 +19,7 @@ const ProductItem = ({ product }: Props) => {
         <div className={styles["content"]}>
           <div className={styles["image"]}>
             <Image
-              src={
-                product.mainImage
-                  ? product.mainImage.path
-                  : `/${product.images[0]}`
-              }
+              src={product.mainImage ? product.mainImage.path : ""}
               alt={product.name}
               width={200}
               height={200}
