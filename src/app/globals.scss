@@ -38,12 +38,21 @@ body {
   .product-item {
     background-color: var(--white);
   }
-  
+
   .btn-primary {
     background-color: var(--blue);
     color: var(--white);
     padding: 5px;
     border-radius: var(--button-br);
+  }
+
+  .search-input {
+    border: 1px solid var(--gray-dark);
+    input {
+      &::placeholder {
+        color: var(--gray-dark);
+      }
+    }
   }
 
   &.dark_mode {
@@ -55,6 +64,15 @@ body {
 
     .product-item {
       /* background-color: var(--gray); */
+    }
+
+    .search-input {
+      border: 1px solid var(--white);
+      input {
+        &::placeholder {
+          color: var(--white);
+        }
+      }
     }
   }
 }
