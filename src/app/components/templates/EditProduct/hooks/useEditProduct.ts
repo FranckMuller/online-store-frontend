@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { v4 as uuidv4 } from "uuid";
 import { useParams } from "next/navigation";
 import * as Api from "@/api";
@@ -9,7 +9,12 @@ import type {
   IProductPreviewImage,
 } from "@/interfaces/products.interface";
 
-type MutationProps = {
+enum FieldsErrorsMsg {
+  RequiredField = "required field",
+  LimitImages = "no more than 5 images",
+}
+
+type EditProductMutationProps = {
   formData: FormData;
   productId: string;
 };
@@ -37,8 +42,25 @@ type FileImage = {
   file: File;
 };
 
+export type FieldsErrors = {
+  name: string;
+  description: string;
+  price: string;
+  images: string;
+};
+
+type FieldError = keyof FieldsErrors;
+
+const initialFieldsErrors = {
+  name: "",
+  description: "",
+  price: "",
+  images: "",
+};
+
 export const useEditProduct = () => {
   const params = useParams();
+  const queryClient = useQueryClient();
   const [formData, setFormData] = useState<IEditProductFormData>(initialData);
   const [files, setFiles] = useState<Array<FileImage>>([]);
   const [deletingImagesIds, setDeletingImagesIds] = useState<Array<string>>([]);
@@ -46,10 +68,12 @@ export const useEditProduct = () => {
   const [previewImages, setPreviewImages] = useState<
     Array<IProductPreviewImage>
   >([]);
+  const [fileInputError, setFileInputError] = useState("");
+  const [fieldsErrors, setFieldsErrors] = useState(initialFieldsErrors);
 
   const {
     data: product,
-    isLoading,
+    isLoading: isLoadingProduct,
     error,
   } = useQuery(["get/product"], {
     queryFn: () => Api.products.getById(params.id as string),
@@ -61,8 +85,11 @@ export const useEditProduct = () => {
     isLoading: isLoadingMutation,
     error: mutationError,
   } = useMutation({
-    mutationFn: ({ formData, productId }: MutationProps) =>
+    mutationFn: ({ formData, productId }: EditProductMutationProps) =>
       Api.products.update(formData, productId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["get/product"] });
+    },
   });
 
   useEffect(() => {
@@ -70,27 +97,68 @@ export const useEditProduct = () => {
       const { images, ...data } = product;
       const previewImages = images.map((image) => ({
         ...image,
-        isMain: false,
+        isMain: product.mainImage.id === image.id,
       }));
       setFormData(product);
       setPreviewImages(previewImages);
       setMainImageId(product.mainImage.id);
+      setFiles([]);
     }
   }, [product]);
+
+  const handleBlurInput = (
+    e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const target = e.currentTarget ?? e.target;
+    const fieldsErrorsKeys = Object.keys(fieldsErrors);
+    if (target.value === "" && fieldsErrorsKeys.includes(target.name)) {
+      setFieldsErrors((prev) => ({
+        ...prev,
+        [target.name]: FieldsErrorsMsg.RequiredField,
+      }));
+    }
+  };
 
   const handleChangeTextInput = (
     e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    e.preventDefault();
     const target = e.currentTarget ?? e.target;
+    const name: FieldError = target.name as FieldError;
+
+    if (fieldsErrors[name]) {
+      setFieldsErrors((prev) => ({
+        ...prev,
+        [name]: "",
+      }));
+    }
+
     setFormData((prev) => ({
       ...prev,
-      [target.name]: target.value,
+      [name]: target.value,
     }));
   };
 
   const handleChangeFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (previewImages.length > 4) return;
+    let countImages = previewImages.length;
+    if (e.target.files) {
+      countImages += e.target.files.length;
+    }
+
+    if (countImages > 5) {
+      setFieldsErrors((prev) => ({
+        ...prev,
+        images: FieldsErrorsMsg.LimitImages,
+      }));
+      return;
+    }
+    
+    if (fieldsErrors.images) {
+      setFieldsErrors((prev) => ({
+        ...prev,
+        images: "",
+      }));
+    }
+
     const filesList = e.target.files;
     const files: Array<FileImage> = [] as Array<FileImage>;
 
@@ -151,9 +219,28 @@ export const useEditProduct = () => {
   ) => {
     e.preventDefault();
     e.stopPropagation();
-    const newPreviewImages = previewImages.filter((image) => image.id !== id);
-    const isNewImage = files.find((file) => file.id === id);
 
+    if (fieldsErrors.images) {
+      setFieldsErrors((prev) => ({
+        ...prev,
+        images: "",
+      }));
+    }
+
+    let newPreviewImages: Array<IProductPreviewImage>;
+    newPreviewImages = previewImages.filter((image) => image.id !== id);
+
+    // if is main image
+    if (formData.mainImage.id === id) {
+      newPreviewImages[0].isMain = true;
+      setMainImageId(newPreviewImages[0].id);
+      setFormData((prev) => ({
+        ...prev,
+        mainImage: newPreviewImages[0],
+      }));
+    }
+
+    const isNewImage = files.find((file) => file.id === id);
     if (isNewImage) {
       const newFiles = files.filter((file) => file.id !== id);
       setFiles(newFiles);
@@ -161,17 +248,6 @@ export const useEditProduct = () => {
 
     if (!isNewImage) {
       setDeletingImagesIds((prev) => [...prev, id]);
-    }
-
-    if (id === formData.mainImage.id) {
-      setMainImageId("");
-      setFormData((prev) => ({
-        ...prev,
-        mainImage: {
-          ...prev.mainImage,
-          path: "",
-        },
-      }));
     }
 
     setPreviewImages(newPreviewImages);
@@ -193,15 +269,30 @@ export const useEditProduct = () => {
       }
 
       const newMainImage = files.find((file) => file.id === mainImageId);
+      // TODO isolate append formdata logic into separate function
       if (newMainImage) {
-        data.append("mainImage", newMainImage.file);
-      } else {
-        data.append("mainImageId", mainImageId);
-      }
+        const newMainImageIdx = files.findIndex(
+          (file) => file.id === mainImageId
+        );
+        const start = files.slice(0, newMainImageIdx);
+        const end = files.slice(newMainImageIdx + 1);
+        const newFiles = [newMainImage, ...start, ...end];
 
-      if (files.length) {
-        for (let i = 0; i < files.length; i++) {
-          data.append("image", files[i].file);
+        for (let i = 0; i < newFiles.length; i++) {
+          data.append("image", newFiles[i].file);
+        }
+      } else if (!newMainImage && mainImageId) {
+        data.append("mainImageId", mainImageId);
+        if (files.length) {
+          for (let i = 0; i < files.length; i++) {
+            data.append("image", files[i].file);
+          }
+        }
+      } else {
+        if (files.length) {
+          for (let i = 0; i < files.length; i++) {
+            data.append("image", files[i].file);
+          }
         }
       }
 
@@ -213,9 +304,11 @@ export const useEditProduct = () => {
     }
   };
 
+  const isLoading = isLoadingProduct || isLoadingMutation;
+  const isNotFoundProduct = !isLoadingProduct && !error && !product;
+
   return {
     formData,
-    isLoading,
     error,
     product,
     previewImages,
@@ -224,5 +317,10 @@ export const useEditProduct = () => {
     handleClickPreviewImage,
     handleClickDeleteImage,
     handleSubmit,
+    isLoading,
+    isNotFoundProduct,
+    fileInputError,
+    fieldsErrors,
+    handleBlurInput,
   };
 };

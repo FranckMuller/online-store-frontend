@@ -4,7 +4,10 @@ import type { ChangeEvent } from "react";
 import Image from "next/image";
 import { useMutation } from "@tanstack/react-query";
 import * as Api from "@/api";
-import type { IEditProductFormData } from "@/app/components/templates/EditProduct/hooks/useEditProduct";
+import type {
+  IEditProductFormData,
+  FieldsErrors,
+} from "@/app/components/templates/EditProduct/hooks/useEditProduct";
 import type {
   IProduct,
   IProductImage,
@@ -22,11 +25,12 @@ type Props = {
   changeImage: (e: ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   setMainImage: (id: string) => void;
-  deleteImage: (
-    e: React.MouseEvent<HTMLButtonElement>,
-    id: string
-  ) => void;
+  deleteImage: (e: React.MouseEvent<HTMLButtonElement>, id: string) => void;
   previewImages: Array<IProductPreviewImage>;
+  fieldsErrors: FieldsErrors;
+  blurInput: (
+    e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
 };
 
 const EditProductForm = ({
@@ -37,6 +41,8 @@ const EditProductForm = ({
   previewImages,
   setMainImage,
   deleteImage,
+  fieldsErrors,
+  blurInput,
 }: Props) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -49,7 +55,11 @@ const EditProductForm = ({
   return (
     <div className={styles["edit-product-form"]}>
       <form className={styles["form"]} onSubmit={onSubmit}>
-        <div className={styles["form-group"]}>
+        <div
+          className={`${styles["form-group"]} ${
+            fieldsErrors.name && styles["error"]
+          }`}
+        >
           <label htmlFor="name">Product name:</label>
           <input
             className={styles["form-control"]}
@@ -58,10 +68,19 @@ const EditProductForm = ({
             placeholder="Enter product name"
             onChange={changeInput}
             value={formData.name}
+            onBlur={blurInput}
           />
+
+          {fieldsErrors.name && (
+            <span className={styles["error-msg"]}>{fieldsErrors.name}</span>
+          )}
         </div>
 
-        <div className={styles["form-group"]}>
+        <div
+          className={`${styles["form-group"]} ${
+            fieldsErrors.description && styles["error"]
+          }`}
+        >
           <label htmlFor="description">Product description:</label>
           <textarea
             className={styles["form-control"]}
@@ -70,10 +89,21 @@ const EditProductForm = ({
             placeholder="Enter product description"
             onChange={changeInput}
             value={formData.description}
+            onBlur={blurInput}
           />
+
+          {fieldsErrors.description && (
+            <span className={styles["error-msg"]}>
+              {fieldsErrors.description}
+            </span>
+          )}
         </div>
 
-        <div className={styles["form-group"]}>
+        <div
+          className={`${styles["form-group"]} ${
+            fieldsErrors.price && styles["error"]
+          }`}
+        >
           <label htmlFor="price">Product price:</label>
           <input
             className={styles["form-control"]}
@@ -82,10 +112,20 @@ const EditProductForm = ({
             placeholder="Enter product price"
             onChange={changeInput}
             value={formData.price}
+            type="number"
+            onBlur={blurInput}
           />
+
+          {fieldsErrors.price && (
+            <span className={styles["error-msg"]}>{fieldsErrors.price}</span>
+          )}
         </div>
 
-        <div className={styles["form-group"]}>
+        <div
+          className={`${styles["form-group"]} ${
+            fieldsErrors.images && styles["error"]
+          }`}
+        >
           <label htmlFor="description">Product images:</label>
           <input
             ref={fileInputRef}
@@ -95,6 +135,7 @@ const EditProductForm = ({
             className={styles["form-control"]}
             placeholder="Select product images"
             onChange={changeImage}
+            name="images"
           />
 
           <PreviewImages
@@ -112,6 +153,10 @@ const EditProductForm = ({
               Choose images
             </button>
           </div>
+          
+          {fieldsErrors.images && (
+            <span className={styles["error-msg"]}>{fieldsErrors.images}</span>
+          )}
         </div>
 
         <div className={styles["form-group__checkbox"]}>

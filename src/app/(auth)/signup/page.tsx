@@ -7,7 +7,7 @@ import SignupForm from "@/app/components/Auth/SignupForm/SignupForm";
 const SignupPage = () => {
   const { isAuth, isAuthChecking } = useAuth();
 
-  if (isAuthChecking) return <PageSpinner />;
+  if (isAuthChecking) return <PageSpinner isLoading={isAuthChecking}/>;
   if (isAuth) redirect("/dashboard");
 
   return (

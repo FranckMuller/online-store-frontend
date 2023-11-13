@@ -30,6 +30,9 @@ body {
   flex-direction: column;
   min-height: 100vh;
   color: var(--black);
+  &.no-scroll {
+    overflow: hidden;
+  }
 
   .header {
     background-color: var(--blue);

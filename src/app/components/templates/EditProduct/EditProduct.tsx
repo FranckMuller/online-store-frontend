@@ -4,10 +4,11 @@ import type { ChangeEvent } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { useEditProduct } from "./hooks/useEditProduct";
+import * as Api from "@/api";
 import ProductCard from "@/app/components/modules/ProductCard/ProductCard";
 import ProductItem from "@/app/components/modules/ProductItem/ProductItem";
 import EditProductForm from "@/app/components/modules/EditProductForm/EditProductForm";
-import * as Api from "@/api";
+import PageSpinner from "@/app/components/ui/PageSpinner/PageSpinner";
 import type {
   IProduct,
   IProductImage,
@@ -21,15 +22,12 @@ enum Mode {
   Preview = "preview",
 }
 
-
 const EditProduct = () => {
-  // TODO isolate into hook
   const [mode, setMode] = useState<Mode>(Mode.Edit);
 
   const {
     formData: productData,
     error,
-    isLoading,
     product,
     previewImages,
     handleChangeTextInput,
@@ -37,14 +35,20 @@ const EditProduct = () => {
     handleClickPreviewImage,
     handleClickDeleteImage,
     handleSubmit,
+    isLoading,
+    isNotFoundProduct,
+    fieldsErrors,
+    handleBlurInput,
   } = useEditProduct();
-
+  
   if (error) return <div>{JSON.stringify(error)}</div>;
-  if (isLoading) return <div>loading...</div>;
 
   return (
-    <>
+    <div className={styles["edit-product"]}>
+      <PageSpinner isLoading={isLoading} />
+
       {product && mode === Mode.Preview && <ProductCard product={product} />}
+
       {product && mode === Mode.Edit && (
         <div className={styles["edit-block"]}>
           <div className={styles["item"]}>
@@ -60,12 +64,15 @@ const EditProduct = () => {
               previewImages={previewImages}
               setMainImage={handleClickPreviewImage}
               deleteImage={handleClickDeleteImage}
+              fieldsErrors={fieldsErrors}
+              blurInput={handleBlurInput}
             />
           </div>
         </div>
       )}
-      {!product && <div>product not found</div>}
-    </>
+
+      {isNotFoundProduct && <div>product not found</div>}
+    </div>
   );
 };
 
