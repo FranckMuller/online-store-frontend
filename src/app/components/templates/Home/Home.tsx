@@ -1,6 +1,7 @@
 import * as Api from "@/api";
 import ProductsList from "@/app/components/modules/ProductsList/ProductsList";
-import HomeHeader from './HomeHeader/HomeHeader'
+import HomeHeader from "./HomeHeader/HomeHeader";
+import Categories from "@/app/components/modules/Categories/Categories";
 
 import styles from "./Home.module.scss";
 
@@ -13,7 +14,11 @@ const Home = async () => {
 
   return (
     <section className={styles["home"]}>
-      <div className={styles["header"]}><HomeHeader /></div>
+      <div className={styles["header"]}>
+        <HomeHeader />
+      </div>
+      <div className={styles["categories"]}></div>
+      <Categories /> 
       <ProductsList products={products} />
     </section>
   );
