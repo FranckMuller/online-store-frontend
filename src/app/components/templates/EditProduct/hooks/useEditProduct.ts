@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import axios from "axios";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { v4 as uuidv4 } from "uuid";
 import { useParams } from "next/navigation";
 import * as Api from "@/api";
+import type { MutableRefObject } from "react";
 import type {
   IProduct,
   IProductImage,
@@ -58,9 +60,11 @@ const initialFieldsErrors = {
   images: "",
 };
 
+// todo isolaye clear error onto useEffect
 export const useEditProduct = () => {
   const params = useParams();
   const queryClient = useQueryClient();
+  const errRef = useRef() as MutableRefObject<HTMLDivElement>;
   const [formData, setFormData] = useState<IEditProductFormData>(initialData);
   const [files, setFiles] = useState<Array<FileImage>>([]);
   const [deletingImagesIds, setDeletingImagesIds] = useState<Array<string>>([]);
@@ -70,6 +74,7 @@ export const useEditProduct = () => {
   >([]);
   const [fileInputError, setFileInputError] = useState("");
   const [fieldsErrors, setFieldsErrors] = useState(initialFieldsErrors);
+  const [updateError, setUpdateError] = useState("");
 
   const {
     data: product,
@@ -106,6 +111,21 @@ export const useEditProduct = () => {
     }
   }, [product]);
 
+  useEffect(() => {
+    if (mutationError instanceof Error) {
+      setUpdateError(mutationError.message);
+    }
+    if (axios.isAxiosError(mutationError) && mutationError.response) {
+      setUpdateError(mutationError.response.data.message);
+    }
+  }, [mutationError]);
+
+  const clearUpdateErr = () => {
+    if (updateError) {
+      setUpdateError("");
+    }
+  };
+
   const handleBlurInput = (
     e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -122,6 +142,8 @@ export const useEditProduct = () => {
   const handleChangeTextInput = (
     e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
+    clearUpdateErr();
+
     const target = e.currentTarget ?? e.target;
     const name: FieldError = target.name as FieldError;
 
@@ -138,7 +160,18 @@ export const useEditProduct = () => {
     }));
   };
 
+  const handleChangeCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
+    clearUpdateErr();
+
+    setFormData((prev) => ({
+      ...prev,
+      published: !prev.published,
+    }));
+  };
+
   const handleChangeFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    clearUpdateErr();
+
     let countImages = previewImages.length;
     if (e.target.files) {
       countImages += e.target.files.length;
@@ -151,7 +184,7 @@ export const useEditProduct = () => {
       }));
       return;
     }
-    
+
     if (fieldsErrors.images) {
       setFieldsErrors((prev) => ({
         ...prev,
@@ -185,6 +218,8 @@ export const useEditProduct = () => {
   };
 
   const handleClickPreviewImage = (id: string) => {
+    clearUpdateErr();
+
     let newMainImg: IProductPreviewImage;
     const newPreviewImages = previewImages.map((i) => {
       if (i.isMain && i.id !== id) {
@@ -219,6 +254,8 @@ export const useEditProduct = () => {
   ) => {
     e.preventDefault();
     e.stopPropagation();
+
+    clearUpdateErr();
 
     if (fieldsErrors.images) {
       setFieldsErrors((prev) => ({
@@ -255,7 +292,7 @@ export const useEditProduct = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { name, description, price } = formData;
+    const { name, description, price, published } = formData;
     // todo is can send
     let data = new FormData();
 
@@ -263,6 +300,7 @@ export const useEditProduct = () => {
       data.append("name", name);
       data.append("description", description);
       data.append("price", price);
+      data.append("piblished", published.toString());
 
       if (deletingImagesIds.length) {
         data.append("deletingImagesIds", JSON.stringify(deletingImagesIds));
@@ -309,18 +347,20 @@ export const useEditProduct = () => {
 
   return {
     formData,
-    error,
+    updateError,
     product,
     previewImages,
     handleChangeTextInput,
     handleChangeFileInput,
     handleClickPreviewImage,
     handleClickDeleteImage,
+    handleChangeCheckbox,
     handleSubmit,
     isLoading,
     isNotFoundProduct,
     fileInputError,
     fieldsErrors,
     handleBlurInput,
+    errRef,
   };
 };

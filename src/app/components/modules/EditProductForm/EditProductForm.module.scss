@@ -65,8 +65,9 @@
     .submit-button-wrapper {
       display: flex;
       justify-content: flex-end;
+      align-items: center;
+      margin-top: 20px;
       .submit-button {
-        margin-top: 20px;
         padding: 5px 10px;
         font-size: 13px;
         color: var(--white);
@@ -75,6 +76,11 @@
         font-weight: 600;
         text-transform: uppercase;
         border-radius: var(--button-br);
+      }
+
+      .error {
+        flex-grow: 1;
+        color: var(--red);
       }
     }
   }

@@ -1,19 +1,12 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
-import type { ChangeEvent } from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { useEditProduct } from "./hooks/useEditProduct";
-import * as Api from "@/api";
 import ProductCard from "@/app/components/modules/ProductCard/ProductCard";
 import ProductItem from "@/app/components/modules/ProductItem/ProductItem";
 import EditProductForm from "@/app/components/modules/EditProductForm/EditProductForm";
 import PageSpinner from "@/app/components/ui/PageSpinner/PageSpinner";
-import type {
-  IProduct,
-  IProductImage,
-  IProductPreviewImage,
-} from "@/interfaces/products.interface";
+import type { AxiosError } from "axios";
 
 import styles from "./EditProduct.module.scss";
 
@@ -27,21 +20,21 @@ const EditProduct = () => {
 
   const {
     formData: productData,
-    error,
+    updateError,
     product,
     previewImages,
     handleChangeTextInput,
     handleChangeFileInput,
     handleClickPreviewImage,
     handleClickDeleteImage,
+    handleChangeCheckbox,
     handleSubmit,
     isLoading,
     isNotFoundProduct,
     fieldsErrors,
     handleBlurInput,
+    errRef,
   } = useEditProduct();
-  
-  if (error) return <div>{JSON.stringify(error)}</div>;
 
   return (
     <div className={styles["edit-product"]}>
@@ -59,6 +52,7 @@ const EditProduct = () => {
             <EditProductForm
               changeImage={handleChangeFileInput}
               changeInput={handleChangeTextInput}
+              onChangeCheckbox={handleChangeCheckbox}
               onSubmit={handleSubmit}
               formData={productData}
               previewImages={previewImages}
@@ -66,6 +60,8 @@ const EditProduct = () => {
               deleteImage={handleClickDeleteImage}
               fieldsErrors={fieldsErrors}
               blurInput={handleBlurInput}
+              ref={errRef}
+              updateError={updateError}
             />
           </div>
         </div>
