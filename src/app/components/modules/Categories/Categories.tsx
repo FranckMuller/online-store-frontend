@@ -1,5 +1,6 @@
 import Category from "./Category/Category";
 import type { ICategories, ICategory } from "@/interfaces/categories.interface";
+import * as Icons from "react-icons/md";
 
 import styles from "./Categories.module.scss";
 
@@ -11,16 +12,16 @@ const categories: ICategories = [
       en: "Smartphones",
       ru: "Смартфоны",
     },
-    image: "/uploads/avatar-mini.png",
+    image: "MdMobileScreenShare",
   },
   {
     id: "2",
     name: "computers",
     title: {
       en: "Computers",
-      ru: "Дом",
+      ru: "Компьютеры",
     },
-    image: "/uploads/avatar-mini.png",
+    image: "MdComputer",
   },
   {
     id: "3",
@@ -29,7 +30,7 @@ const categories: ICategories = [
       en: "Electronic",
       ru: "Электроника",
     },
-    image: "/uploads/avatar-mini.png",
+    image: "MdMemory",
   },
   {
     id: "4",
@@ -38,7 +39,7 @@ const categories: ICategories = [
       en: "Clothes",
       ru: "Одежда",
     },
-    image: "/uploads/avatar-mini.png",
+    image: "MdCheckroom",
   },
   {
     id: "5",
@@ -47,7 +48,7 @@ const categories: ICategories = [
       en: "Home",
       ru: "Дом",
     },
-    image: "/uploads/avatar-mini.png",
+    image: "MdHome",
   },
 ];
 
@@ -56,9 +57,8 @@ const Categories = async () => {
     <div className={styles["categories"]}>
       {categories?.length &&
         categories.map((c: ICategory) => (
-          <div className={styles['category']}>
-          
-          <Category key={c.name} category={c} />
+          <div className={styles["category"]}>
+            <Category key={c.name} category={c} />
           </div>
         ))}
     </div>
