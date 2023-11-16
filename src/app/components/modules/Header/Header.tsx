@@ -14,14 +14,14 @@ const Header = () => {
             <Link href="/">home</Link>
           </li>
           <li>
-            <Link href="/admin">admin panel</Link>
+            <Link href="/profile">profile</Link>
           </li>
           <li>
-            <Link href="/profile">profile</Link>
+            <Link href="/admin">admin</Link>
           </li>
         </ul>
       </nav>
-      <div className={styles['theme-profile']}>
+      <div className={styles["theme-profile"]}>
         <ThemeButton />
         <ProfileDropdown />
       </div>

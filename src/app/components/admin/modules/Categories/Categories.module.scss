@@ -1,0 +1,7 @@
+.categories {
+  padding: 0 10px;
+  display: flex;
+  > div {
+    flex-grow: 1;
+  }
+}
