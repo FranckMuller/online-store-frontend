@@ -29,6 +29,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  height: 100vh;
   color: var(--black);
   &.no-scroll {
     overflow: hidden;
@@ -86,6 +87,10 @@ ul {
 
 a {
   text-decoration: none;
+}
+
+button:disabled {
+  filter: brightness(70%);
 }
 
 input,

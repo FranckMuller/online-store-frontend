@@ -1,7 +1,35 @@
+@import "@styles/variables";
+
 .categories {
   padding: 0 10px;
   display: flex;
+
   > div {
     flex-grow: 1;
+  }
+
+  .list {
+    max-height: 250px;
+    overflow: auto;
+    padding: 0 10px;
+  }
+}
+
+@media only screen {
+  @media (max-width: $screen-xs-max) {
+    .categories {
+      flex-direction: column-reverse;
+
+      .list {
+        max-height: 250px;
+        padding: 0;
+        margin-bottom: 20px;
+        overflow: auto;
+      }
+
+      .form {
+        flex: 0 0 50%;
+      }
+    }
   }
 }

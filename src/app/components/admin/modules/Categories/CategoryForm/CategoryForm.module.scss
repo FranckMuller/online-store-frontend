@@ -12,6 +12,10 @@
       flex-direction: column;
       position: relative;
       margin-bottom: 20px;
+
+      input + input {
+        margin-top: 10px;
+      }
       &.error {
         label {
           color: var(--red);

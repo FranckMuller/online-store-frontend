@@ -1,0 +1,9 @@
+.categories-list {
+  font-size: 13px;
+  
+  .item {
+    & + .item {
+      margin-top: 10px;
+    }
+  }
+}

@@ -5,7 +5,7 @@ export interface ICategory {
     en: string;
     ru: string;
   };
-  image: string;
+  icon: string;
 }
 
 export interface ICategories extends Array<ICategory> {}

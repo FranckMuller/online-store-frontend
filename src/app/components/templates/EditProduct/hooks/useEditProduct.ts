@@ -60,7 +60,7 @@ const initialFieldsErrors = {
   images: "",
 };
 
-// todo isolaye clear error onto useEffect
+// todo isolate clear error onto useEffect
 export const useEditProduct = () => {
   const params = useParams();
   const queryClient = useQueryClient();

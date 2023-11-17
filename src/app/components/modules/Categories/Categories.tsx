@@ -12,7 +12,7 @@ const categories: ICategories = [
       en: "Smartphones",
       ru: "Смартфоны",
     },
-    image: "MdMobileScreenShare",
+    icon: "MdMobileScreenShare",
   },
   {
     id: "2",
@@ -21,7 +21,7 @@ const categories: ICategories = [
       en: "Computers",
       ru: "Компьютеры",
     },
-    image: "MdComputer",
+    icon: "MdComputer",
   },
   {
     id: "3",
@@ -30,7 +30,7 @@ const categories: ICategories = [
       en: "Electronic",
       ru: "Электроника",
     },
-    image: "MdMemory",
+    icon: "MdMemory",
   },
   {
     id: "4",
@@ -39,7 +39,7 @@ const categories: ICategories = [
       en: "Clothes",
       ru: "Одежда",
     },
-    image: "MdCheckroom",
+    icon: "MdCheckroom",
   },
   {
     id: "5",
@@ -48,7 +48,7 @@ const categories: ICategories = [
       en: "Home",
       ru: "Дом",
     },
-    image: "MdHome",
+    icon: "MdHome",
   },
 ];
 

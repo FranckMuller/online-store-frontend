@@ -8,16 +8,17 @@ type Props = {
 
 const AdminLayout = ({ children }: Props) => {
   return (
-    <section>
+    <section className={styles["admin-layout"]}>
       <div className={styles["nav"]}>
         <ul>
           <li>
-            <Link href="/">categories</Link>
+            <Link href="/admin">categories</Link>
           </li>
-          
         </ul>
       </div>
+      <div className={styles['content']}>
       {children}
+      </div>
     </section>
   );
 };

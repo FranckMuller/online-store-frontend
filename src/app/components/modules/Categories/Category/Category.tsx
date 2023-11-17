@@ -12,7 +12,7 @@ type Props = {
 
 const Category = ({ category }: Props) => {
   if (!category) return null;
-  const Icon: IconType = Icons[`${category.image}` as keyof typeof Icons];
+  const Icon: IconType = Icons[`${category.icon}` as keyof typeof Icons];
 
   return (
     <div className={styles["category"]}>
