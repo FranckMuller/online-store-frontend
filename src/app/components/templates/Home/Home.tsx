@@ -9,16 +9,16 @@ export const revalidate = 60;
 
 const Home = async () => {
   const products = await Api.products.getAll();
-
-  if (!products) return null;
+  // await new Promise((resolve) => setTimeout(resolve, 3000));
 
   return (
     <section className={styles["home"]}>
       <div className={styles["header"]}>
         <HomeHeader />
       </div>
-      <div className={styles["categories"]}></div>
-      <Categories /> 
+      <div className={styles["categories"]}>
+        <Categories />
+      </div>
       <ProductsList products={products} />
     </section>
   );

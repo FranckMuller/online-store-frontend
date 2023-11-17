@@ -19,6 +19,7 @@ const CategoryItem = ({ category }: Props) => {
   });
 
   const Icon = Icons[`${category.icon}` as keyof typeof Icons];
+  
   return (
     <div className={styles["category-item"]}>
       <div className={styles["icon"]}>{Icon && <Icon />}</div>

@@ -1,0 +1,15 @@
+.categories {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-right: -3px;
+  margin-left: -3px;
+  overflow: auto;
+  padding-bottom: 10px;
+  .category {  
+    padding: 0 3px;
+    & + .category {
+      border-left: 1px solid var(--gray-light);
+    }
+  }
+}
