@@ -2,19 +2,16 @@
   display: flex;
   align-items: center;
   padding: 0 5px;
-  width: 100px;
   height: 15px;
-  background-color: red;
   .name {
     font-size: 10px;
     height: 10px;
-    background: green;
+    white-space: nowrap;
   }
   .icon {
     margin-right: 3px;
     width: 10px;
     height: 10px;
     line-height: 12px;
-    background: green;
   }
 }

@@ -5,15 +5,11 @@ import styles from "./CategoriesSkeleton.module.scss";
 const CategoriesSkeleton = () => {
   return (
     <div className={styles["categories"]}>
-      <div className={styles["category"]}>
+    {[...Array(6)].map((i, idx) => (
+      <div key={idx} className={styles["category"]}>
         <CategorySkeleton />
       </div>
-      <div className={styles["category"]}>
-        <CategorySkeleton />
-      </div>
-      <div className={styles["category"]}>
-        <CategorySkeleton />
-      </div>
+      ))}
     </div>
   );
 };
