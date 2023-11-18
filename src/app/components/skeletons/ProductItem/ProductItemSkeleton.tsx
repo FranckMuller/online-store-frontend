@@ -1,3 +1,5 @@
+import { BsFillCartPlusFill } from "react-icons/bs";
+
 import styles from "./ProductItemSkeleton.module.scss";
 
 const ProductItemSkeleton = () => {
@@ -11,13 +13,14 @@ const ProductItemSkeleton = () => {
           <p className={styles["description"]}>description</p>
           <p className={styles["price"]}>price</p>
           <div className={styles["rating"]}></div>
-
-          <div className={styles["button"]}>
-            <div className={styles["add-button"]}>add</div>
+          
+          <div>
+            <button className={styles["button"]}>
+              <BsFillCartPlusFill />
+              <span>Add to cart</span>
+            </button>
           </div>
         </div>
-
-        <div className={styles["edit-controls"]}>edit</div>
       </div>
     </div>
   );

@@ -5,15 +5,14 @@ import styles from "./ProductsListSkeleton.module.scss";
 const ProductsListSkeleton = () => {
   return (
     <div className={styles["products-list"]}>
-      <div className={styles["item"]}>
+    {[...Array(4)].map((i, idx) => (
+      
+      <div key={idx} className={styles["item"]}>
         <ProductItemSkeleton />
       </div>
-      <div className={styles["item"]}>
-        <ProductItemSkeleton />
-      </div>
-      <div className={styles["item"]}>
-        <ProductItemSkeleton />
-      </div>
+    ))}
+    
+    
     </div>
   );
 };
