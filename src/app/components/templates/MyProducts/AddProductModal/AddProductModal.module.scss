@@ -2,11 +2,10 @@
   top: 0;
   bottom: 0;
   right: 0;
-  left:0;
+  left: 0;
   position: fixed;
   overflow-y: scroll;
   overflow-x: hidden;
-  background-color: var(--white);
   .content {
     position: relative;
     width: 100%;
@@ -22,6 +21,7 @@
       top: 5px;
       right: 10px;
       z-index: 10;
+        color: inherit;
       svg {
         width: 15px;
         height: 15px;

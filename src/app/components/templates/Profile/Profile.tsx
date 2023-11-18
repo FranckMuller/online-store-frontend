@@ -30,7 +30,7 @@ const Profile = () => {
               <div>{data.email}</div>
             </div>
           </div>
-          <div className={styles["nav"]}>
+          <div className={`${styles["nav"]} profile-page-menu`}>
             <div className={styles["menu"]}>
               <ProfileMenu />
             </div>

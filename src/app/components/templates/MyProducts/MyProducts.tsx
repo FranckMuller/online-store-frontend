@@ -22,6 +22,7 @@ const MyProducts = () => {
 
   const toggleAddProductModal = () => {
     setIsShowedModal((prev) => !prev);
+    document.body.classList.toggle('no-scroll')
   };
 
   return (

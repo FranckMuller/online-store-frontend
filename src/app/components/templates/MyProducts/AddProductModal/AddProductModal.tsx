@@ -12,7 +12,7 @@ const AddProductModal = ({ showed, toggleModal }: Props) => {
   // TODO make with portal
 
   return (
-    <div className={styles["modal"]}>
+    <div className={`${styles["modal"]} theme-bg`}>
       <div className={styles["content"]}>
         <h3 className={styles["title"]}>Fill product fields</h3>
         <ProductForm />

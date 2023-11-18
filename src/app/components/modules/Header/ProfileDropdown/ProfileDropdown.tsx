@@ -22,7 +22,13 @@ const ProfileDropdown = forwardRef<HTMLDivElement, DropdownProps>(
         </div>
         <AnimatePresence>
           {opened && (
-            <motion.div initial={{opacity: 0, scale: 0}} animate={{opacity: 1, scale: 1}} exit={{opacity: 0, scale: 0}}  className={styles["dropdown"]}>
+            <motion.div
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0 }}
+              className={styles["dropdown"]}
+              style={{transformOrigin: 'rigth top'}}
+            >
               <div className={styles["credentials"]}>
                 <p>{user.username}</p>
                 <p>{user.email}</p>

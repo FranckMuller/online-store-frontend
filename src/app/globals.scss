@@ -5,7 +5,7 @@
   --blue-dark: #003495;
   --blue-light: #2585db;
   --white: #fff;
-  --black: #202125;
+  --black-dark: #202125;
   --gray: #8c8c8c;
   --gray-dark: #4c4c4c;
   --gray-light: #dddddd;
@@ -59,9 +59,26 @@ body {
     }
   }
 
+  .profile-page-menu {
+    box-shadow: 4px -1px 15px -8px rgba(209, 209, 209, 0.68);
+  }
+  
+  .theme-bg {
+    background-color: var(--main-bg);
+  }
+
   &.dark_mode {
     color: var(--white);
     background-color: var(--black);
+
+    .profile-page-menu {
+      box-shadow: 4px -1px 15px -8px rgba(255, 255, 255, 0.3);
+    }
+    
+    .theme-bg {
+    background-color: var(--black);
+  }
+
     .header {
       /* background-color: var(--blue-light); */
     }
