@@ -5,7 +5,6 @@ import HomeSkeleton from "@/app/components/skeletons/Home/HomeSkeleton";
 const HomePage = async () => {
   return (
     <>
-    <HomeSkeleton />
       <Suspense fallback={<HomeSkeleton />}>
         <Home />
       </Suspense>

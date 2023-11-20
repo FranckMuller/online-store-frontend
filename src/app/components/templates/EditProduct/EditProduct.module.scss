@@ -1,27 +1,38 @@
 @import "@styles/variables";
 
-.edit-block {
-  display: flex;
-  .item {
-    margin-right: 20px;
-    flex: 0 0 auto;
+.edit-product {
+  padding: 10px;
+  .edit-block {
+    display: flex;
+    .item {
+      margin-right: 20px;
+      flex: 0 0 auto;
 
-    .item-button {
-      margin-top: 10px;
-      width: 100%;
-      background-color: var(--green);
-      padding: 5px;
-      color: var(--white);
+      .item-button {
+        margin-top: 10px;
+        width: 100%;
+        background-color: var(--green);
+        padding: 5px;
+        color: var(--white);
+      }
+    }
+
+    .form {
+      flex: 1 1 auto;
     }
   }
-
-  .form {
-    flex: 1 1 auto;
-  }
 }
-
 @media only screen {
   @media (max-width: $screen-xs-max) {
+    .edit-product {
+      
+      .edit-block {
+        
+        .item {
+          margin-right: 0;
+        }
+      }
+    }
   }
 }
 

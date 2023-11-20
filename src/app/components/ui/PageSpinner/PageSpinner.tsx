@@ -8,6 +8,7 @@ type Props = {
 
 const PageSpinner = ({ isLoading }: Props) => {
   useEffect(() => {
+    console.log(isLoading)
     if (isLoading) {
       document.body.classList.add("no-scroll");
     } else {

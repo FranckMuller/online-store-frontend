@@ -8,12 +8,13 @@ import styles from "./ProfileDropdown.module.scss";
 
 const ProfileDropdown = forwardRef<HTMLDivElement, DropdownProps>(
   ({ opened, toggleDropdown }, ref) => {
-    const { user } = useAuth();
-    if (!user) return null;
-
-    const toggle = () => {
-      toggleDropdown(!opened);
-    };
+    const { user, isAuthChecking } = useAuth();
+    
+    if(!user) return null
+    
+      const toggle = () => {
+        toggleDropdown(!opened);
+      };
 
     return (
       <div ref={ref} className={styles["profile-dropdown"]}>
@@ -27,7 +28,7 @@ const ProfileDropdown = forwardRef<HTMLDivElement, DropdownProps>(
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0 }}
               className={styles["dropdown"]}
-              style={{transformOrigin: 'rigth top'}}
+              style={{ transformOrigin: "rigth top" }}
             >
               <div className={styles["credentials"]}>
                 <p>{user.username}</p>

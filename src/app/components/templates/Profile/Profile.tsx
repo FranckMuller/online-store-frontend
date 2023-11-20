@@ -4,20 +4,21 @@ import { useQuery } from "@tanstack/react-query";
 import { useProfileAvatar } from "@/hooks/useProfileAvatar";
 import ProfileAvatar from "./ProfileAvatar/ProfileAvatar";
 import ProfileMenu from "./ProfileMenu/ProfileMenu";
+import PageSpinner from "@/app/components/ui/PageSpinner/PageSpinner";
 import * as Api from "@/api";
 import { useAuth } from "@/hooks/useAuth";
 
 import styles from "./Profile.module.scss";
 
 const Profile = () => {
-  const { user } = useAuth();
+  const { user, isAuthChecking } = useAuth();
   const { data, isLoading, isSuccess } = useQuery(["profile"], {
     queryFn: () => Api.users.getById(user?.id as string),
     enabled: !!user?.id,
   });
 
-  if (!user) return null;
-  if (isLoading) return <div>loading...</div>;
+  const loading = isLoading || isAuthChecking;
+
 
   return (
     <>

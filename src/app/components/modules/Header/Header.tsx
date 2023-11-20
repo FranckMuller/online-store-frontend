@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import AuthControls from "./AuthControls/AuthControls";
 import ProfileDropdown from "./ProfileDropdown/ProfileDropdown";
@@ -6,6 +7,7 @@ import ThemeButton from "./ThemeButton/ThemeButton";
 import styles from "./Header.module.scss";
 
 const Header = () => {
+
   return (
     <header className={`${styles["header"]} header`}>
       <nav className={styles["nav"]}>

@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useLayoutEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import * as Api from "@/api";
 import { useAppDispatch } from "./useAppDispatch";
@@ -6,14 +6,12 @@ import { useAppSelector } from "./useAppSelector";
 import { selectUser } from "@/store/auth/auth.selectors";
 import { setCredentials } from "@/store/auth/auth.slice";
 
-// let counter = 0;
-
 export const useAuth = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   const [shouldRender, setShouldRender] = useState(false);
   const shouldCheckAuth = useRef(true);
-
+console.log('useAuth')
   const { data, isError, isSuccess, isFetching, error, isLoading } = useQuery(
     ["auth/check"],
     {
@@ -56,6 +54,5 @@ export const useAuth = () => {
     }
   }, [isSuccess, isError, dispatch]);
 
-  // return { isAuth, isAuthChecking, user };
   return { user, isAuth, isAuthChecking, isLoading };
 };

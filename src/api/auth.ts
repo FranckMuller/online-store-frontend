@@ -36,6 +36,7 @@ export const signout = async (userId: string) => {
 };
 
 export const checkAuth = async () => {
+  console.log('auth check')
   const response = await apiInstance.get<ISignupResponse>("auth/check");
   return response.data;
 };

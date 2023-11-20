@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useEditProduct } from "./hooks/useEditProduct";
 import ProductCard from "@/app/components/modules/ProductCard/ProductCard";
-import ProductItem from "@/app/components/modules/ProductItem/ProductItem";
-import EditProductForm from "@/app/components/modules/EditProductForm/EditProductForm";
+import PreviewItem from "./PreviewItem/PreviewItem";
+import EditProductForm from "./EditProductForm/EditProductForm";
 import PageSpinner from "@/app/components/ui/PageSpinner/PageSpinner";
 import type { AxiosError } from "axios";
 
@@ -34,8 +34,10 @@ const EditProduct = () => {
     fieldsErrors,
     handleBlurInput,
     errRef,
+    categories,
+    handleCategoryClick,
   } = useEditProduct();
-
+console.log(isLoading)
   return (
     <div className={styles["edit-product"]}>
       <PageSpinner isLoading={isLoading} />
@@ -45,7 +47,7 @@ const EditProduct = () => {
       {product && mode === Mode.Edit && (
         <div className={styles["edit-block"]}>
           <div className={styles["item"]}>
-            <ProductItem product={productData} />
+            <PreviewItem product={productData} />
             <button className={styles["item-button"]}>card view</button>
           </div>
           <div className={styles["form"]}>
@@ -62,6 +64,8 @@ const EditProduct = () => {
               blurInput={handleBlurInput}
               ref={errRef}
               updateError={updateError}
+              categories={categories}
+              handleCategoryClick={handleCategoryClick}
             />
           </div>
         </div>

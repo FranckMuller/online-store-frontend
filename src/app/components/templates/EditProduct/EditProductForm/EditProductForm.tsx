@@ -3,6 +3,8 @@ import { useState, useEffect, useRef, forwardRef } from "react";
 import Image from "next/image";
 import { useMutation } from "@tanstack/react-query";
 import * as Api from "@/api";
+import PreviewImages from "./PreviewImages/PreviewImages";
+import CategoriesSelect from "./CategoriesSelect/CategoriesSelect";
 import type {
   IEditProductFormData,
   FieldsErrors,
@@ -12,7 +14,7 @@ import type {
   IProductImage,
   IProductPreviewImage,
 } from "@/interfaces/products.interface";
-import PreviewImages from "./PreviewImages/PreviewImages";
+import type { ICategories } from "@/interfaces/categories.interface";
 
 import styles from "./EditProductForm.module.scss";
 
@@ -32,6 +34,8 @@ type Props = {
     e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   updateError: string;
+  categories?: ICategories;
+  handleCategoryClick: (id: string) => void;
 };
 
 const EditProductForm = forwardRef<HTMLDivElement, Props>(
@@ -48,6 +52,8 @@ const EditProductForm = forwardRef<HTMLDivElement, Props>(
       blurInput,
       onChangeCheckbox,
       updateError,
+      categories,
+      handleCategoryClick
     },
     errRef
   ) => {
@@ -133,8 +139,9 @@ const EditProductForm = forwardRef<HTMLDivElement, Props>(
               fieldsErrors.images && styles["error"]
             }`}
           >
-            <label htmlFor="description">Product images:</label>
+            <label htmlFor="images">Product images:</label>
             <input
+              id="images"
               ref={fileInputRef}
               style={{ display: "none" }}
               type="file"
@@ -164,6 +171,15 @@ const EditProductForm = forwardRef<HTMLDivElement, Props>(
             {fieldsErrors.images && (
               <span className={styles["error-msg"]}>{fieldsErrors.images}</span>
             )}
+          </div>
+
+          <div className={styles["form-group"]}>
+            <label>Product categories:</label>
+            <CategoriesSelect
+              categories={categories}
+              existsCategories={formData.categories}
+              handleCategoryClick={handleCategoryClick}
+            />
           </div>
 
           <div className={styles["form-group__checkbox"]}>

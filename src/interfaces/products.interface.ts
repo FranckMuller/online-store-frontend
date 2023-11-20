@@ -1,3 +1,5 @@
+import type { ICategories } from "./categories.interface";
+
 export interface IProductImage {
   id: string;
   path: string;
@@ -11,6 +13,7 @@ export interface IProduct {
   images: IProductImage[];
   mainImage: IProductImage;
   published: boolean;
+  categories: ICategories;
 }
 
 export interface IProductPreviewImage {

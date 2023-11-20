@@ -1,0 +1,29 @@
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -5px;
+  margin-right: -5px;
+  .category {
+    display: flex;
+    align-items: center;
+    margin: 0 5px 5px;
+    padding: 3px 5px;
+    background-color: var(--gray-light);
+    border: 1px solid transparent;
+
+    &.selected {
+      border-color: var(--blue);
+    }
+
+    .icon {
+      width: 15px;
+      height: 15px;
+      margin-right: 5px;
+      svg {
+        width: 15px;
+        height: 15px;
+        line-height: 10px;
+      }
+    }
+  }
+}

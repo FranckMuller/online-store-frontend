@@ -146,7 +146,6 @@ img {
     background-size: 400% 400%;
     animation: pulse 1.2s ease-in-out infinite;
     color: transparent;
-    text-shadow: 0 0 5px #fff;
   }
 }
 
@@ -165,7 +164,6 @@ img {
   background-size: 400% 400%;
   animation: pulse 1.2s ease-in-out infinite;
   color: transparent;
-  text-shadow: 0 0 5px #000;
 }
 
 .pulse-skeleton__white {
@@ -175,7 +173,6 @@ img {
   background-size: 400% 400%;
   animation: pulse 1.2s ease-in-out infinite;
   color: transparent;
-  text-shadow: 0 0 5px #000;
 }
 
 .pulse-skeleton__blue {
@@ -190,7 +187,6 @@ img {
   background-size: 400% 400%;
   animation: pulse 1.2s ease-in-out infinite;
   color: transparent;
-  text-shadow: 0 0 5px #fff;
 }
 
 @keyframes pulse {

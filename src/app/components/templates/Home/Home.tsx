@@ -9,7 +9,7 @@ export const revalidate = 60;
 
 const Home = async () => {
   const products = await Api.products.getAll();
-  // await new Promise((resolve) => setTimeout(resolve, 3000));
+  await new Promise((resolve) => setTimeout(resolve, 3000));
 
   return (
     <section className={styles["home"]}>

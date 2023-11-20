@@ -10,6 +10,7 @@ import type {
   IProductImage,
   IProductPreviewImage,
 } from "@/interfaces/products.interface";
+import type { ICategories } from "@/interfaces/categories.interface";
 
 enum FieldsErrorsMsg {
   RequiredField = "required field",
@@ -26,8 +27,8 @@ const initialData = {
   description: "",
   price: "",
   mainImage: { id: "", filename: "", path: "" },
-  id: "",
   published: false,
+  categories: [],
 };
 
 export interface IEditProductFormData {
@@ -36,7 +37,7 @@ export interface IEditProductFormData {
   price: string;
   published: boolean;
   mainImage: IProductImage;
-  id: string;
+  categories: Array<string>;
 }
 
 type FileImage = {
@@ -60,7 +61,7 @@ const initialFieldsErrors = {
   images: "",
 };
 
-// todo isolate clear error onto useEffect
+// todo isolate clear error into useEffect
 export const useEditProduct = () => {
   const params = useParams();
   const queryClient = useQueryClient();
@@ -75,6 +76,13 @@ export const useEditProduct = () => {
   const [fileInputError, setFileInputError] = useState("");
   const [fieldsErrors, setFieldsErrors] = useState(initialFieldsErrors);
   const [updateError, setUpdateError] = useState("");
+
+  const { data: categories, isLoading: isLoadingCategories } = useQuery(
+    ["get/categories"],
+    {
+      queryFn: () => Api.categories.getAll(),
+    }
+  );
 
   const {
     data: product,
@@ -99,12 +107,16 @@ export const useEditProduct = () => {
 
   useEffect(() => {
     if (product) {
-      const { images, ...data } = product;
+      const { images, id, categories, ...rest } = product;
       const previewImages = images.map((image) => ({
         ...image,
         isMain: product.mainImage.id === image.id,
       }));
-      setFormData(product);
+      const data = {
+        ...rest,
+        categories: product.categories.map((c) => c.id),
+      };
+      setFormData(data);
       setPreviewImages(previewImages);
       setMainImageId(product.mainImage.id);
       setFiles([]);
@@ -290,9 +302,27 @@ export const useEditProduct = () => {
     setPreviewImages(newPreviewImages);
   };
 
+  const handleCategoryClick = (id: string) => {
+    const categoryIdx = formData.categories.findIndex((c) => c === id);
+    if (categoryIdx === -1) {
+      setFormData((prev) => ({
+        ...prev,
+        categories: [...prev.categories, id],
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        categories: [
+          ...prev.categories.slice(0, categoryIdx),
+          ...prev.categories.slice(categoryIdx + 1),
+        ],
+      }));
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { name, description, price, published } = formData;
+    const { name, description, price, published, categories } = formData;
     // todo is can send
     let data = new FormData();
 
@@ -301,6 +331,7 @@ export const useEditProduct = () => {
       data.append("description", description);
       data.append("price", price);
       data.append("piblished", published.toString());
+      data.append("categories", JSON.stringify(categories));
 
       if (deletingImagesIds.length) {
         data.append("deletingImagesIds", JSON.stringify(deletingImagesIds));
@@ -342,7 +373,8 @@ export const useEditProduct = () => {
     }
   };
 
-  const isLoading = isLoadingProduct || isLoadingMutation;
+  const isLoading =
+    isLoadingProduct || isLoadingMutation || isLoadingCategories;
   const isNotFoundProduct = !isLoadingProduct && !error && !product;
 
   return {
@@ -362,5 +394,7 @@ export const useEditProduct = () => {
     fieldsErrors,
     handleBlurInput,
     errRef,
+    categories,
+    handleCategoryClick,
   };
 };
