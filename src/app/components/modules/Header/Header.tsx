@@ -24,8 +24,8 @@ const Header = () => {
       <div className={styles["theme-profile"]}>
         <ThemeButton />
         <ProfileDropdown />
+        <AuthControls />
       </div>
-      <AuthControls />
     </header>
   );
 };

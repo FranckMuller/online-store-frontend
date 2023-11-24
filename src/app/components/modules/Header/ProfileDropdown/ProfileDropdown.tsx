@@ -28,7 +28,7 @@ const ProfileDropdown = forwardRef<HTMLDivElement, DropdownProps>(
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0 }}
               className={styles["dropdown"]}
-              style={{ transformOrigin: "rigth top" }}
+              style={{ transformOrigin: "right top" }}
             >
               <div className={styles["credentials"]}>
                 <p>{user.username}</p>

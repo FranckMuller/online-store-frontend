@@ -3,7 +3,10 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import AddProductModal from "./AddProductModal/AddProductModal";
 import ProductsList from "@/app/components/modules/ProductsList/ProductsList";
+import PageSpinner from "@/app/components/ui/PageSpinner/PageSpinner";
 import * as Api from "@/api";
+import type { IProducts } from "@/interfaces/products.interface";
+import type { AxiosError } from "axios";
 
 import styles from "./MyProducts.module.scss";
 // TODO confirm delete product
@@ -13,26 +16,21 @@ const MyProducts = () => {
     data: products,
     isLoading,
     error,
-  } = useQuery(["get/my-products"], {
+  } = useQuery<IProducts, AxiosError<ErrorResponse>>(["get/my-products"], {
     queryFn: () => Api.products.getMyProducts(),
   });
 
-  if (isLoading) return <div>loading products...</div>;
-  if (error) return <div>{JSON.stringify(error)}</div>;
+  if (isLoading) return <PageSpinner isLoading />;
 
   const toggleAddProductModal = () => {
     setIsShowedModal((prev) => !prev);
-    document.body.classList.toggle('no-scroll')
+    document.body.classList.toggle("no-scroll");
   };
 
   return (
     <div className={styles["my-products"]}>
-      {products?.length ? (
-        <ProductsList products={products} />
-      ) : (
-        <div>products not found</div>
-      )}
-
+      {products?.length && <ProductsList products={products} />}
+{products && !products.length && <div>You have no products, we should add your products</div>}
       {isShowedModal && (
         <AddProductModal
           showed={isShowedModal}
@@ -40,7 +38,12 @@ const MyProducts = () => {
         />
       )}
 
-      <button onClick={toggleAddProductModal} className={`${styles["add-button"]} btn-primary`}>
+      {error && error.response && <div>{error.response.data.message}</div>}
+
+      <button
+        onClick={toggleAddProductModal}
+        className={`${styles["add-button"]} btn-primary`}
+      >
         Add product
       </button>
     </div>
