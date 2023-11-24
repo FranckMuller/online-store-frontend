@@ -1,28 +1,37 @@
 "use client";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { useProfileAvatar } from "@/hooks/useProfileAvatar";
+import { useAuth } from "@/hooks/useAuth";
 import ProfileAvatar from "./ProfileAvatar/ProfileAvatar";
 import ProfileMenu from "./ProfileMenu/ProfileMenu";
 import PageSpinner from "@/app/components/ui/PageSpinner/PageSpinner";
 import * as Api from "@/api";
-import { useAuth } from "@/hooks/useAuth";
+import type { AxiosError } from "axios";
 
 import styles from "./Profile.module.scss";
 
 const Profile = () => {
-  const { user, isAuthChecking } = useAuth();
-  const { data, isLoading, isSuccess } = useQuery(["profile"], {
+  const { user, isAuthChecking, error: checkAuthError } = useAuth();
+  const {
+    data,
+    isLoading,
+    isSuccess,
+    error: queryUserError,
+  } = useQuery<IFullestUser, AxiosError<ErrorResponse>>(["profile"], {
     queryFn: () => Api.users.getById(user?.id as string),
+
     enabled: !!user?.id,
   });
 
-  const loading = isLoading || isAuthChecking;
-
+  const error = queryUserError || checkAuthError || "";
+  const loading = isAuthChecking && isLoading && !user?.id;
+  if (loading) return <PageSpinner isLoading={loading} />;
 
   return (
     <>
-      {data ? (
+      {data && (
         <div className={styles["profile"]}>
           <div className={styles["info"]}>
             <ProfileAvatar avatar={data.avatar} />
@@ -38,9 +47,8 @@ const Profile = () => {
             <button className={styles["logout-btn"]}>Logout</button>
           </div>
         </div>
-      ) : (
-        <p>user not found</p>
       )}
+      {error && error.response && <div>{error.response.data.message}</div>}
     </>
   );
 };

@@ -1,58 +1,41 @@
-import { useEffect, useState, useRef, useLayoutEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import * as Api from "@/api";
 import { useAppDispatch } from "./useAppDispatch";
 import { useAppSelector } from "./useAppSelector";
 import { selectUser } from "@/store/auth/auth.selectors";
 import { setCredentials } from "@/store/auth/auth.slice";
+import type { IAuthResponse } from "@/api/auth";
+import type { AxiosError } from "axios";
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const user = useAppSelector(selectUser);
   const [shouldRender, setShouldRender] = useState(false);
   const shouldCheckAuth = useRef(true);
-console.log('useAuth')
-  const { data, isError, isSuccess, isFetching, error, isLoading } = useQuery(
-    ["auth/check"],
-    {
-      queryFn: () => Api.auth.checkAuth(),
-      select: (data) => data.user,
-      enabled: shouldCheckAuth.current,
-      retry: false,
-      keepPreviousData: true,
-      // staleTime: 600000,
-    }
-  );
-  let isAuth;
-  let isAuthChecking;
+  const { data, isError, isSuccess, isFetching, error, isLoading } = useQuery<
+    IAuthResponse,
+    AxiosError<ErrorResponse>
+  >(["auth/check"], {
+    queryFn: () => Api.auth.checkAuth(),
+    // enabled: shouldCheckAuth.current,
+    retry: false,
+    keepPreviousData: true,
+    // staleTime: 600000,
+  });
 
-  if (user) {
-    isAuth = true;
-    isAuthChecking = false;
-  }
-
-  if (isLoading) {
-    isAuthChecking = true;
-  }
-
-  if (!user && !isLoading) {
-    isAuth = false;
-  }
+  console.log(user);
 
   useEffect(() => {
-    if (shouldCheckAuth.current) {
-      shouldCheckAuth.current = false;
-    }
-  }, []);
+    dispatch(setCredentials(user));
+  }, [data, dispatch]);
+  console.log(user);
+  let isAuthChecking = false;
+  let isAuth = false;
+  if (!user && isLoading) isAuthChecking = true;
+  if (user) isAuth = true;
 
-  useEffect(() => {
-    if (isError) {
-      dispatch(setCredentials(null));
-    }
-    if (isSuccess) {
-      dispatch(setCredentials(data));
-    }
-  }, [isSuccess, isError, dispatch]);
-
-  return { user, isAuth, isAuthChecking, isLoading };
+  return { user: data?.user, isAuth, isAuthChecking, error };
 };

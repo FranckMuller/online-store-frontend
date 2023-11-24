@@ -1,16 +1,15 @@
 import axios from "axios";
 import { getAccessToken, setAccessToken } from "./helpers";
-import { store } from "@/store/store";
 
 const refreshToken = async () => {
-    const response = await apiInstance.get('auth/refresh');
-    setAccessToken(response.data.accessToken);
-  }
+  const response = await apiInstance.get("auth/refresh");
+  setAccessToken(response.data.accessToken);
+};
 
 export const apiInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   withCredentials: true,
-  headers: {  
+  headers: {
     "Content-Type": "application/json",
   },
 });

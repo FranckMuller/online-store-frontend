@@ -1,19 +1,22 @@
 import { apiInstance } from "./api";
 import { ISignupData, ISigninData } from "@/interfaces/auth.interface";
 import { setAccessToken, removeAccessToken } from "./helpers";
+import type { AxiosError } from "axios";
 
-export interface ISignupResponse {
-  user: {
-    id: string;
-    username: string;
-    email: string;
-    avatarMini: string;
-  };
-  accessToken: string;
+export interface IAuthResponse {
+
+    user: {
+      id: string;
+      username: string;
+      email: string;
+      avatarMini: string;
+    };
+    accessToken: string;
+
 }
 
 export const signup = async (signupData: ISignupData) => {
-  const response = await apiInstance.post<ISignupResponse>(
+  const response = await apiInstance.post<IAuthResponse>(
     "auth/signup",
     signupData
   );
@@ -36,7 +39,6 @@ export const signout = async (userId: string) => {
 };
 
 export const checkAuth = async () => {
-  console.log('auth check')
-  const response = await apiInstance.get<ISignupResponse>("auth/check");
+  const response = await apiInstance.get<IAuthResponse>("auth/check");
   return response.data;
 };

@@ -5,8 +5,8 @@ import { useAuth } from "@/hooks/useAuth";
 import styles from "./AuthControls.module.scss";
 
 const AuthControls = () => {
-  const { isAuth, isAuthChecking, isLoading, user } = useAuth();
-  if (user || isLoading) return null;
+  const { isAuth, isAuthChecking, user } = useAuth();
+  if (!isAuth && !isAuthChecking) return null;
 
   return (
     <div className={styles["auth-controls"]}>

@@ -9,7 +9,7 @@ import styles from "./ProfileDropdown.module.scss";
 const ProfileDropdown = forwardRef<HTMLDivElement, DropdownProps>(
   ({ opened, toggleDropdown }, ref) => {
     const { user, isAuthChecking } = useAuth();
-    
+    console.log(user)
     if(!user) return null
     
       const toggle = () => {
