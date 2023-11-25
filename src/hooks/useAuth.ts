@@ -26,15 +26,14 @@ export const useAuth = () => {
     // staleTime: 600000,
   });
 
-
   useEffect(() => {
     dispatch(setCredentials(user));
   }, [data, dispatch]);
-  
+
   let isAuthChecking = false;
   let isAuth = false;
   if (!user && isLoading) isAuthChecking = true;
-  if (user) isAuth = true;
+  if (data && data.user) isAuth = true;
 
   return { user: data?.user, isAuth, isAuthChecking, error };
 };

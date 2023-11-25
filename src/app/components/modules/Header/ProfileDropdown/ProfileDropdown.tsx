@@ -6,15 +6,19 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import styles from "./ProfileDropdown.module.scss";
 
-const ProfileDropdown = forwardRef<HTMLDivElement, DropdownProps>(
-  ({ opened, toggleDropdown }, ref) => {
-    const { user, isAuthChecking } = useAuth();
-    console.log(user)
-    if(!user) return null
-    
-      const toggle = () => {
-        toggleDropdown(!opened);
-      };
+type Props = {
+  user: IUser;
+};
+
+const ProfileDropdown = forwardRef<HTMLDivElement, DropdownProps & Props>(
+  ({ opened, toggleDropdown, user }, ref) => {
+    // const { user, isAuthChecking } = useAuth();
+    // console.log(user)
+    if (!user) return null;
+
+    const toggle = () => {
+      toggleDropdown(!opened);
+    };
 
     return (
       <div ref={ref} className={styles["profile-dropdown"]}>

@@ -1,11 +1,16 @@
+"use client";
 import Link from "next/link";
 import AuthControls from "./AuthControls/AuthControls";
 import ProfileDropdown from "./ProfileDropdown/ProfileDropdown";
 import ThemeButton from "./ThemeButton/ThemeButton";
+import { useAuth } from "@/hooks/useAuth";
 
 import styles from "./Header.module.scss";
 
 const Header = () => {
+  const { isAuth, user, isAuthChecking } = useAuth();
+  console.log(isAuthChecking);
+  console.log(isAuth);
   return (
     <header className={`${styles["header"]} header`}>
       <nav className={styles["nav"]}>
@@ -23,8 +28,8 @@ const Header = () => {
       </nav>
       <div className={styles["theme-profile"]}>
         <ThemeButton />
-        <ProfileDropdown />
-        <AuthControls />
+        {user && <ProfileDropdown user={user} />}
+        {!isAuth && !isAuthChecking && <AuthControls />}
       </div>
     </header>
   );

@@ -10,12 +10,12 @@ export type DropdownProps = {
   toggleDropdown: (arg0: boolean) => void;
 };
 
-export const withClickOutside = (
+export const withClickOutside = <P,>(
   WrappedComponent: ForwardRefExoticComponent<
-    DropdownProps & RefAttributes<HTMLDivElement>
+    P & DropdownProps & RefAttributes<HTMLDivElement>
   >
 ) => {
-  const Component = () => {
+  const Component = (props: P) => {
     const ref = useRef() as MutableRefObject<HTMLDivElement>;
     const [opened, setOpened] = useState(false);
 
@@ -26,14 +26,20 @@ export const withClickOutside = (
           setOpened(false);
         }
       };
-      
-      document.addEventListener('mousedown', handleClickOutside)
-      
-      return () => document.removeEventListener('mousedown', handleClickOutside)
+
+      document.addEventListener("mousedown", handleClickOutside);
+
+      return () =>
+        document.removeEventListener("mousedown", handleClickOutside);
     }, [ref]);
 
     return (
-      <WrappedComponent opened={opened} toggleDropdown={setOpened} ref={ref} />
+      <WrappedComponent
+        opened={opened}
+        toggleDropdown={setOpened}
+        ref={ref}
+        {...props}
+      />
     );
   };
 
