@@ -1,8 +1,11 @@
 import { forwardRef } from "react";
-import AvatarMini from "../AvatarMini/AvatarMini";
-import { useAuth } from "@/hooks/useAuth";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { withClickOutside, DropdownProps } from "@/utils/withClickOutside";
+import { useAuth } from "@/hooks/useAuth";
+import * as Api from "@/api";
 import { AnimatePresence, motion } from "framer-motion";
+import AvatarMini from "../AvatarMini/AvatarMini";
 
 import styles from "./ProfileDropdown.module.scss";
 
@@ -12,8 +15,20 @@ type Props = {
 
 const ProfileDropdown = forwardRef<HTMLDivElement, DropdownProps & Props>(
   ({ opened, toggleDropdown, user }, ref) => {
-    // const { user, isAuthChecking } = useAuth();
-    // console.log(user)
+    const queryClient = useQueryClient();
+    const router = useRouter();
+    const {
+      mutate: signout,
+      isLoading,
+      isSuccess,
+    } = useMutation({
+      mutationFn: (userId: string) => Api.auth.signout(userId),
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["auth/check"] });
+        router.replace("/signin");
+      },
+    });
+
     if (!user) return null;
 
     const toggle = () => {
@@ -38,7 +53,12 @@ const ProfileDropdown = forwardRef<HTMLDivElement, DropdownProps & Props>(
                 <p>{user.username}</p>
                 <p>{user.email}</p>
               </div>
-              <button className={styles["logout"]}>logout</button>
+              <button
+                className={styles["logout"]}
+                onClick={() => signout(user.id)}
+              >
+                logout
+              </button>
             </motion.div>
           )}
         </AnimatePresence>

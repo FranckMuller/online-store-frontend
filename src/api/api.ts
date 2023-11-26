@@ -23,16 +23,18 @@ apiInstance.interceptors.request.use(
   },
   (error) => Promise.reject(error)
 );
-
-apiInstance.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    const originalRequest = error.config;
-    if (error.response.status === 401 && !originalRequest._isRetry) {
-      originalRequest._isRetry = true;
-      await refreshToken();
-      return axios(originalRequest);
-    }
-    return Promise.reject(error);
-  }
-);
+let retry = false
+  // apiInstance.interceptors.response.use(
+  //   (response) => response,
+  //   async (error) => {
+  //     const originalRequest = error.config;
+  //     if (error.response.status === 401 && !originalRequest._isRetry) {
+  //       console.log(originalRequest._isRetry)
+  //       originalRequest._isRetry = true;
+        
+  //       await refreshToken();
+  //       return axios(originalRequest);
+  //     }
+  //     return Promise.reject(error);
+  //   }
+  // );

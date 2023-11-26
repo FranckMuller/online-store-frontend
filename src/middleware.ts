@@ -19,14 +19,18 @@ const middleware = (req: NextRequest) => {
     const decoded = jwt.decode(accessToken.value) as TAccessTokenPayload;
     const isAdmin = decoded.roles.includes("admin");
     const isAuthed = decoded.roles.includes("user");
-
-    if (!isAdmin && req.nextUrl.pathname.startsWith("/admin")) {
-      const absoluteURL = new URL("/", req.nextUrl.origin);
+    const url = req.nextUrl.pathname;
+    const absoluteURL = new URL("/", req.nextUrl.origin);
+    console.log(url);
+    if (isAuthed && (url.startsWith("/signin") || url.startsWith("/signup"))) {
       return NextResponse.redirect(absoluteURL.toString());
     }
 
-    if (!isAuthed && req.nextUrl.pathname.startsWith("/profile")) {
-      const absoluteURL = new URL("/", req.nextUrl.origin);
+    if (!isAdmin && url.startsWith("/admin")) {
+      return NextResponse.redirect(absoluteURL.toString());
+    }
+
+    if (!isAuthed && url.startsWith("/profile")) {
       return NextResponse.redirect(absoluteURL.toString());
     }
   }
@@ -35,5 +39,5 @@ const middleware = (req: NextRequest) => {
 export default middleware;
 
 export const config = {
-  matcher: ["/profile/:path*", "/admin/:path*"],
+  matcher: ["/profile/:path*", "/admin/:path*", '/signin', '/signup'],
 };

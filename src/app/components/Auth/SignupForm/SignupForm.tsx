@@ -24,7 +24,6 @@ const SignupForm = () => {
     isSuccess,
   } = useMutation({
     mutationFn: (signupData: ISignupData) => Api.auth.signup(signupData),
-    onSuccess: (data) => console.log(data),
     onError: (error) => {
       if (axios.isAxiosError(error) && error.response) {
         setError(error.response.data.message);

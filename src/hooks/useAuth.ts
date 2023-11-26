@@ -11,29 +11,34 @@ import type { AxiosError } from "axios";
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
-  const router = useRouter();
+  // const router = useRouter();
   const user = useAppSelector(selectUser);
-  const [shouldRender, setShouldRender] = useState(false);
+
   const shouldCheckAuth = useRef(true);
   const { data, isError, isSuccess, isFetching, error, isLoading } = useQuery<
     IAuthResponse,
     AxiosError<ErrorResponse>
   >(["auth/check"], {
     queryFn: () => Api.auth.checkAuth(),
-    // enabled: shouldCheckAuth.current,
     retry: false,
-    keepPreviousData: true,
+    keepPreviousData: false,
     // staleTime: 600000,
   });
 
   useEffect(() => {
-    dispatch(setCredentials(user));
-  }, [data, dispatch]);
+    if (data && !user?.name) {
+      dispatch(setCredentials(data.user));
+    }
+  }, [data, dispatch, user]);
 
-  let isAuthChecking = false;
+  useEffect(() => {
+    if (error) {
+      dispatch(setCredentials(null));
+    }
+  }, [error]);
+
   let isAuth = false;
-  if (!user && isLoading) isAuthChecking = true;
-  if (data && data.user) isAuth = true;
+  if (user && !error) isAuth = true;
 
-  return { user: data?.user, isAuth, isAuthChecking, error };
+  return { user, isAuth, isAuthChecking: isLoading, error };
 };

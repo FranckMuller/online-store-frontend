@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { redirect } from "next/navigation";
 import * as Api from "@/api";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
@@ -17,6 +17,7 @@ const initialData = {
 
 const SigninForm = () => {
   const dispatch = useAppDispatch();
+  const queryClient = useQueryClient();
   const [data, setData] = useState(initialData);
   const [error, setError] = useState<string | null>(null);
   const {
@@ -26,7 +27,8 @@ const SigninForm = () => {
     isSuccess,
   } = useMutation({
     mutationFn: (signinData: ISigninData) => Api.auth.signin(signinData),
-    onSuccess: (data) => data.data,
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: ["auth/check"] }),
     onError: (error) => {
       if (axios.isAxiosError(error) && error.response) {
         setError(error.response.data.message);

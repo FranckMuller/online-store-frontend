@@ -9,8 +9,6 @@ import styles from "./Header.module.scss";
 
 const Header = () => {
   const { isAuth, user, isAuthChecking } = useAuth();
-  console.log(isAuthChecking);
-  console.log(isAuth);
   return (
     <header className={`${styles["header"]} header`}>
       <nav className={styles["nav"]}>
@@ -28,7 +26,7 @@ const Header = () => {
       </nav>
       <div className={styles["theme-profile"]}>
         <ThemeButton />
-        {user && <ProfileDropdown user={user} />}
+        {isAuth && user && <ProfileDropdown user={user} />}
         {!isAuth && !isAuthChecking && <AuthControls />}
       </div>
     </header>
