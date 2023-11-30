@@ -1,6 +1,4 @@
-import Profile from "@/app/components/templates/Profile/Profile";
-
-import styles from "./profile.module.scss";
+import Profile from "@/components/templates/Profile/Profile";
 
 const ProfilePage = async () => {
   return <Profile />;

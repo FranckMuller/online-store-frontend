@@ -11,9 +11,7 @@ import type { AxiosError } from "axios";
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
-  // const router = useRouter();
   const user = useAppSelector(selectUser);
-
   const shouldCheckAuth = useRef(true);
   const { data, isError, isSuccess, isFetching, error, isLoading } = useQuery<
     IAuthResponse,
@@ -22,11 +20,10 @@ export const useAuth = () => {
     queryFn: () => Api.auth.checkAuth(),
     retry: false,
     keepPreviousData: false,
-    // staleTime: 600000,
   });
 
   useEffect(() => {
-    if (data && !user?.name) {
+    if (data && !user) {
       dispatch(setCredentials(data.user));
     }
   }, [data, dispatch, user]);

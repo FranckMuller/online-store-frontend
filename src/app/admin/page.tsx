@@ -1,4 +1,4 @@
-import Categories from "@/app/components/admin/modules/Categories/Categories";
+import Categories from "@/components/admin/modules/Categories/Categories";
 
 const AdminPage = () => {
   return (

@@ -1,0 +1,11 @@
+.avatar-mini {
+  max-width: 15px;
+  height: 15px;
+
+  svg {
+    width: 15px;
+    height: 15px;
+    line-height: 0;
+    color: var(--white);
+  }
+}

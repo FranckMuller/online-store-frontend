@@ -1,5 +1,6 @@
 :root {
   --main-bg: #f6f7fb;
+  --main-black: #141d24;
   --black: #333333;
   --blue: #3562bd;
   --blue-dark: #003495;
@@ -36,7 +37,7 @@ body {
   }
 
   .header {
-    background-color: var(--blue);
+    background-color: var(--main-black);
   }
 
   .product-item {

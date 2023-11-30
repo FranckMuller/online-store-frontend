@@ -1,0 +1,24 @@
+@import "@/styles/variables";
+
+.products-list {
+  display: flex;
+  flex-wrap: wrap;
+  
+  .item {
+    max-width: 33.333333333%;
+    flex-grow: 1;
+    flex-shrink: 1;
+    padding: 5px;
+  }
+}
+
+@media only screen {
+  @media (max-width: $screen-xs-max) {
+    .products-list {
+      .item {
+        max-width: 50%;
+        flex: 0 0 50%;
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+.button {
+  width: 45px;
+  background-color: var(--black);
+  border-radius: 16px;
+  margin-right: 15px;
+  padding: 2px;
+
+  &.dark {
+    .dark-icon {
+      opacity: 0;
+    }
+  }
+
+  &.light {
+    .icon {
+      transform: translateX(100%);
+      .light-icon {
+        opacity: 0;
+      }
+    }
+  }
+
+  .icon {
+    position: relative;
+    transition: 0.1s transform ease-in;
+    display: block;
+    background-color: var(--main-black);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    padding: 2px;
+    span {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      transition: 0.2s opacity ease;
+    }
+    svg {
+      width: 16px;
+      height: 16px;
+      line-height: 0;
+      display: block;
+      color: var(--white);
+    }
+  }
+}

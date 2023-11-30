@@ -1,4 +1,4 @@
-import MyProducts from '@/app/components/templates/MyProducts/MyProducts'
+import MyProducts from '@/components/templates/MyProducts/MyProducts'
 
 const MyProductsPage = () => {
   return <MyProducts />;

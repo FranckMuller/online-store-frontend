@@ -1,5 +1,7 @@
 import axios from "axios";
-import { getAccessToken, setAccessToken } from "./helpers";
+import type { AxiosResponse } from "axios";
+import type { IAuthResponse } from "./auth";
+import { getAccessToken, setAccessToken, removeAccessToken } from "./helpers";
 
 const refreshToken = async () => {
   const response = await apiInstance.get("auth/refresh");
@@ -23,18 +25,23 @@ apiInstance.interceptors.request.use(
   },
   (error) => Promise.reject(error)
 );
-let retry = false
-  // apiInstance.interceptors.response.use(
-  //   (response) => response,
-  //   async (error) => {
-  //     const originalRequest = error.config;
-  //     if (error.response.status === 401 && !originalRequest._isRetry) {
-  //       console.log(originalRequest._isRetry)
-  //       originalRequest._isRetry = true;
-        
-  //       await refreshToken();
-  //       return axios(originalRequest);
-  //     }
-  //     return Promise.reject(error);
-  //   }
-  // );
+let retry = false;
+apiInstance.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+    if (error.response.status === 401 && !originalRequest._isRetry) {
+      console.log(originalRequest._isRetry);
+      originalRequest._isRetry = true;
+
+      try {
+        await refreshToken();
+        return axios(originalRequest);
+      } catch (err) {
+        removeAccessToken();
+      }
+    }
+
+    return Promise.reject(error);
+  }
+);

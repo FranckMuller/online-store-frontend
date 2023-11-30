@@ -1,5 +1,5 @@
 import * as Api from "@/api";
-import EditProduct from "@/app/components/templates/EditProduct/EditProduct";
+import EditProduct from "@/components/templates/EditProduct/EditProduct";
 import type { Metadata } from "next";
 
 type Props = {
