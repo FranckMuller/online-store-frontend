@@ -1,17 +1,18 @@
 .sidebar {
-  padding: 10px 20px 10px 10px;
+  padding: 0 20px 10px 10px;
   min-width: 150px;
   .title {
     color: white;
     margin-bottom: 15px;
+    font-size: 15px;
   }
   .list {
-    padding-left: 10px;
+    padding-left: 5px;
     .item {
       font-size: 13px;
 
       & + .item {
-        margin-top: 5px;
+        margin-top: 7px;
       }
 
       a {

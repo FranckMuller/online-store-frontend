@@ -1,7 +1,6 @@
 import * as Api from "@/api";
-import ProductsList from "@/components/modules/ProductsList/ProductsList";
+import ProductsList from "@/components/modules/Products/ProductsList/ProductsList";
 import HomeHeader from "./HomeHeader/HomeHeader";
-import Categories from "@/components/modules/Categories/Categories";
 
 import styles from "./Home.module.scss";
 
@@ -9,16 +8,10 @@ export const revalidate = 60;
 
 const Home = async () => {
   const products = await Api.products.getAll();
-  await new Promise((resolve) => setTimeout(resolve, 3000));
 
   return (
     <section className={styles["home"]}>
-      <div className={styles["header"]}>
-        <HomeHeader />
-      </div>
-      <div className={styles["categories"]}>
-        <Categories />
-      </div>
+      <h3 className={styles['title']}>Freshed products</h3>
       <ProductsList products={products} />
     </section>
   );

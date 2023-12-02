@@ -1,6 +1,8 @@
 .products-list {
   display: flex;
   flex-wrap: wrap;
+  margin-left: -5px;
+  margin-right: -5px;
   .item {
     max-width: 50%;
     padding: 5px;

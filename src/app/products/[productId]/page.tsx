@@ -1,5 +1,5 @@
 import * as Api from "@/api";
-import ProductCard from "@/components/modules/ProductCard/ProductCard";
+import ProductCard from "@/components/modules/Products/ProductCard/ProductCard";
 
 type Props = {
   params: {

@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useEditProduct } from "./hooks/useEditProduct";
-import ProductCard from "@/components/modules/ProductCard/ProductCard";
+import ProductCard from "@/components/modules/Products/ProductCard/ProductCard";
 import PreviewItem from "./PreviewItem/PreviewItem";
 import EditProductForm from "./EditProductForm/EditProductForm";
 import PageSpinner from "@/components/ui/PageSpinner/PageSpinner";
