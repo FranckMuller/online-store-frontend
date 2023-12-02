@@ -1,12 +1,11 @@
 "use client";
 import { Provider } from "react-redux";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Header from "@/components/modules/Header/Header";
-import { inter } from "./ui/fonts";
+import { inter } from "@/app/ui/fonts";
 import { store } from "@/store/store";
 
-import styles from "./layout.module.scss";
-import "./globals.scss";
+import styles from "@/app/layout.module.scss";
+import "@/app/globals.scss";
 
 type Props = {
   children: React.ReactNode;
@@ -25,10 +24,7 @@ const RootLayout = ({ children }: Props) => {
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
         <html lang="en">
-          <body className={`${inter.className}`}>
-            <Header />
-            <main className={styles["main"]}>{children}</main>
-          </body>
+          <body className={`${inter.className}`}>{children}</body>
         </html>
       </Provider>
     </QueryClientProvider>

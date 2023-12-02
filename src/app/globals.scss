@@ -1,6 +1,6 @@
 :root {
   --main-bg: #f6f7fb;
-  --main-black: #141d24;
+  --main-black: #001221;
   --black: #333333;
   --blue: #3562bd;
   --blue-dark: #003495;
@@ -26,12 +26,13 @@
 }
 
 body {
-  background-color: var(--main-bg);
+  background-color: var(--main-black);
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   height: 100vh;
   color: var(--black);
+  overflow: hidden;
   &.no-scroll {
     overflow: hidden;
   }
@@ -60,32 +61,20 @@ body {
     }
   }
 
-  .profile-page-menu {
-    box-shadow: 4px -1px 15px -8px rgba(209, 209, 209, 0.68);
-  }
-
   .theme-bg {
     background-color: var(--main-bg);
   }
 
   &.dark_mode {
     color: var(--white);
-    background-color: var(--black);
+    background-color: var(--main-black);
 
     .profile-page-menu {
       box-shadow: 4px -1px 15px -8px rgba(255, 255, 255, 0.3);
     }
 
     .theme-bg {
-      background-color: var(--black);
-    }
-
-    .header {
-      /* background-color: var(--blue-light); */
-    }
-
-    .product-item {
-      /* background-color: var(--gray); */
+      background-color: var(--main-black);
     }
 
     .search-input {

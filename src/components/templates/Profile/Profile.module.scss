@@ -1,48 +1,5 @@
-@import "@styles/variables";
+@import "@/styles/variables";
 
 .profile {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: start;
-  flex-grow: 1;
-  .info {
-    padding: 10px 10px 20px 20px;
-  }
-
-  .nav {
-    display: flex;
-    flex-direction: column;
-    border-right: 1px solid var(--gray-light);
-    padding: 10px 20px 10px;
-
-    .menu {
-      flex-grow: 1;
-      margin-bottom: 20px;
-    }
-
-    .logout-btn {
-      color: var(--white);
-      background-color: var(--blue);
-      padding: 8px;
-      border-radius: var(--button-br);
-    }
-  }
-}
-
-@media screen {
-  @media (max-width: $screen-xs-max) {
-    .profile {
-      flex-direction: column;
-      .nav {
-        border-top: 1px solid var(--gray-light);
-        border-right: none;
-        box-shadow: none;
-        flex-grow: 1;
-
-        .logout-btn {
-          margin-bottom: 60px;
-        }
-      }
-    }
-  }
+  padding: 10px 10px 20px 20px;
 }

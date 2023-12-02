@@ -1,0 +1,33 @@
+.sidebar {
+  padding: 10px 20px 10px 10px;
+  min-width: 150px;
+  .title {
+    color: white;
+    margin-bottom: 15px;
+  }
+  .list {
+    padding-left: 10px;
+    .item {
+      font-size: 13px;
+
+      & + .item {
+        margin-top: 5px;
+      }
+
+      a {
+        color: white;
+        display: flex;
+        align-items: center;
+        .item-icon {
+          margin-right: 5px;
+          svg {
+            line-height: 0;
+            height: 15px;
+            width: 15px;
+            display: block;
+          }
+        }
+      }
+    }
+  }
+}

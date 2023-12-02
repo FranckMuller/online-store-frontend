@@ -1,5 +1,13 @@
-.main {
+.wrapper {
   display: flex;
-  flex-direction: column;
-  flex-grow: 1;
+  overflow: hidden;
+  .main {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    background-color: var(--main-bg);
+    border-top-left-radius: 5px;
+    overflow: scroll;
+    padding-bottom: 70px;
+  }
 }
