@@ -1,6 +1,11 @@
 import axios from "axios";
 import { apiInstance } from "./api";
-import type { IProducts, IProduct } from "@/interfaces/products.interface";
+
+import type {
+  IProducts,
+  IProduct,
+  IProductsFilters,
+} from "@/interfaces/products.interface";
 
 interface CreateProductResponse {
   name: string;
@@ -9,8 +14,10 @@ interface CreateProductResponse {
   images: string[];
 }
 
-export const getAll = async () => {
-  const response = await apiInstance.get<IProducts>("products");
+export const getAll = async (searchParams = {} as IProductsFilters) => {
+  const response = await apiInstance.get<IProducts>("products", {
+    params: searchParams,
+  });
 
   return response.data;
 };

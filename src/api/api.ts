@@ -31,7 +31,6 @@ apiInstance.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
     if (error.response.status === 401 && !originalRequest._isRetry) {
-      console.log(originalRequest._isRetry);
       originalRequest._isRetry = true;
 
       try {

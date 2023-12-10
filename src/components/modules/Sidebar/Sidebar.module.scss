@@ -8,6 +8,7 @@
   }
   .list {
     padding-left: 5px;
+    margin-bottom: 30px;
     .item {
       font-size: 13px;
 
@@ -30,5 +31,12 @@
         }
       }
     }
+  }
+  
+  .nav {
+    
+      a {
+        color: white;
+      }
   }
 }

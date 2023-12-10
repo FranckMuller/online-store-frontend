@@ -9,5 +9,7 @@
     border-top-left-radius: 5px;
     overflow: scroll;
     padding-bottom: 70px;
+    height: calc(100vh - 40px);
+    padding: 10px;
   }
 }

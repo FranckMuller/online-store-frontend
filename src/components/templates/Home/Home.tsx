@@ -1,13 +1,18 @@
-import * as Api from "@/api";
+
 import ProductsList from "@/components/modules/Products/ProductsList/ProductsList";
 import HomeHeader from "./HomeHeader/HomeHeader";
 
+import type {IProducts} from '@/interfaces/products.interface' 
+
 import styles from "./Home.module.scss";
 
-export const revalidate = 60;
+type Props = {
+products: IProducts
+  
+}
 
-const Home = async () => {
-  const products = await Api.products.getAll();
+const Home = async ({products}: Props) => {
+  
 
   return (
     <section className={styles["home"]}>

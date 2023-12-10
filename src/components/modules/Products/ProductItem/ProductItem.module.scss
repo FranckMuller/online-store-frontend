@@ -7,6 +7,10 @@
   .content {
     .image {
       position: relative;
+      background-color: var(--white);
+      img {
+        margin: 0 auto;
+      }
       .button {
         position: absolute;
         right: 5px;
@@ -20,6 +24,7 @@
         font-weight: 700;
         font-size: 13px;
         margin-bottom: 5px;
+        white-space: pre-wrap;
       }
 
       .category {
