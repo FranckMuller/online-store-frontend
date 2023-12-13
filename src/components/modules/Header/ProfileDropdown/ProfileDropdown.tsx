@@ -1,6 +1,7 @@
 import { forwardRef } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import Link from 'next/link'
 import { withClickOutside, DropdownProps } from "@/utils/withClickOutside";
 import { useAuth } from "@/hooks/useAuth";
 import * as Api from "@/api";
@@ -52,6 +53,9 @@ const ProfileDropdown = forwardRef<HTMLDivElement, DropdownProps & Props>(
               <div className={styles["credentials"]}>
                 <p>{user.username}</p>
                 <p>{user.email}</p>
+                <p>
+                  <Link href="/profile">settings</Link>
+                </p>
               </div>
               <button
                 className={styles["logout"]}

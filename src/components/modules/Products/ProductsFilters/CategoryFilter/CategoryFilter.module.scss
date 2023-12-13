@@ -1,0 +1,56 @@
+.category-filter {
+  .title {
+    font-size: 13px;
+    margin-bottom: 5px;
+    font-weight: 400;
+  }
+
+  .list {
+    .item {
+      & + .item {
+        margin-top: 5px;
+      }
+
+      input[type="checkbox"] {
+        display: none;
+
+        &:checked + label:after {
+          display: block;
+        }
+      }
+
+      .label {
+        position: relative;
+        padding-left: 25px;
+        font-size: 13px;
+        line-height: 0;
+        &:before {
+          content: "";
+          display: block;
+          width: 16px;
+          height: 16px;
+          border: 1px solid var(--gray-light);
+          border-radius: var(--common-br);
+          background: var(--white);
+          position: absolute;
+          left: 0;
+          top: 50%;
+          margin-top: -9px;
+        }
+
+        &:after {
+          content: "";
+          display: none;
+          width: 10px;
+          height: 10px;
+          border-radius: 1px;
+          background: var(--orange);
+          position: absolute;
+          left: 4px;
+          top: 50%;
+          margin-top: -5px;
+        }
+      }
+    }
+  }
+}

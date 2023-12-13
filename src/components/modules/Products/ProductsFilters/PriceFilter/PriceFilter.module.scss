@@ -1,0 +1,21 @@
+.price-filter {
+  .title {
+    font-size: 13px;
+    white-space: nowrap;
+    margin-bottom: 5px;
+  }
+
+  .inputs-wrapper {
+    display: flex;
+    align-items: center;
+    input {
+      max-width: 50px;
+      background: var(--white);
+      padding: 4px 7px;
+      border: 1px solid var(--gray-light);
+    }
+    span {
+      margin: 0 5px;
+    }
+  }
+}

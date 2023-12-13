@@ -1,0 +1,7 @@
+.filters {
+  & > div {
+    & + div {
+      margin-top: 10px;
+    }
+  }
+}

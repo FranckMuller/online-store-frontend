@@ -42,12 +42,17 @@ const Sidebar = async () => {
           </li>
         ))}
       </ul>
-      
-      <ul className={styles['nav']}>
-      <li>
-      
-      <Link href='/catalog'>Catalog</Link>
-      </li>
+
+      <ul className={styles["nav"]}>
+        <li>
+          <Link href="/">home</Link>
+        </li>
+        <li>
+          <Link href="/catalog">Catalog</Link>
+        </li>
+        <li>
+          <Link href="/admin">admin</Link>
+        </li>
       </ul>
     </div>
   );

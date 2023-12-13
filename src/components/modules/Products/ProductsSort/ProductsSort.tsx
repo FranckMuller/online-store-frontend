@@ -3,12 +3,12 @@ import { useSearchParams, useRouter } from "next/navigation";
 
 import { withClickOutside } from "@/utils/withClickOutside";
 import type { DropdownProps } from "@/utils/withClickOutside";
+import { EProductsFilterKeys } from "@/hooks/products/useProductsFilters";
 
 import { FaCaretDown } from "react-icons/fa";
 
 import {
   EProductsSort,
-  EproductsFilters,
   IProductsFilters,
 } from "@/interfaces/products.interface";
 
@@ -50,12 +50,6 @@ const ProductsSort = forwardRef<HTMLDivElement, DropdownProps & Props>(
       activeSortOption = sortOptions.find((o) => o.value === sortValue);
     }
 
-    useEffect(() => {
-      if (shouldHide) {
-        // setIsOpened(false);
-      }
-    }, [shouldHide]);
-
     return (
       <div ref={ref} className={styles["products-sort"]}>
         <button
@@ -75,7 +69,7 @@ const ProductsSort = forwardRef<HTMLDivElement, DropdownProps & Props>(
             <ul className={styles["select"]}>
               {sortOptions.map((o) => (
                 <li
-                  onClick={() => onChange(EproductsFilters.Sort, o.value)}
+                  onClick={() => onChange(EProductsFilterKeys.Sort, o.value)}
                   className={`${styles["option"]}`}
                   key={o.label}
                 >

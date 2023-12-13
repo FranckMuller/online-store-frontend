@@ -1,12 +1,7 @@
-import SigninForm from '@/components/modules/SigninForm/SigninForm'  
+import Signin from "@/components/templates/Auth/Signin/Signin";
 
 const SigninPage = () => {
-
-  return (
-
-      <SigninForm />
-    
-  );
+  return <Signin />;
 };
 
 export default SigninPage;

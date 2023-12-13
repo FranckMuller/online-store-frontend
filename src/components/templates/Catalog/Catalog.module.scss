@@ -2,8 +2,23 @@
   margin-bottom: 5px;
   font-size: 14px;
 }
-.sort {
+
+.heading {
   display: flex;
-  justify-content: flex-end;
-  margin-bottom: 10px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  .sort {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+  }
+}
+
+.filters-products {
+  display: flex;
+
+  .filters {
+    margin-right: 10px;
+  }
 }

@@ -4,53 +4,53 @@ import * as Icons from "react-icons/md";
 
 import styles from "./Categories.module.scss";
 
-const categories: ICategories = [
-  {
-    id: "1",
-    name: "smartphones",
-    title: {
-      en: "Smartphones",
-      ru: "Смартфоны",
+  const categories: ICategories = [
+    {
+      id: "1",
+      name: "smartphones",
+      title: {
+        en: "Smartphones",
+        ru: "Смартфоны",
+      },
+      icon: "MdMobileScreenShare",
     },
-    icon: "MdMobileScreenShare",
-  },
-  {
-    id: "2",
-    name: "computers",
-    title: {
-      en: "Computers",
-      ru: "Компьютеры",
+    {
+      id: "2",
+      name: "computers",
+      title: {
+        en: "Computers",
+        ru: "Компьютеры",
+      },
+      icon: "MdComputer",
     },
-    icon: "MdComputer",
-  },
-  {
-    id: "3",
-    name: "electronic",
-    title: {
-      en: "Electronic",
-      ru: "Электроника",
+    {
+      id: "3",
+      name: "electronic",
+      title: {
+        en: "Electronic",
+        ru: "Электроника",
+      },
+      icon: "MdMemory",
     },
-    icon: "MdMemory",
-  },
-  {
-    id: "4",
-    name: "clothes",
-    title: {
-      en: "Clothes",
-      ru: "Одежда",
+    {
+      id: "4",
+      name: "clothes",
+      title: {
+        en: "Clothes",
+        ru: "Одежда",
+      },
+      icon: "MdCheckroom",
     },
-    icon: "MdCheckroom",
-  },
-  {
-    id: "5",
-    name: "home",
-    title: {
-      en: "Home",
-      ru: "Дом",
+    {
+      id: "5",
+      name: "home",
+      title: {
+        en: "Home",
+        ru: "Дом",
+      },
+      icon: "MdHome",
     },
-    icon: "MdHome",
-  },
-];
+  ];
 
 const Categories = async () => {
   return (
