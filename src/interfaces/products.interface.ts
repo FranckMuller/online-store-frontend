@@ -22,12 +22,6 @@ export interface IProductPreviewImage {
   isMain?: boolean;
 }
 
-export enum EProductsFiltersKeys {
-  Sort = "sort",
-  MaxPrice = "maxPrice",
-  MinPrice = "minPrice",
-}
-
 export enum EProductsSort {
   HighPrice = "high-price",
   MinPrice = "min-price",

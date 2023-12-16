@@ -1,4 +1,4 @@
-@import "@/styles/variables";
+/* @import "@/styles/variables"; */
 
 .products-list {
   display: flex;
@@ -12,13 +12,13 @@
   }
 }
 
-@media only screen {
-  @media (max-width: $screen-xs-max) {
-    .products-list {
-      .item {
-        max-width: 50%;
-        flex: 0 0 50%;
+  /* @media only screen {
+    @media (max-width: $screen-xs-max) {
+      .products-list {
+        .item {
+          max-width: 50%;
+          flex: 0 0 50%;
+        }
       }
     }
-  }
-}
+  } */

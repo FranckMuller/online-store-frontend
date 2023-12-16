@@ -208,4 +208,6 @@ const EditProductForm = forwardRef<HTMLDivElement, Props>(
   }
 );
 
+EditProductForm.displayName = "EditProductForm"
+
 export default EditProductForm;

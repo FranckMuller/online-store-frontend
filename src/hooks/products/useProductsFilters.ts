@@ -8,6 +8,7 @@ export enum EProductsFilterKeys {
   Sort = "sort",
   MaxPrice = "maxPrice",
   MinPrice = "minPrice",
+  Category = "category",
 }
 
 export const useProductsFilters = () => {
@@ -19,6 +20,7 @@ export const useProductsFilters = () => {
   const [sortParam, setSortParam] = useQueryState("sort");
   const [minPriceParam, setMinPriceParam] = useQueryState("minPrice");
   const [maxPriceParam, setMaxPriceParam] = useQueryState("maxPrice");
+  const [categoryParam, setCategoryParam] = useQueryState("category");
 
   useEffect(() => {
     searchParams.forEach((value, key) => {
@@ -27,9 +29,13 @@ export const useProductsFilters = () => {
         [key]: value,
       }));
     });
-  }, []);
+  }, [searchParams]);
 
-  const updateFilters = (key: keyof IProductsFilters, value: string) => {
+  const updateFilters = (
+    key: keyof IProductsFilters,
+    value: string,
+    category?: string
+  ) => {
     // const params = new URLSearchParams(searchParams.toString());
     console.log(key, value);
     if (value) {
@@ -46,6 +52,11 @@ export const useProductsFilters = () => {
         case EProductsFilterKeys.MinPrice:
           setMinPriceParam(value);
           break;
+
+        case EProductsFilterKeys.Category:
+          if(category){
+          setCategoryParam(category)}
+          break;
       }
 
       setFiltersParams((prev) => ({
@@ -55,7 +66,7 @@ export const useProductsFilters = () => {
     } else {
       // params.delete(key);
     }
-    
+
     setIsUpdated(true);
   };
 

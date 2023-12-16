@@ -4,18 +4,20 @@ import * as Api from "@/api";
 
 import type { IProductsFilters } from "@/interfaces/products.interface";
 
-type Props = {
-  searchParams: IProductsFilters;
-};
+// type Props = {
+//   searchParams: IProductsFilters;
+// };
 
-const CatalogPage = async ({ searchParams }: Props) => {
-  const products = await Api.products.getAll(searchParams);
+// export const revalidate = 1
 
-  if (!products) return null;
+const CatalogPage = async () => {
+  // const products = await Api.products.getAll(searchParams);
+  const categories = await Api.categories.getAll()
+  // if (!products) return null;
 
   return (
     <>
-      <Catalog initialProducts={products} />
+      <Catalog categories={categories} />
     </>
   );
 };

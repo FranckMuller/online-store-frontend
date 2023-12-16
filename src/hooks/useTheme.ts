@@ -26,7 +26,7 @@ export const useTheme = () => {
     if (theme) {
       dispatch(setTheme(theme));
     }
-  }, []);
+  }, [dispatch]);
 
   return { theme, toggleTheme };
 };

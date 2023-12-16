@@ -58,7 +58,7 @@ const SigninForm = () => {
       dispatch(setCredentials(authData.user));
       redirect("/dashboard");
     }
-  }, [isSuccess, authData]);
+  }, [isSuccess, authData, dispatch]);
 
   return (
     <div className={styles["signin-form"]}>

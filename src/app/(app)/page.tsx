@@ -5,7 +5,7 @@ import HomeSkeleton from "@/components/skeletons/Home/HomeSkeleton";
 
 import * as Api from "@/api";
 
-export const revalidate = 1;
+export const dynamic = 'force-dynamic'
 
 const HomePage = async () => {
   const products = await Api.products.getAll();

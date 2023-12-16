@@ -32,7 +32,7 @@ export const useAuth = () => {
     if (error) {
       dispatch(setCredentials(null));
     }
-  }, [error]);
+  }, [error, dispatch]);
 
   let isAuth = false;
   if (user && !error) isAuth = true;

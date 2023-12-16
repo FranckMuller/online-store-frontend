@@ -57,7 +57,7 @@ const Categories = async () => {
     <div className={styles["categories"]}>
       {categories?.length &&
         categories.map((c: ICategory) => (
-          <div className={styles["category"]}>
+          <div key={c.id} className={styles["category"]}>
             <Category key={c.name} category={c} />
           </div>
         ))}

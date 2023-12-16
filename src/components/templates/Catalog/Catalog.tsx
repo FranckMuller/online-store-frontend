@@ -16,14 +16,17 @@ import type {
   IProducts,
   IProductsFilters,
 } from "@/interfaces/products.interface";
+import type { ICategories } from "@/interfaces/categories.interface";
 
 import styles from "./Catalog.module.scss";
 
 type Props = {
-  initialProducts: IProducts;
+  // initialProducts: IProducts;
+  categories: ICategories;
 };
 
-const Catalog = ({ initialProducts }: Props) => {
+// const Catalog = ({ initialProducts }: Props) => {
+const Catalog = ({ categories }: Props) => {
   const [filtersOpened, setFiltersOpened] = useState(false);
   const { updateFilters, isUpdated, filtersParams } = useProductsFilters();
 
@@ -33,8 +36,8 @@ const Catalog = ({ initialProducts }: Props) => {
     isSuccess,
   } = useQuery(["get/products", filtersParams], {
     queryFn: () => Api.products.getAll(filtersParams),
-    initialData: initialProducts,
-    enabled: isUpdated,
+    // initialData: initialProducts,
+    // enabled: isUpdated,
   });
 
   return (
@@ -55,10 +58,14 @@ const Catalog = ({ initialProducts }: Props) => {
       <div className={styles["filters-products"]}>
         {filtersOpened && (
           <div className={styles["filters"]}>
-            <ProductsFilters updateFilters={updateFilters} />
+            <ProductsFilters
+              updateFilters={updateFilters}
+              categories={categories}
+              filtersParams={filtersParams}
+            />
           </div>
         )}
-        <ProductsList products={products} />
+        {products && <ProductsList products={products} />}
       </div>
     </>
   );
