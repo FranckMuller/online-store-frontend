@@ -1,12 +1,10 @@
-import { useState, useEffect, forwardRef } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
-
+import { forwardRef} from "react";
 import { withClickOutside } from "@/utils/withClickOutside";
-import type { DropdownProps } from "@/utils/withClickOutside";
 import { EProductsFilterKeys } from "@/hooks/products/useProductsFilters";
 
 import { FaCaretDown } from "react-icons/fa";
 
+import type { DropdownProps } from "@/utils/withClickOutside";
 import {
   EProductsSort,
   IProductsFilters,
@@ -15,7 +13,8 @@ import {
 import styles from "./ProductsSort.module.scss";
 
 type Props = {
-  onChange: (key: keyof IProductsFilters, value: string) => void;
+  updateFilters: (key: keyof IProductsFilters, value: string) => void;
+  value?: string;
 };
 
 type Option = {
@@ -43,26 +42,18 @@ const sortOptions = [
 ];
 
 const ProductsSort = forwardRef<HTMLDivElement, DropdownProps & Props>(
-  ({ opened, toggleDropdown, onChange }, ref) => {
-    const searchParams = useSearchParams();
-    const router = useRouter();
-    const [active, setActive] = useState("default");
+  ({ opened, toggleDropdown, updateFilters, value }, ref) => {
+    
+    let activeLabel = "Default";
+    const activeItem = sortOptions.find((o) => o.value === value);
+    if (activeItem) {
+      activeLabel = activeItem.label;
+    }
 
-    useEffect(() => {
-      const sortParam = searchParams.get(EProductsFilterKeys.Sort);
-      if (sortParam) {
-        const activeItem = sortOptions.find((o) => o.value === sortParam);
-        if (activeItem) {
-          setActive(activeItem.label);
-        }
-      }
-    }, [searchParams]);
-
-    const handleClick = (option: Option) => {
-      onChange(EProductsFilterKeys.Sort, option.value);
-      setActive(option.label);
+    const handleClick = (option: Option) => {  
+      updateFilters(EProductsFilterKeys.Sort, option.value);
+      toggleDropdown(!opened)
     };
-    const sortValue = searchParams.get("sort");
 
     return (
       <div ref={ref} className={styles["products-sort"]}>
@@ -71,7 +62,7 @@ const ProductsSort = forwardRef<HTMLDivElement, DropdownProps & Props>(
           className={styles["button"]}
         >
           <span className={styles["title"]}>Sort by:</span>
-          <span className={styles["label"]}>{active}</span>
+          <span className={styles["label"]}>{activeLabel}</span>
           <span className={styles["icon"]}>
             <FaCaretDown />
           </span>

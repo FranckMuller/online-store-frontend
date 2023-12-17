@@ -50,7 +50,7 @@ const Catalog = ({ categories }: Props) => {
           {filtersOpened ? "close" : "open"} filters
         </button>
         <div className={styles["sort"]}>
-          <ProductsSort onChange={updateFilters} />
+          <ProductsSort value={filtersParams.sort} updateFilters={updateFilters} />
         </div>
       </div>
       <div className={styles["filters-products"]}>

@@ -11,15 +11,22 @@ type Props = {
   value?: string;
 };
 
-const CategoryFilter = ({
-  updateFilters,
-  categories,
-  value,
-}: Props) => {
+const CategoryFilter = ({ updateFilters, categories, value }: Props) => {
   return (
     <div className={styles["category-filter"]}>
       <h4 className={styles["title"]}>Categories</h4>
       <ul className={styles["list"]}>
+        <li className={styles["item"]}>
+          <input
+            id="all"
+            type="checkbox"
+            onChange={(e) => updateFilters(EProductsFilterKeys.Category, "all")}
+            checked={value === "all"}
+          />
+          <label htmlFor='all' className={styles["label"]}>
+            All
+          </label>
+        </li>
         {categories.map((c) => (
           <li className={styles["item"]} key={c.id}>
             <input
@@ -28,7 +35,6 @@ const CategoryFilter = ({
               onChange={(e) =>
                 updateFilters(EProductsFilterKeys.Category, c.name)
               }
-              value={c.id}
               checked={value === c.name}
             />
             <label htmlFor={c.id} className={styles["label"]}>
