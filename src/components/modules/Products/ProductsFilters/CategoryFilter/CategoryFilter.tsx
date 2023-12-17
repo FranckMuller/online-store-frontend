@@ -6,27 +6,16 @@ import type { IProductsFilters } from "@/interfaces/products.interface";
 import styles from "./CategoryFilter.module.scss";
 
 type Props = {
-  updateFilters: (
-    key: keyof IProductsFilters,
-    value: string,
-    category?: string
-  ) => void;
+  updateFilters: (key: keyof IProductsFilters, value: string) => void;
   categories: ICategories;
-  initialValue?: string;
+  value?: string;
 };
 
-const CategoryFilter = ({ updateFilters, categories, initialValue }: Props) => {
-  const [value, setValue] = useState(initialValue || "");
-
-  const onChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    id: string,
-    name: string
-  ) => {
-    updateFilters(EProductsFilterKeys.Category, id, name);
-    setValue(name)
-  };
-
+const CategoryFilter = ({
+  updateFilters,
+  categories,
+  value,
+}: Props) => {
   return (
     <div className={styles["category-filter"]}>
       <h4 className={styles["title"]}>Categories</h4>
@@ -36,7 +25,9 @@ const CategoryFilter = ({ updateFilters, categories, initialValue }: Props) => {
             <input
               id={c.id}
               type="checkbox"
-              onChange={(e) => onChange(e, c.id, c.name)}
+              onChange={(e) =>
+                updateFilters(EProductsFilterKeys.Category, c.name)
+              }
               value={c.id}
               checked={value === c.name}
             />

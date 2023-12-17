@@ -1,4 +1,4 @@
-import type { ICategories } from "./categories.interface";
+import type { ICategory } from "./categories.interface";
 
 export interface IProductImage {
   id: string;
@@ -13,7 +13,7 @@ export interface IProduct {
   images: IProductImage[];
   mainImage: IProductImage;
   published: boolean;
-  categories: ICategories;
+  category?: ICategory;
 }
 
 export interface IProductPreviewImage {

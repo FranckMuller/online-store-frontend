@@ -7,9 +7,9 @@ import type { ICategories } from "@/interfaces/categories.interface";
 import styles from "./ProductsFilters.module.scss";
 
 type Props = {
-  updateFilters: (key: keyof IProductsFilters, value: string, category?: string) => void;
+  updateFilters: (key: keyof IProductsFilters, value: string) => void;
   categories: ICategories;
-  filtersParams: IProductsFilters
+  filtersParams: IProductsFilters;
 };
 
 const ProductsFilters = ({
@@ -28,7 +28,7 @@ const ProductsFilters = ({
       </div>
       <div className={styles["category"]}>
         <CategoryFilter
-          initialValue={filtersParams.category}
+          value={filtersParams.category}
           updateFilters={updateFilters}
           categories={categories}
         />

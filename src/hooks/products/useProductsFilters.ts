@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { useQueryState } from "next-usequerystate";
+import { useSearchParams } from "next/navigation";
+import {
+  useQueryState,
+  useQueryStates,
+  UseQueryStatesKeysMap,
+} from "next-usequerystate";
 
 import type { IProductsFilters } from "@/interfaces/products.interface";
 
@@ -12,15 +16,14 @@ export enum EProductsFilterKeys {
 }
 
 export const useProductsFilters = () => {
-  const router = useRouter();
-  const currentPath = usePathname();
   const searchParams = useSearchParams();
-  const [isUpdated, setIsUpdated] = useState(false);
-  const [filtersParams, setFiltersParams] = useState<IProductsFilters | {}>({});
-  const [sortParam, setSortParam] = useQueryState("sort");
-  const [minPriceParam, setMinPriceParam] = useQueryState("minPrice");
-  const [maxPriceParam, setMaxPriceParam] = useQueryState("maxPrice");
-  const [categoryParam, setCategoryParam] = useQueryState("category");
+  const [filtersParams, setFiltersParams] = useState<IProductsFilters>({});
+  const [params, setParams] = useQueryStates<any>({
+    sort: EProductsFilterKeys.Sort,
+    category: EProductsFilterKeys.Category,
+    minPrice: EProductsFilterKeys.MinPrice,
+    maxPrice: EProductsFilterKeys.MaxPrice,
+  });
 
   useEffect(() => {
     searchParams.forEach((value, key) => {
@@ -31,44 +34,22 @@ export const useProductsFilters = () => {
     });
   }, [searchParams]);
 
-  const updateFilters = (
-    key: keyof IProductsFilters,
-    value: string,
-    category?: string
-  ) => {
-    // const params = new URLSearchParams(searchParams.toString());
-    console.log(key, value);
+  const updateFilters = (key: keyof IProductsFilters, value: string) => {
     if (value) {
-      // params.set(key, value);
-      switch (key) {
-        case EProductsFilterKeys.Sort:
-          setSortParam(value);
-          break;
-
-        case EProductsFilterKeys.MaxPrice:
-          setMaxPriceParam(value);
-          break;
-
-        case EProductsFilterKeys.MinPrice:
-          setMinPriceParam(value);
-          break;
-
-        case EProductsFilterKeys.Category:
-          if(category){
-          setCategoryParam(category)}
-          break;
-      }
-
-      setFiltersParams((prev) => ({
-        ...prev,
+      setParams({
         [key]: value,
-      }));
+      });
     } else {
-      // params.delete(key);
+      setParams({
+        [key]: null,
+      });
     }
 
-    setIsUpdated(true);
+    setFiltersParams((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
   };
 
-  return { updateFilters, isUpdated, filtersParams };
+  return { updateFilters, filtersParams };
 };

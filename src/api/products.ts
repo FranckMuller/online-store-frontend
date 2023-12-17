@@ -28,6 +28,12 @@ export const getById = async (id: string) => {
   return response.data;
 };
 
+export const getMyById = async (id: string) => {
+  const response = await apiInstance.get<IProduct>(`products/my/${id}`);
+
+  return response.data;
+};
+
 export const create = async (data: FormData) => {
   const response = await apiInstance.post<CreateProductResponse>(
     "products",

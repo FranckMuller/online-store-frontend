@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import {
   useProductsFilters,
@@ -29,45 +29,51 @@ const PriceFilter = ({
   initialToValue,
   updateFilters,
 }: Props) => {
+  const shouldUpdateTilters = useRef(false);
   const [fromValue, setFromValue] = useState(initialFromValue || "");
   const [toValue, setToValue] = useState(initialToValue || "");
 
   const onFromValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFromValue(e.target.value);
-    // updateFilters("minPrice", e.target.value);
   };
 
   const onToValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setToValue(e.target.value);
-    // updateFilters("maxPrice", e.target.value);
   };
 
   // TODO isolate into hook
   useEffect(() => {
-    let timeoutId: ReturnType<typeof setTimeout>;
-    if (fromValue) {
+    if (shouldUpdateTilters.current) {
+      let timeoutId: ReturnType<typeof setTimeout>;
+
       timeoutId = setTimeout(() => {
         updateFilters(EProductsFilterKeys.MinPrice, fromValue);
       }, 1000);
-    }
-
     return () => {
       clearTimeout(timeoutId);
     };
+    }
   }, [fromValue]);
 
   useEffect(() => {
-    let timeoutId: ReturnType<typeof setTimeout>;
-    if (toValue) {
+    if (shouldUpdateTilters.current) {
+      let timeoutId: ReturnType<typeof setTimeout>;
+
       timeoutId = setTimeout(() => {
         updateFilters(EProductsFilterKeys.MaxPrice, toValue);
       }, 1000);
-    }
-
+      
+      
     return () => {
       clearTimeout(timeoutId);
     };
+    }
+
   }, [toValue]);
+
+  useEffect(() => {
+    shouldUpdateTilters.current = true;
+  }, []);
 
   return (
     <div className={styles["price-filter"]}>

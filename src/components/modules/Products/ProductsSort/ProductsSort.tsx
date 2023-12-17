@@ -15,8 +15,12 @@ import {
 import styles from "./ProductsSort.module.scss";
 
 type Props = {
-  shouldHide: boolean;
   onChange: (key: keyof IProductsFilters, value: string) => void;
+};
+
+type Option = {
+  label: string;
+  value: string;
 };
 
 const sortOptions = [
@@ -39,16 +43,26 @@ const sortOptions = [
 ];
 
 const ProductsSort = forwardRef<HTMLDivElement, DropdownProps & Props>(
-  ({ opened, toggleDropdown, onChange, shouldHide }, ref) => {
+  ({ opened, toggleDropdown, onChange }, ref) => {
     const searchParams = useSearchParams();
     const router = useRouter();
+    const [active, setActive] = useState("default");
 
-    let activeSortOption = null;
+    useEffect(() => {
+      const sortParam = searchParams.get(EProductsFilterKeys.Sort);
+      if (sortParam) {
+        const activeItem = sortOptions.find((o) => o.value === sortParam);
+        if (activeItem) {
+          setActive(activeItem.label);
+        }
+      }
+    }, [searchParams]);
+
+    const handleClick = (option: Option) => {
+      onChange(EProductsFilterKeys.Sort, option.value);
+      setActive(option.label);
+    };
     const sortValue = searchParams.get("sort");
-
-    if (sortValue) {
-      activeSortOption = sortOptions.find((o) => o.value === sortValue);
-    }
 
     return (
       <div ref={ref} className={styles["products-sort"]}>
@@ -57,9 +71,7 @@ const ProductsSort = forwardRef<HTMLDivElement, DropdownProps & Props>(
           className={styles["button"]}
         >
           <span className={styles["title"]}>Sort by:</span>
-          <span className={styles["label"]}>
-            {activeSortOption ? activeSortOption.label : "default"}
-          </span>
+          <span className={styles["label"]}>{active}</span>
           <span className={styles["icon"]}>
             <FaCaretDown />
           </span>
@@ -69,7 +81,7 @@ const ProductsSort = forwardRef<HTMLDivElement, DropdownProps & Props>(
             <ul className={styles["select"]}>
               {sortOptions.map((o) => (
                 <li
-                  onClick={() => onChange(EProductsFilterKeys.Sort, o.value)}
+                  onClick={() => handleClick(o)}
                   className={`${styles["option"]}`}
                   key={o.label}
                 >

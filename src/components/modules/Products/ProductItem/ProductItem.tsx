@@ -36,7 +36,7 @@ const ProductItem = ({ product }: Props) => {
 
         <div className={styles["details"]}>
           <h3 className={styles["name"]}>{product.name}</h3>
-          <p className={styles["category"]}>category</p>
+          {product.category && <p className={styles["category"]}>{product.category.name}</p>}
           <div className={styles["rating"]}>
             <ProductRating />
             <span className={styles["reviews"]}>(2 reviews)</span>

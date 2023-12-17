@@ -21,14 +21,12 @@ import type { ICategories } from "@/interfaces/categories.interface";
 import styles from "./Catalog.module.scss";
 
 type Props = {
-  // initialProducts: IProducts;
   categories: ICategories;
 };
 
-// const Catalog = ({ initialProducts }: Props) => {
 const Catalog = ({ categories }: Props) => {
   const [filtersOpened, setFiltersOpened] = useState(false);
-  const { updateFilters, isUpdated, filtersParams } = useProductsFilters();
+  const { updateFilters, filtersParams } = useProductsFilters();
 
   const {
     data: products,
@@ -36,9 +34,9 @@ const Catalog = ({ categories }: Props) => {
     isSuccess,
   } = useQuery(["get/products", filtersParams], {
     queryFn: () => Api.products.getAll(filtersParams),
-    // initialData: initialProducts,
-    // enabled: isUpdated,
   });
+
+  const itemListColumnCount = filtersOpened ? "3" : "4";
 
   return (
     <>
@@ -52,7 +50,7 @@ const Catalog = ({ categories }: Props) => {
           {filtersOpened ? "close" : "open"} filters
         </button>
         <div className={styles["sort"]}>
-          <ProductsSort shouldHide={!isFetching} onChange={updateFilters} />
+          <ProductsSort onChange={updateFilters} />
         </div>
       </div>
       <div className={styles["filters-products"]}>
@@ -65,7 +63,9 @@ const Catalog = ({ categories }: Props) => {
             />
           </div>
         )}
-        {products && <ProductsList products={products} />}
+        {products && (
+          <ProductsList columnCount={itemListColumnCount} products={products} />
+        )}
       </div>
     </>
   );

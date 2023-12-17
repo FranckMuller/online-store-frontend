@@ -6,7 +6,7 @@ import * as Api from "@/api";
 import PreviewImages from "./PreviewImages/PreviewImages";
 import CategoriesSelect from "./CategoriesSelect/CategoriesSelect";
 import type {
-  IEditProductFormData,
+  TEditProductFormData,
   FieldsErrors,
 } from "@/components/templates/EditProduct/hooks/useEditProduct";
 import type {
@@ -19,7 +19,7 @@ import type { ICategories } from "@/interfaces/categories.interface";
 import styles from "./EditProductForm.module.scss";
 
 type Props = {
-  formData: IEditProductFormData;
+  formData: TEditProductFormData;
   changeInput: (
     e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
@@ -53,7 +53,7 @@ const EditProductForm = forwardRef<HTMLDivElement, Props>(
       onChangeCheckbox,
       updateError,
       categories,
-      handleCategoryClick
+      handleCategoryClick,
     },
     errRef
   ) => {
@@ -177,7 +177,7 @@ const EditProductForm = forwardRef<HTMLDivElement, Props>(
             <label>Product categories:</label>
             <CategoriesSelect
               categories={categories}
-              existsCategories={formData.categories}
+              existCategoryId={formData.category?.id}
               handleCategoryClick={handleCategoryClick}
             />
           </div>
@@ -208,6 +208,6 @@ const EditProductForm = forwardRef<HTMLDivElement, Props>(
   }
 );
 
-EditProductForm.displayName = "EditProductForm"
+EditProductForm.displayName = "EditProductForm";
 
 export default EditProductForm;

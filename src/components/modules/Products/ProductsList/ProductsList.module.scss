@@ -4,9 +4,31 @@
   margin-left: -5px;
   margin-right: -5px;
   padding-bottom: 50px;
+  width: 100%;
+  &.col-4 {
+    .item {
+      max-width: 25%;
+    }
+  }
+  &.col-3 {
+    .item {
+      max-width: 33.333333333%;
+    }
+  }
+  &.col-2 {
+    .item {
+      max-width: 25%;
+    }
+  }
+  &.col-1 {
+    .item {
+      max-width: 100%;
+    }
+  }
   .item {
-    flex: 0 0 25%;
-    max-width: 25%;
+    flex-grow: 1;
+    flex-shrink: 1;
+    width: 100%;
     padding: 5px;
   }
 }

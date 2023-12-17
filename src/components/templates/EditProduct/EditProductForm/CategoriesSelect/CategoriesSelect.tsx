@@ -5,27 +5,27 @@ import styles from "./CategoriesSelect.module.scss";
 
 type Props = {
   categories?: ICategories;
-  existsCategories: Array<string>;
+  existCategoryId?: string;
   handleCategoryClick: (id: string) => void;
 };
 
 const CategoriesSelect = ({
   categories,
-  existsCategories,
+  existCategoryId,
   handleCategoryClick,
 }: Props) => {
   if (!categories) return null;
 
   const content = categories.map((c) => {
     const Icon = Icons[c.icon as keyof typeof Icons];
+    let selectedClass = existCategoryId === c.id ? "selected" : "";
+    console.log(existCategoryId)
+
     return (
       <li
         onClick={() => handleCategoryClick(c.id)}
         key={c.id}
-        className={`${styles["category"]} ${
-          
-          existsCategories.includes(c.id) && `${styles["selected"]}`
-        }`}
+        className={`${styles["category"]} ${styles[selectedClass]}`}
       >
         <span className={styles["icon"]}>
           <Icon />

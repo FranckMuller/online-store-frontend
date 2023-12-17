@@ -7,12 +7,11 @@ import ProductRating from "@/components/modules/Products/ProductRating/ProductRa
 import styles from "./PreviewItem.module.scss";
 
 type Props = {
-  product: Omit<IProduct, "images" | "id" | "categories">;
+  product: Omit<IProduct, "images" | "id" | "category">;
 };
 
 // TODO optimize images on mobile
 const PreviewItem = ({ product }: Props) => {
-  
   return (
     <div className={`${styles["product-item"]} product-item`}>
       <div className={styles["content"]}>

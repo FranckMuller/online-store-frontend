@@ -37,7 +37,7 @@ const EditProduct = () => {
     categories,
     handleCategoryClick,
   } = useEditProduct();
-console.log(isLoading)
+
   return (
     <div className={styles["edit-product"]}>
       <PageSpinner isLoading={isLoading} />
