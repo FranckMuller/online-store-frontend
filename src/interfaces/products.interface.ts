@@ -1,4 +1,5 @@
 import type { ICategory } from "./categories.interface";
+import type {IProductReviews} from './reviews.interface'
 
 export interface IProductImage {
   id: string;
@@ -14,6 +15,7 @@ export interface IProduct {
   mainImage: IProductImage;
   published: boolean;
   category?: ICategory;
+  reviews?: IProductReviews
 }
 
 export interface IProductPreviewImage {

@@ -18,7 +18,7 @@ const ProductItem = ({ product }: Props) => {
   return (
     <div className={styles["product-item"]}>
       <div className={styles["content"]}>
-        <Link href={`products/${product.id}`}>
+        <Link href={`catalog/${product.id}`}>
           <div className={styles["image"]}>
             <Image
               src={product.mainImage ? product.mainImage.path : ""}
