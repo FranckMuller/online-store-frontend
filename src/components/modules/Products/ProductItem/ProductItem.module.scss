@@ -30,15 +30,17 @@
       .category {
         color: var(--blue);
         font-size: 12px;
+        margin-bottom: 3px;
       }
 
       .rating {
         display: flex;
         align-items: center;
+        line-height: 0;
+        margin-bottom: 3px;
         .reviews {
           font-size: 11px;
           margin-left: 5px;
-          line-height: 0;
         }
       }
 

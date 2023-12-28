@@ -29,7 +29,7 @@ const PreviewItem = ({ product }: Props) => {
           <h3 className={styles["name"]}>{product.name}</h3>
           <p className={styles["description"]}>{product.description}</p>
           <p className={styles["price"]}>${product.price}</p>
-          <ProductRating />
+          <ProductRating initialValue={4}/>
 
           <div className={styles["button"]}>
             <AddToCartButton productId={`1`} />

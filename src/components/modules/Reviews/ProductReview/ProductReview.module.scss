@@ -1,0 +1,27 @@
+.preview {
+  display: flex;
+  .user-avatar {
+    max-width: 50px;
+    flex: 0 0 50px;
+    margin-right: 10px;
+  }
+  .details {
+    background-color: var(--white);
+    padding: 10px;
+    border-radius: var(--common-br);
+    .rating {
+      margin-bottom: 5px;
+    }
+
+    .text {
+      margin-bottom: 5px;
+      font-size: 14px;
+      color: var(--black);
+    }
+
+    .username {
+      font-size: 13px;
+      color: var(--blue);
+    }
+  }
+}

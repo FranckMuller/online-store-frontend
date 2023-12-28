@@ -1,4 +1,4 @@
-import ProductReview from "@/components/modules/Products/ProductReview/ProductReview";
+import ProductReview from "@/components/modules/Reviews/ProductReview/ProductReview";
 
 import type { IProductReviews } from "@/interfaces/reviews.interface";
 

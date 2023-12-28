@@ -1,12 +1,12 @@
 import { forwardRef } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import Link from 'next/link'
-import { withClickOutside, DropdownProps } from "@/utils/withClickOutside";
-import { useAuth } from "@/hooks/useAuth";
-import * as Api from "@/api";
+import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import AvatarMini from "../AvatarMini/AvatarMini";
+import { useAuth } from "@/hooks/useAuth";
+import { withClickOutside, DropdownProps } from "@/utils/withClickOutside";
+import AvatarMini from "@/components/modules/User/AvatarMini/AvatarMini";
+import * as Api from "@/api";
 
 import styles from "./ProfileDropdown.module.scss";
 

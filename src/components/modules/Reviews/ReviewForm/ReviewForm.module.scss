@@ -1,0 +1,32 @@
+.review-form {
+  margin-top: 20px;
+  .form-wrapper {
+    display: flex;
+
+    .form {
+      flex-grow: 1;
+      flex-shrink: 1;
+      .fields {
+        padding: 10px;
+        border-radius: var(--common-br);
+        background-color: var(--white);
+        margin-right: 10px;
+        margin-bottom: 10px;
+        .rating {
+          margin-bottom: 5px;
+        }
+        textarea {
+          width: 100%;
+        }
+      }
+    }
+
+    .user-avatar {
+      max-width: 50px;
+    }
+  }
+
+  .open-btn {
+    float: right;
+  }
+}

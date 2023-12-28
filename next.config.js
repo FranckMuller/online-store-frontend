@@ -11,14 +11,14 @@ const nextConfig = {
     return config;
   },
   images: {
-    // remotePatterns: [
-    //   {
-    //     protocol: "http",
-    //     hostname: "localhost",
-    //     port: "3500",
-    //     pathname: "/uploads/**",
-    //   },
-    // ],
+    remotePatterns: [
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "3500",
+        pathname: "/uploads/**",
+      },
+    ],
     // domains: ["localhost"],
   },
   async rewrites() {

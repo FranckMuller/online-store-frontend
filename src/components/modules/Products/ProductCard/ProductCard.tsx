@@ -15,7 +15,7 @@ const ProductCard = ({ product }: Props) => {
     <div className={styles["product-card"]}>
       <div className={styles["heading"]}>
         <h3 className={styles["name"]}>{product.name}</h3>
-        <ProductRating />
+        <ProductRating initialValue={4} />
       </div>
       <div className={styles["wrapper"]}>
         <div className={styles["slider"]}>

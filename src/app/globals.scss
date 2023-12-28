@@ -12,7 +12,7 @@
   --gray-light: #dddddd;
   --red: #e91927;
   --yellow: #fecb00;
-  --orange: #FF9507;
+  --orange: #ff9507;
   --yellow-light: #fef3b5;
   --green-light: #05d000;
   --green: #04a700;
@@ -31,9 +31,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  height: 100vh;
   color: var(--black);
-  overflow: hidden;
   &.no-scroll {
     overflow: hidden;
   }
@@ -58,6 +56,11 @@ body {
     color: var(--white);
     padding: 3px 8px;
     border-radius: var(--button-br);
+  }
+
+  .btn-link {
+    color: inherit;
+    text-decoration: underline;
   }
 
   .search-input {

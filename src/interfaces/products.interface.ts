@@ -16,6 +16,7 @@ export interface IProduct {
   published: boolean;
   category?: ICategory;
   reviews?: IProductReviews
+  totalReviews?: number
 }
 
 export interface IProductPreviewImage {

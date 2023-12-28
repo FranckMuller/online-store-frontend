@@ -25,7 +25,6 @@ const ProductItem = ({ product }: Props) => {
               alt={product.name}
               width={150}
               height={150}
-              className="hidden md:block"
             />
 
             <div className={styles["button"]}>
@@ -36,10 +35,14 @@ const ProductItem = ({ product }: Props) => {
 
         <div className={styles["details"]}>
           <h3 className={styles["name"]}>{product.name}</h3>
-          {product.category && <p className={styles["category"]}>{product.category.name}</p>}
+          {product.category && (
+            <p className={styles["category"]}>{product.category.name}</p>
+          )}
           <div className={styles["rating"]}>
-            <ProductRating />
-            <span className={styles["reviews"]}>(2 reviews)</span>
+            <ProductRating initialValue={4} />
+            <span className={styles["reviews"]}>
+              {product.totalReviews} reviews
+            </span>
           </div>
           <p className={styles["price"]}>${product.price}</p>
         </div>
