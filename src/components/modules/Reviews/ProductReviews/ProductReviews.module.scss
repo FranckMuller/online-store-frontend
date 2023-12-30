@@ -1,0 +1,14 @@
+.reviews {
+  .review {
+    & + .review {
+      margin-top: 10px;
+    }
+  }
+
+  .load-more-btn {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}

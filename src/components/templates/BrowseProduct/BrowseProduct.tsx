@@ -17,17 +17,11 @@ const BrowseProduct = ({ product }: Props) => {
         <ProductCard product={product} />
       </div>
       <div className={styles["reviews"]}>
-        {product.reviews && <ProductReviews reviews={product.reviews} />}
+        {product.reviews && <ProductReviews productId={product.id} />}
       </div>
-
-      <div className={styles["load-more-btn"]}>
-        <button className='btn-link'>
-          Load more
-        </button>
-      </div>
-
+      
       <div className={styles["form"]}>
-        <ReviewForm />
+        <ReviewForm productId={product.id} />
       </div>
     </div>
   );

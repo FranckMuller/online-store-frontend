@@ -7,6 +7,7 @@
       flex-grow: 1;
       flex-shrink: 1;
       .fields {
+        position: relative;
         padding: 10px;
         border-radius: var(--common-br);
         background-color: var(--white);
@@ -14,9 +15,45 @@
         margin-bottom: 10px;
         .rating {
           margin-bottom: 5px;
+          display: flex;
+          align-items: center;
         }
         textarea {
           width: 100%;
+        }
+
+        .close-btn {
+          position: absolute;
+          right: 5px;
+          top: 5px;
+        }
+      }
+
+      .submit-button {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &.loading {
+          color: transparent;
+        }
+        .spinner {
+          position: absolute;
+          top: 3px;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+
+      .error-button-wrap {
+        display: flex;
+        align-items: center;
+        button {
+          margin-right: 10px;
         }
       }
     }

@@ -1,5 +1,6 @@
-.preview {
+.review {
   display: flex;
+  position: relative;
   .user-avatar {
     max-width: 50px;
     flex: 0 0 50px;
@@ -9,6 +10,8 @@
     background-color: var(--white);
     padding: 10px;
     border-radius: var(--common-br);
+    flex-grow: 1;
+    flex-shrink: 1;
     .rating {
       margin-bottom: 5px;
     }
@@ -22,6 +25,24 @@
     .username {
       font-size: 13px;
       color: var(--blue);
+    }
+  }
+
+  .controls {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    button {
+      &.edit-btn {
+        color: var(--black);
+      }
+      &.delete-btn {
+        color: var(--red);
+      }
+      svg {
+        width: 15px;
+        height: 15px;
+      }
     }
   }
 }

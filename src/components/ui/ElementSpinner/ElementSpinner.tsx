@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 
-import styles from "./PageSpinner.module.scss";
-
+import styles from "./ElementSpinner.module.scss";
 
 const ElementSpinner = () => {
   return (
