@@ -6,7 +6,7 @@ import styles from "./ProductRating.module.scss";
 type Props = {
   initialValue?: number;
   handleRating?: (rate: number) => void;
-  disabled?: boolean;
+    disabled?: boolean;
 };
 
 const ProductRating = ({

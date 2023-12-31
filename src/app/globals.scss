@@ -12,7 +12,7 @@
   --gray-light: #dddddd;
   --red: #e91927;
   --yellow: #fecb00;
-  --orange: #ff9507;
+  --orange: #fc9802;
   --yellow-light: #fef3b5;
   --green-light: #05d000;
   --green: #04a700;
@@ -59,8 +59,7 @@ body {
   }
 
   .btn-link {
-    color: inherit;
-    text-decoration: underline;
+    color: var(--blue);
   }
 
   .search-input {

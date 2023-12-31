@@ -19,7 +19,7 @@ const BrowseProduct = ({ product }: Props) => {
       <div className={styles["reviews"]}>
         {product.reviews && <ProductReviews productId={product.id} />}
       </div>
-      
+
       <div className={styles["form"]}>
         <ReviewForm productId={product.id} />
       </div>

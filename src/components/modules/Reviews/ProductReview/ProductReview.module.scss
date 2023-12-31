@@ -1,5 +1,6 @@
 .review {
   display: flex;
+  flex-wrap: wrap;
   position: relative;
   .user-avatar {
     max-width: 50px;
@@ -22,22 +23,56 @@
       color: var(--black);
     }
 
+    .textarea-field {
+      textarea {
+        width: 100%;
+        font-family: inherit;
+        font-size: 14px;
+      }
+    }
+
     .username {
       font-size: 13px;
       color: var(--blue);
+    }
+
+    .edit-controls {
+      display: flex;
+      .save-btn {
+        padding: 3px 8px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &.loading {
+          color: transparent;
+        }
+        .spinner {
+          position: absolute;
+          top: 3px;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      
+      }
     }
   }
 
   .controls {
     position: absolute;
-    right: 5px;
-    top: 5px;
+    right: 3px;
+    top: 3px;
     button {
+      padding: 2px;
       &.edit-btn {
-        color: var(--black);
+        color: var(--blue);
       }
       &.delete-btn {
-        color: var(--red);
+        color: var(--orange);
       }
       svg {
         width: 15px;

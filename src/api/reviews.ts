@@ -35,3 +35,8 @@ export const deleteOne = async (id: string) => {
   );
   return response.data;
 };
+
+export const update = async (data: ReviewData, reviewId: string) => {
+  const response = await apiInstance.patch<IProductReview>(`reviews/${reviewId}`, data);
+  return response.data;
+};

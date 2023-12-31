@@ -40,6 +40,7 @@ const ProductReviews = ({ productId }: Props) => {
             deleteReview={deleteReview}
             userId={user?.id}
             review={r}
+            productId={productId}
           />
         </div>
       ))}

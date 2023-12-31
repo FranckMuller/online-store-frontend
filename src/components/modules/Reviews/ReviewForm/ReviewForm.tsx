@@ -39,7 +39,6 @@ const ReviewForm = ({ productId }: Props) => {
       });
     },
     onError: (err) => {
-      console.log(err);
       if (err && isAxiosError(err)) {
         setServerError(err.response?.data?.message);
       }
@@ -48,28 +47,28 @@ const ReviewForm = ({ productId }: Props) => {
 
   if (!user) return null;
 
+  const resetErrors = () => {
+    if (error) {
+      setError("");
+    }
+    if (serverError) {
+      setServerError("");
+    }
+  };
+
   const toggleForm = () => {
+    resetErrors();
     setIsShowed(!isShowed);
   };
 
   const onClickRating = (rate: number) => {
-    if (error) {
-      setError("");
-    }
-
-    if (serverError) {
-      setServerError("");
-    }
-
+    resetErrors();
     setRating(rate);
   };
 
   const onTextChange = (e: React.FormEvent<HTMLTextAreaElement>) => {
+    resetErrors();
     setText(e.currentTarget.value);
-
-    if (serverError) {
-      setServerError("");
-    }
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -94,7 +93,7 @@ const ReviewForm = ({ productId }: Props) => {
                   initialValue={rating}
                 />
 
-                {error && <Error style={{marginLeft: '5px'}} text={error} />}
+                {error && <Error style={{ marginLeft: "5px" }} text={error} />}
               </div>
 
               <div className={styles["form-group"]}>
