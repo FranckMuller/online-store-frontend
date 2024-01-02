@@ -32,10 +32,15 @@ const ReviewForm = ({ productId }: Props) => {
     mutationFn: (data: ReviewData) => Api.reviews.create(data, productId),
     onSuccess: (data) => {
       queryClient.setQueryData(["reviews", productId], (prev: any) => {
+        
         setRating(0);
         setText("");
         setIsShowed(false);
-        return prev ? [data, ...prev] : [data];
+        return {
+          pages: [{ results: [data] }, ...prev.pages],
+          pageParams: [...prev.pageParams],
+        };
+        // return prev ? [data, ...prev] : [data];
       });
     },
     onError: (err) => {

@@ -1,6 +1,9 @@
 "use client";
 
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  
+} from "@tanstack/react-query";
 import { useUser } from "@/hooks/useUser";
 import * as Api from "@/api";
 
@@ -15,18 +18,17 @@ type Props = {
 };
 
 const ProductReviews = ({ productId }: Props) => {
-  const queryClient = useQueryClient();
   const user = useUser();
-  const { data: reviews, isLoading } = useQuery(["reviews", productId], {
-    queryFn: () => Api.reviews.getAllByProduct(productId),
-  });
+  const {
+    data: reviews,
+    fetchNextPage,
+    hasNextPage,
+  } = useInfiniteQuery(["reviews", productId], {
+    queryFn: ({ pageParam = 1 }) =>
+      Api.reviews.getAllByProduct({ pageParam, productId }),
 
-  const { mutate: deleteReview } = useMutation({
-    mutationFn: (id: string) => Api.reviews.deleteOne(id),
-    onSuccess: ({ id }) => {
-      queryClient.setQueryData(["reviews", productId], (prev: any) => {
-        return prev.filter((e: IProductReview) => e.id !== id);
-      });
+    getNextPageParam: (lastPage, pages) => {
+      return lastPage.offset;
     },
   });
 
@@ -34,19 +36,26 @@ const ProductReviews = ({ productId }: Props) => {
 
   return (
     <div className={styles["reviews"]}>
-      {reviews.map((r) => (
-        <div key={r.id} className={styles["review"]}>
-          <ProductReview
-            deleteReview={deleteReview}
-            userId={user?.id}
-            review={r}
-            productId={productId}
-          />
-        </div>
-      ))}
+      {reviews?.pages ? (
+        reviews.pages.map((p) => {
+          return p.results.map((r) => (
+            <div key={r.id} className={styles["review"]}>
+              <ProductReview
+                userId={user?.id}
+                review={r}
+                productId={productId}
+              />
+            </div>
+          ));
+        })
+      ) : (
+        <div>no reviews</div>
+      )}
 
       <div className={styles["load-more-btn"]}>
-        <button className="btn-link">Load more</button>
+        <button onClick={() => fetchNextPage()} className="btn-link">
+          Load more
+        </button>
       </div>
     </div>
   );

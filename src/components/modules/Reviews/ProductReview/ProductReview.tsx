@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import * as Api from "@/api";
+import { useReviews } from "../hooks/useReviews";
 
 import ProductRating from "@/components/modules/Products/ProductRating/ProductRating";
 import ElementSpinner from "@/components/ui/ElementSpinner/ElementSpinner";
@@ -11,39 +10,24 @@ import Error from "@/components/ui/Error/Error";
 import { MdDelete, MdEdit } from "react-icons/md";
 
 import type { IProductReview } from "@/interfaces/reviews.interface";
-import type { ReviewData } from "@/api/reviews";
 
 import styles from "./ProductReview.module.scss";
 
 type Props = {
   review: IProductReview;
   userId?: string | null;
-  deleteReview: (id: string) => void;
   productId: string;
 };
 
-const ProductReview = ({
-  review,
-  userId = null,
-  deleteReview,
-  productId,
-}: Props) => {
-  const queryClient = useQueryClient();
-  const { mutate: updateReview, isLoading } = useMutation({
-    mutationFn: (data: ReviewData) => Api.reviews.update(data, review.id),
-    onSuccess: (review: IProductReview) => {
-      queryClient.setQueryData(["reviews", productId], (old: any) =>
-        old.map((r: IProductReview) => {
-          if (r.id === review.id) return review;
-          return r;
-        })
-      );
-      setIsEditMode(false);
-    },
-  });
-
+const ProductReview = ({ review, userId = null, productId }: Props) => {
+  const {
+    deleteReview,
+    updateReview,
+    isUpdateLoading,
+    isEditMode,
+    setIsEditMode,
+  } = useReviews(productId);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-  const [isEditMode, setIsEditMode] = useState(false);
   const [rating, setRating] = useState(0);
   const [text, setText] = useState("");
   const [serverError, setServerError] = useState("");
@@ -81,7 +65,7 @@ const ProductReview = ({
   };
 
   const onUpdate = (e: React.MouseEvent<HTMLButtonElement>) => {
-    updateReview({ rating, text });
+    updateReview({ rating, text, reviewId: review.id });
   };
 
   const isRatingDisabled = isEditMode ? false : true;
@@ -123,13 +107,13 @@ const ProductReview = ({
                 <div className={styles["button-wrap"]}>
                   <button
                     onClick={onUpdate}
-                    disabled={isLoading}
+                    disabled={isUpdateLoading}
                     className={`${styles["save-btn"]} btn-secondary ${
-                      isLoading ? styles["loading"] : ""
+                      isUpdateLoading ? styles["loading"] : ""
                     }`}
                   >
                     Save
-                    {isLoading && (
+                    {isUpdateLoading && (
                       <div className={styles["spinner"]}>
                         <ElementSpinner />
                       </div>

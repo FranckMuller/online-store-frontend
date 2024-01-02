@@ -5,9 +5,22 @@ import type {
   IProductReviews,
 } from "@/interfaces/reviews.interface";
 
-export type ReviewData = {
+import type { QueryFunctionContext } from "@tanstack/react-query";
+
+const LIMIT = 2;
+
+export interface ReviewData {
   rating: number;
   text?: string;
+}
+
+export interface IUpdateReviewData extends ReviewData {
+  reviewId: string;
+}
+
+type ReviewDataResponse = {
+  results: IProductReviews;
+  offset: number | null;
 };
 
 export type DeleteReviewResponse = {
@@ -22,11 +35,29 @@ export const create = async (data: ReviewData, productId: string) => {
   return response.data;
 };
 
-export const getAllByProduct = async (productId: string) => {
+// export const getAllByProduct = async (productId: string) => {
+//   const response = await apiInstance.get<IProductReviews>(
+//     `reviews/${productId}`
+//   );
+//   return response.data;
+// };
+
+export const getAllByProduct = async ({
+  pageParam,
+  productId,
+}: {
+  pageParam: number;
+  productId: string;
+}) => {
+  const offset = pageParam ? pageParam : 0;
   const response = await apiInstance.get<IProductReviews>(
-    `reviews/${productId}`
+    `reviews/${productId}?page=${offset}&limit=${LIMIT}`
   );
-  return response.data;
+
+  return {
+    results: response.data,
+    offset: offset + LIMIT,
+  };
 };
 
 export const deleteOne = async (id: string) => {
@@ -36,7 +67,11 @@ export const deleteOne = async (id: string) => {
   return response.data;
 };
 
-export const update = async (data: ReviewData, reviewId: string) => {
-  const response = await apiInstance.patch<IProductReview>(`reviews/${reviewId}`, data);
+export const update = async (data: IUpdateReviewData) => {
+  const {reviewId, ...reviewData} = data
+  const response = await apiInstance.patch<IProductReview>(
+    `reviews/${reviewId}`,
+    reviewData
+  );
   return response.data;
 };
