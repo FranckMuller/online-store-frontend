@@ -1,13 +1,11 @@
 "use client";
 
-import {
-  useInfiniteQuery,
-  
-} from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { useUser } from "@/hooks/useUser";
 import * as Api from "@/api";
 
 import ProductReview from "../ProductReview/ProductReview";
+import ElementSpinner from "@/components/ui/ElementSpinner/ElementSpinner";
 
 import type { IProductReview } from "@/interfaces/reviews.interface";
 
@@ -23,9 +21,10 @@ const ProductReviews = ({ productId }: Props) => {
     data: reviews,
     fetchNextPage,
     hasNextPage,
+    isFetchingNextPage,
   } = useInfiniteQuery(["reviews", productId], {
-    queryFn: ({ pageParam = 1 }) =>
-      Api.reviews.getAllByProduct({ pageParam, productId }),
+    queryFn: ({ pageParam = 0 }) =>
+      Api.reviews.getAllByProduct({ offset: pageParam, productId }),
 
     getNextPageParam: (lastPage, pages) => {
       return lastPage.offset;
@@ -52,11 +51,18 @@ const ProductReviews = ({ productId }: Props) => {
         <div>no reviews</div>
       )}
 
-      <div className={styles["load-more-btn"]}>
-        <button onClick={() => fetchNextPage()} className="btn-link">
-          Load more
-        </button>
-      </div>
+      {hasNextPage && (
+        <div className={styles["load-more-btn"]}>
+          {isFetchingNextPage && <ElementSpinner />}
+          <button
+            disabled={!hasNextPage || isFetchingNextPage}
+            onClick={() => fetchNextPage()}
+            className="btn-link"
+          >
+            Load more
+          </button>
+        </div>
+      )}
     </div>
   );
 };

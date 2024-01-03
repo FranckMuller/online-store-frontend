@@ -27,6 +27,11 @@ export type DeleteReviewResponse = {
   id: string;
 };
 
+type IPaginateReviewsResponse = {
+  reviews: IProductReviews;
+  offset: number | undefined;
+};
+
 export const create = async (data: ReviewData, productId: string) => {
   const response = await apiInstance.post<IProductReview>(
     `reviews/${productId}`,
@@ -35,28 +40,20 @@ export const create = async (data: ReviewData, productId: string) => {
   return response.data;
 };
 
-// export const getAllByProduct = async (productId: string) => {
-//   const response = await apiInstance.get<IProductReviews>(
-//     `reviews/${productId}`
-//   );
-//   return response.data;
-// };
-
 export const getAllByProduct = async ({
-  pageParam,
+  offset,
   productId,
 }: {
-  pageParam: number;
+  offset: number;
   productId: string;
 }) => {
-  const offset = pageParam ? pageParam : 0;
-  const response = await apiInstance.get<IProductReviews>(
-    `reviews/${productId}?page=${offset}&limit=${LIMIT}`
+  const response = await apiInstance.get<IPaginateReviewsResponse>(
+    `reviews/${productId}?offset=${offset}&limit=${LIMIT}`
   );
 
   return {
-    results: response.data,
-    offset: offset + LIMIT,
+    results: response.data.reviews,
+    offset: response.data.offset,
   };
 };
 
@@ -68,7 +65,7 @@ export const deleteOne = async (id: string) => {
 };
 
 export const update = async (data: IUpdateReviewData) => {
-  const {reviewId, ...reviewData} = data
+  const { reviewId, ...reviewData } = data;
   const response = await apiInstance.patch<IProductReview>(
     `reviews/${reviewId}`,
     reviewData
