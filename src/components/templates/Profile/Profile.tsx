@@ -7,6 +7,7 @@ import { useAuth } from "@/hooks/useAuth";
 
 import ProfileAvatar from "./ProfileAvatar/ProfileAvatar";
 import PageSpinner from "@/components/ui/PageSpinner/PageSpinner";
+import UploadProfileAvatar from "@/components/modules/UploadProfileAvatar/UploadProfileAvatar";
 
 import * as Api from "@/api";
 
@@ -23,7 +24,6 @@ const Profile = () => {
     error: queryUserError,
   } = useQuery<IFullestUser, AxiosError<ErrorResponse>>(["profile"], {
     queryFn: () => Api.users.getById(user?.id as string),
-
     enabled: !!user?.id,
   });
 
@@ -36,6 +36,7 @@ const Profile = () => {
       {data && (
         <div className={styles["profile"]}>
           <ProfileAvatar avatar={data.avatar} />
+          <UploadProfileAvatar />
           <div>
             <div>{data.username}</div>
             <div>{data.email}</div>

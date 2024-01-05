@@ -1,3 +1,5 @@
+import { useState, useCallback } from "react";
+
 import styles from "./ProfileAvatar.module.scss";
 
 type Props = {

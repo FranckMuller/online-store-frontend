@@ -1,0 +1,58 @@
+.cropper-wrapper {
+  text-align: center;
+  display: flex;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.cropper {
+  position: relative;
+  width: 70vw;
+}
+
+.viewer-wrapper {
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 0 10px;
+  .viewer {
+    flex-grow: 1;
+    flex-shrink: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.controls {
+  display: flex;
+  padding: 10px 0;
+  button {
+    flex-grow: 1;
+    flex-shrink: 1;
+    width: 100%;
+    & + button {
+      margin-left: 5px;
+    }
+  }
+}
+.output {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  box-shadow: 0 0 32px rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+}
+
+.output img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: top left;
+}
