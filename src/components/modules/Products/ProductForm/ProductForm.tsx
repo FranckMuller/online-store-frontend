@@ -39,7 +39,6 @@ const ProductForm = () => {
     e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const target = e.currentTarget ?? e.target;
-    console.log(target);
     setFormData((prev) => ({
       ...prev,
       [target.name]: target.value,
@@ -58,7 +57,7 @@ const ProductForm = () => {
     e.preventDefault();
     const { name, description, price } = formData;
     const isValid = images && name && description && price;
-    console.log(formData);
+    
     let data = new FormData();
     if (isValid) {
       try {

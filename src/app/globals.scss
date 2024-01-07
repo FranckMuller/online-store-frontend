@@ -58,6 +58,12 @@ body {
     border-radius: var(--button-br);
   }
 
+  .btn-outline-theme {
+    padding: 5px 10px;
+    border: 1px solid var(--black);
+    color: inherit;
+  }
+
   .btn-link {
     color: var(--blue);
   }
@@ -94,6 +100,10 @@ body {
           color: var(--white);
         }
       }
+    }
+
+    .btn-outline-theme {
+      border-color: var(--white);
     }
   }
 }

@@ -11,7 +11,7 @@ const AvatarMini = ({ avatar }: Props) => {
   return (
     <div className={styles["avatar-mini"]}>
       {avatar ? (
-        <Image alt="avatar" width={1000} height={1000} src={avatar} />
+        <Image alt="avatar" width={25} height={25} src={avatar} />
       ) : (
         <FaUser />
       )}

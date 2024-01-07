@@ -9,6 +9,11 @@ type Props = {
   crop: { x: number; y: number };
   zoom: number;
   aspect: number;
+  classes?: {
+    containerClassName?: string;
+    mediaClassName?: string;
+    cropAreaClassName?: string;
+  };
   onZoomChange: (value: number) => void;
   onCropChange: (crop: { x: number; y: number }) => void;
   onCropComplete: (croppedArea: Area, croppedAreaPixels: Area) => void;

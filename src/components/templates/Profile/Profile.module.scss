@@ -1,3 +1,15 @@
 .profile {
   padding: 10px 10px 20px 20px;
+  display: flex;
+  .avatar {
+    margin-bottom: 10px;
+  }
+
+  .upload-avatar {
+    margin-bottom: 20px;
+  }
+
+  .details {
+    padding-left: 30px;
+  }
 }

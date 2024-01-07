@@ -1,14 +1,18 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useUser } from "@/hooks/useUser";
+
 import { isAxiosError } from "axios";
-import * as Api from "@/api";
-import { IoClose } from "react-icons/io5";
-import AvatarMini from "@/components/modules/User/AvatarMini/AvatarMini";
+
+import { useUser } from "@/hooks/useUser";
+
+import AvatarMini from "@/components/modules/Profile/AvatarMini/AvatarMini";
 import ProductRating from "@/components/modules/Products/ProductRating/ProductRating";
-import ElementSpinner from "@/components/ui/ElementSpinner/ElementSpinner";
+import ElementSpinner from "@/components/ui/ElementSpinner/ElementSpinner"; 
 import Error from "@/components/ui/Error/Error";
+import { IoClose } from "react-icons/io5";
+
+import * as Api from "@/api";
 
 import type { ReviewData } from "@/api/reviews";
 import type { IProductReviews } from "@/interfaces/reviews.interface";
@@ -32,7 +36,6 @@ const ReviewForm = ({ productId }: Props) => {
     mutationFn: (data: ReviewData) => Api.reviews.create(data, productId),
     onSuccess: (data) => {
       queryClient.setQueryData(["reviews", productId], (prev: any) => {
-        
         setRating(0);
         setText("");
         setIsShowed(false);

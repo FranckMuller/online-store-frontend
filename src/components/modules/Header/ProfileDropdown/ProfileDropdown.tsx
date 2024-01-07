@@ -1,11 +1,14 @@
 import { forwardRef } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
+
 import { useAuth } from "@/hooks/useAuth";
 import { withClickOutside, DropdownProps } from "@/utils/withClickOutside";
-import AvatarMini from "@/components/modules/User/AvatarMini/AvatarMini";
+
+import Link from "next/link";
+import AvatarMini from "@/components/modules/Profile/AvatarMini/AvatarMini";
+
 import * as Api from "@/api";
 
 import styles from "./ProfileDropdown.module.scss";
@@ -39,7 +42,7 @@ const ProfileDropdown = forwardRef<HTMLDivElement, DropdownProps & Props>(
     return (
       <div ref={ref} className={styles["profile-dropdown"]}>
         <div onClick={toggle}>
-          <AvatarMini />
+          <AvatarMini avatar={user.avatarMini} />
         </div>
         <AnimatePresence>
           {opened && (

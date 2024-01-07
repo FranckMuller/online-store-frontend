@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useProfileAvatar } from "@/hooks/useProfileAvatar";
 import { useAuth } from "@/hooks/useAuth";
 
-import ProfileAvatar from "./ProfileAvatar/ProfileAvatar";
+import ProfileAvatar from "@/components/modules/Profile/ProfileAvatar/ProfileAvatar";
 import PageSpinner from "@/components/ui/PageSpinner/PageSpinner";
 import UploadProfileAvatar from "@/components/modules/UploadProfileAvatar/UploadProfileAvatar";
 
@@ -35,9 +35,15 @@ const Profile = () => {
     <>
       {data && (
         <div className={styles["profile"]}>
-          <ProfileAvatar avatar={data.avatar} />
-          <UploadProfileAvatar />
-          <div>
+          <div className={styles["avatar-wrapper"]}>
+            <div className={styles["avatar"]}>
+              <ProfileAvatar avatar={data.avatar} />
+            </div>
+            <div className={styles["upload-avatar"]}>
+              <UploadProfileAvatar />
+            </div>
+          </div>
+          <div className={styles["details"]}>
             <div>{data.username}</div>
             <div>{data.email}</div>
           </div>

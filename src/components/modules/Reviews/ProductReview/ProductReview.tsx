@@ -4,7 +4,7 @@ import { useReviews } from "../hooks/useReviews";
 
 import ProductRating from "@/components/modules/Products/ProductRating/ProductRating";
 import ElementSpinner from "@/components/ui/ElementSpinner/ElementSpinner";
-import AvatarMini from "@/components/modules/User/AvatarMini/AvatarMini";
+import AvatarMini from "@/components/modules/Profile/AvatarMini/AvatarMini";
 import Error from "@/components/ui/Error/Error";
 
 import { MdDelete, MdEdit } from "react-icons/md";

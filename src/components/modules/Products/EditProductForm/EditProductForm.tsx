@@ -158,15 +158,16 @@ const EditProductForm = forwardRef<HTMLDivElement, Props>(
               images={previewImages}
             />
 
-            <div>
-              <button
-                type="button"
-                onClick={onUploadFile}
-                className={styles["upload-button"]}
-              >
-                Choose images
-              </button>
-            </div>
+<div>
+
+            <button
+              type="button"
+              onClick={onUploadFile}
+              className={styles["upload-button"]}
+            >
+              Choose images
+            </button>
+</div>
 
             {fieldsErrors.images && (
               <span className={styles["error-msg"]}>{fieldsErrors.images}</span>

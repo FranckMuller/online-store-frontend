@@ -1,11 +1,14 @@
 "use client";
 import { useState, useEffect } from "react";
 import axios from "axios";
+
 import { useEditProduct } from "./hooks/useEditProduct";
+
+import PreviewItem from "@/components/modules/Products/PreviewItem/PreviewItem";
 import ProductCard from "@/components/modules/Products/ProductCard/ProductCard";
-import PreviewItem from "./PreviewItem/PreviewItem";
-import EditProductForm from "./EditProductForm/EditProductForm";
+import EditProductForm from "@/components/modules/Products/EditProductForm/EditProductForm";
 import PageSpinner from "@/components/ui/PageSpinner/PageSpinner";
+
 import type { AxiosError } from "axios";
 
 import styles from "./EditProduct.module.scss";
