@@ -1,6 +1,8 @@
 import { useState, useRef } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
+import { useAppDispatch } from "@/hooks/useAppDispatch";
+import { setAvatarMini } from "@/store/auth/auth.slice";
 import CropperImage from "@/components/modules/CropperImage/CropperImage";
 
 import { IoMdClose } from "react-icons/io";
@@ -25,11 +27,18 @@ const Output = ({ imageSrc }: { imageSrc: string }) => {
 };
 
 const UploadProfileAvatar = () => {
+  const queryClient = useQueryClient();
+  const dispatch = useAppDispatch();
   const inputFileRef = useRef<HTMLInputElement>(null);
 
   const { mutate: updateAvatar, isLoading } = useMutation({
     mutationFn: (data: FormData) => Api.users.updateAvatar(data),
-    onSuccess: () => reset(),
+    onSuccess: (avatar) => {
+      console.log(avatar);
+      reset();
+      queryClient.invalidateQueries(["profile"]);
+      dispatch(setAvatarMini(avatar));
+    },
   });
 
   const [crop, setCrop] = useState({ x: 0, y: 0 });

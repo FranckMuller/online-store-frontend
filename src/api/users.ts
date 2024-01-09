@@ -8,9 +8,9 @@ export const getById = async (id: string) => {
   return response.data;
 };
 
-export const updateAvatar = async (data: FormData) => {  
-  console.log(data.get("avatar"));
-  return await apiInstance.post("users/update-avatar", data, {
+export const updateAvatar = async (data: FormData) => {
+  const response = await apiInstance.post<string>("users/update-avatar", data, {
     headers: { "Content-Type": "multipart/form-data" },
   });
+  return response.data;
 };

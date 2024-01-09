@@ -2,12 +2,10 @@ import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 import logger from "redux-logger";
 import authReducer from "./auth/auth.slice";
-import profileReducer from "./profile/profile.slice";
 import themeReducer from "./theme/theme.slice";
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  profile: profileReducer,
   theme: themeReducer,
 });
 

@@ -1,7 +1,7 @@
 import { useAppSelector } from "./useAppSelector";
-import { selectUserAvatar } from "@/store/profile/profile.selectors";
+import { selectUserAvatarMini } from "@/store/auth/auth.selectors";
 
 export const useProfileAvatar = () => {
-  const avatar = useAppSelector(selectUserAvatar);
-  return avatar;
+  const avatarMini = useAppSelector(selectUserAvatarMini);
+  return avatarMini;
 };

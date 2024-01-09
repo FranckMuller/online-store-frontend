@@ -17,9 +17,14 @@ const authSlice = createSlice({
     setCredentials: (state, { payload }: PayloadAction<IUser | null>) => {
       state.user = payload;
     },
+    setAvatarMini: (state, { payload }: PayloadAction<string>) => {
+      if(state.user) {
+      state.user.avatarMini = payload;
+      }
+    },
   },
 });
 
-export const { setCredentials } = authSlice.actions;
+export const { setCredentials, setAvatarMini } = authSlice.actions;
 
 export default authSlice.reducer;

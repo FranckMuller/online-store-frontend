@@ -6,6 +6,14 @@ export interface IUser {
 }
 
 export interface IFullestUser extends IUser {
-  phone: string;
   avatar: string;
+  phone?: string;
+  address?: string;
+  socialNetworks?: {
+    telegram?: string;
+    instagram?: string;
+    vk?: string;
+  };
+  website?: string;
+  delivery?: string;
 }

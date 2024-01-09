@@ -1,11 +1,12 @@
 import { useEffect, useState, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
-import * as Api from "@/api";
 import { useAppDispatch } from "./useAppDispatch";
 import { useAppSelector } from "./useAppSelector";
 import { selectUser } from "@/store/auth/auth.selectors";
 import { setCredentials } from "@/store/auth/auth.slice";
+
+import * as Api from "@/api";
+
 import type { IAuthResponse } from "@/api/auth";
 import type { AxiosError } from "axios";
 

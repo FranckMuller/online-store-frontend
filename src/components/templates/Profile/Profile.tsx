@@ -7,7 +7,8 @@ import { useAuth } from "@/hooks/useAuth";
 
 import ProfileAvatar from "@/components/modules/Profile/ProfileAvatar/ProfileAvatar";
 import PageSpinner from "@/components/ui/PageSpinner/PageSpinner";
-import UploadProfileAvatar from "@/components/modules/UploadProfileAvatar/UploadProfileAvatar";
+import UploadProfileAvatar from "@/components/modules/Profile/UploadProfileAvatar/UploadProfileAvatar";
+import ProfileInfo from "@/components/modules/Profile/ProfileInfo/ProfileInfo";
 
 import * as Api from "@/api";
 
@@ -44,8 +45,7 @@ const Profile = () => {
             </div>
           </div>
           <div className={styles["details"]}>
-            <div>{data.username}</div>
-            <div>{data.email}</div>
+            <ProfileInfo profile={data} />
           </div>
         </div>
       )}
