@@ -1,5 +1,6 @@
 import PriceFilter from "./PriceFilter/PriceFilter";
 import CategoryFilter from "./CategoryFilter/CategoryFilter";
+import RatingFilter from "./RatingFilter/RatingFilter";
 
 import type { IProductsFilters } from "@/interfaces/products.interface";
 import type { ICategories } from "@/interfaces/categories.interface";
@@ -26,12 +27,17 @@ const ProductsFilters = ({
           updateFilters={updateFilters}
         />
       </div>
-      <div className={styles["category"]}>
-        <CategoryFilter
-          value={filtersParams.category}
-          updateFilters={updateFilters}
-          categories={categories}
-        />
+      {categories && (
+        <div className={styles["category"]}>
+          <CategoryFilter
+            value={filtersParams.category}
+            updateFilters={updateFilters}
+            categories={categories}
+          />
+        </div>
+      )}
+      <div className={styles["rating"]}>
+        <RatingFilter currentValue={filtersParams.rating} updateFilters={updateFilters} />
       </div>
     </div>
   );

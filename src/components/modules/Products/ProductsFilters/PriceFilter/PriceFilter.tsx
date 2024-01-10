@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
 import {
-  useProductsFilters,
   EProductsFilterKeys,
 } from "@/hooks/products/useProductsFilters";
 
@@ -49,9 +48,9 @@ const PriceFilter = ({
       timeoutId = setTimeout(() => {
         updateFilters(EProductsFilterKeys.MinPrice, fromValue);
       }, 1000);
-    return () => {
-      clearTimeout(timeoutId);
-    };
+      return () => {
+        clearTimeout(timeoutId);
+      };
     }
   }, [fromValue]);
 
@@ -62,13 +61,11 @@ const PriceFilter = ({
       timeoutId = setTimeout(() => {
         updateFilters(EProductsFilterKeys.MaxPrice, toValue);
       }, 1000);
-      
-      
-    return () => {
-      clearTimeout(timeoutId);
-    };
-    }
 
+      return () => {
+        clearTimeout(timeoutId);
+      };
+    }
   }, [toValue]);
 
   useEffect(() => {

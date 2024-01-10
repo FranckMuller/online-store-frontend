@@ -13,6 +13,7 @@ export enum EProductsFilterKeys {
   MaxPrice = "maxPrice",
   MinPrice = "minPrice",
   Category = "category",
+  Rating = "rating",
 }
 
 export const useProductsFilters = () => {
@@ -23,6 +24,7 @@ export const useProductsFilters = () => {
     category: EProductsFilterKeys.Category,
     minPrice: EProductsFilterKeys.MinPrice,
     maxPrice: EProductsFilterKeys.MaxPrice,
+    rating: EProductsFilterKeys.Category
   });
 
   useEffect(() => {
@@ -35,6 +37,7 @@ export const useProductsFilters = () => {
   }, [searchParams]);
 
   const updateFilters = (key: keyof IProductsFilters, value: string) => {
+    console.log(value)
     if (value) {
       setParams({
         [key]: value,

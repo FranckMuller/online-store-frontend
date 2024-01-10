@@ -1,5 +1,5 @@
 import type { ICategory } from "./categories.interface";
-import type {IProductReviews} from './reviews.interface'
+import type { IProductReviews } from "./reviews.interface";
 
 export interface IProductImage {
   id: string;
@@ -15,8 +15,8 @@ export interface IProduct {
   mainImage: IProductImage;
   published: boolean;
   category?: ICategory;
-  reviews?: IProductReviews
-  totalReviews?: number
+  reviews?: IProductReviews;
+  totalReviews?: number;
 }
 
 export interface IProductPreviewImage {
@@ -31,6 +31,8 @@ export enum EProductsSort {
   Newest = "newest",
   Oldest = "oldest",
 }
+
+export type TRatingFilterValue = 1 | 2 | 3 | 4 | 5;
 
 export interface IProductsFilters {
   sort?: EProductsSort | string;

@@ -1,9 +1,10 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useProfileAvatar } from "@/hooks/useProfileAvatar";
 import { useAuth } from "@/hooks/useAuth";
+import { handleAxiosError } from "@/utils/errors.utils";
 
 import ProfileAvatar from "@/components/modules/Profile/ProfileAvatar/ProfileAvatar";
 import PageSpinner from "@/components/ui/PageSpinner/PageSpinner";
@@ -17,18 +18,29 @@ import type { AxiosError } from "axios";
 import styles from "./Profile.module.scss";
 
 const Profile = () => {
-  const { user, isAuthChecking, error: checkAuthError } = useAuth();
+  const [serverError, setServerError] = useState("");
+  const { user, isAuthChecking, authError } = useAuth();
+
   const {
     data,
     isLoading,
     isSuccess,
     error: queryUserError,
-  } = useQuery<IFullestUser, AxiosError<ErrorResponse>>(["profile"], {
-    queryFn: () => Api.users.getById(user?.id as string),
+  } = useQuery(["profile"], {
+    queryFn: () => {
+      if (user?.id) {
+        return Api.users.getById(user.id);
+      }
+    },
+    onError: (err) => {
+      const error = handleAxiosError(err)
+        setServerError(error);
+      
+    },
     enabled: !!user?.id,
   });
 
-  const error = queryUserError || checkAuthError || "";
+  const error = serverError || authError || "";
   const loading = isAuthChecking && isLoading && !user?.id;
   if (loading) return <PageSpinner isLoading={loading} />;
 
@@ -49,7 +61,7 @@ const Profile = () => {
           </div>
         </div>
       )}
-      {error && error.response && <div>{error.response.data.message}</div>}
+      {error && <div>{error}</div>}
     </>
   );
 };

@@ -12,6 +12,7 @@ type Props = {
 };
 
 const CategoryFilter = ({ updateFilters, categories, value }: Props) => {
+  if(!categories) return null
   return (
     <div className={styles["category-filter"]}>
       <h4 className={styles["title"]}>Categories</h4>
