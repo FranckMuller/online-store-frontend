@@ -1,6 +1,6 @@
 :root {
   --main-bg: #f6f7fb;
-  --main-black: #001d34;
+  --main-bg-dark: #001d34;
   --black: #333333;
   --blue: #3562bd;
   --blue-dark: #003495;
@@ -27,7 +27,7 @@
 }
 
 body {
-  background-color: var(--main-black);
+  background-color: var(--main-bg-dark);
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -36,45 +36,8 @@ body {
     overflow: hidden;
   }
 
-  .header {
-    background-color: var(--main-black);
-  }
-
-  .product-item {
-    background-color: var(--white);
-  }
-
-  .btn-primary {
-    background-color: var(--blue);
-    color: var(--white);
-    padding: 5px 10px;
-    border-radius: var(--button-br);
-  }
-
-  .btn-secondary {
-    background-color: var(--yellow);
-    color: var(--white);
-    padding: 5px 10px;
-    border-radius: var(--button-br);
-  }
-
-  .btn-outline-theme {
-    padding: 5px 10px;
-    border: 1px solid var(--black);
-    color: inherit;
-  }
-
-  .btn-link {
-    color: var(--blue);
-  }
-
-  .search-input {
-    border: 1px solid var(--gray-dark);
-    input {
-      &::placeholder {
-        color: var(--gray-dark);
-      }
-    }
+  .content-page {
+    background-color: var(--main-bg-dark);
   }
 
   .theme-bg {
@@ -83,14 +46,13 @@ body {
 
   &.dark_mode {
     color: var(--white);
-    background-color: var(--main-black);
 
     .profile-page-menu {
       box-shadow: 4px -1px 15px -8px rgba(255, 255, 255, 0.3);
     }
 
     .theme-bg {
-      background-color: var(--main-black);
+      background-color: var(--main-bg-dark);
     }
 
     .search-input {
@@ -104,6 +66,20 @@ body {
 
     .btn-outline-theme {
       border-color: var(--white);
+    }
+
+    .pulse-skeleton__white-dark {
+      $from: #8c8c8c;
+      $to: scale-color($from, $lightness: -10%);
+      background: linear-gradient(
+        -90deg,
+        var(--gray) 0%,
+        var(--gray-dark) 50%,
+        var(--gray) 100%
+      );
+      background-size: 400% 400%;
+      animation: pulse 1.2s ease-in-out infinite;
+      color: transparent;
     }
   }
 }
@@ -135,36 +111,45 @@ img {
   height: auto;
 }
 
-.dark_mode {
-  .theme_main-bg {
-    background-color: var(--black);
-  }
-
-  .theme_main-bg-inversion {
-    background-color: var(--white);
-  }
-
-  .pulse-skeleton__white-dark {
-    $from: #8c8c8c;
-    $to: scale-color($from, $lightness: -10%);
-    background: linear-gradient(
-      -90deg,
-      var(--gray) 0%,
-      var(--gray-dark) 50%,
-      var(--gray) 100%
-    );
-    background-size: 400% 400%;
-    animation: pulse 1.2s ease-in-out infinite;
-    color: transparent;
-  }
+.header {
+  background-color: var(--main-bg-dark);
 }
 
-.theme_main-bg {
+.product-item {
   background-color: var(--white);
 }
 
-.theme_main-bg-inversion {
-  background-color: var(--black);
+.btn-primary {
+  background-color: var(--blue);
+  color: var(--white);
+  padding: 5px 10px;
+  border-radius: var(--button-br);
+}
+
+.btn-secondary {
+  background-color: var(--yellow);
+  color: var(--white);
+  padding: 5px 10px;
+  border-radius: var(--button-br);
+}
+
+.btn-outline-theme {
+  padding: 5px 10px;
+  border: 1px solid var(--black);
+  color: inherit;
+}
+
+.btn-link {
+  color: var(--blue);
+}
+
+.search-input {
+  border: 1px solid var(--gray-dark);
+  input {
+    &::placeholder {
+      color: var(--gray-dark);
+    }
+  }
 }
 
 .pulse-skeleton__white-dark {

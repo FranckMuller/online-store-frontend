@@ -1,0 +1,23 @@
+.header {
+  padding: 7px 20px;
+  font-size: 12px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 40px;
+  margin-bottom: 20px;
+
+  .nav {
+    display: flex;
+    margin-right: 10px;
+    li {
+      &:last-child {
+        border-left: 1px solid var(--white);
+      }
+      a {
+        color: var(--white);
+        padding: 0 5px;
+      }
+    }
+  }
+}

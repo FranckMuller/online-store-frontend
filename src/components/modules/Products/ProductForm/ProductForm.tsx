@@ -1,6 +1,6 @@
 "use client";
 import { ChangeEvent, useState, useEffect } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import * as Api from "@/api";
 
 import styles from "./ProductForm.module.scss";
@@ -12,41 +12,49 @@ type ProductFormData = {
   images: FileList | null;
 };
 
+type Props = {
+  successCallback: () => void;
+};
+
 const initialData = {
   name: "",
   description: "",
   price: "",
-  images: null,
+  images: null
 };
 
-const ProductForm = () => {
+const ProductForm = ({successCallback}: Props) => {
+  const queryClient = useQueryClient();
+  const [formData, setFormData] = useState<ProductFormData>(initialData);
+  const [published, setPublished] = useState(true);
+  const [images, setImages] = useState<FileList | null>(null);
+
   const {
     mutate: createProduct,
     isLoading,
     isSuccess,
     isError,
     error,
-    data,
+    data
   } = useMutation({
     mutationFn: (productData: FormData) => Api.products.create(productData),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["get/my-products"]);
+      successCallback()
+    }
   });
-
-  const [formData, setFormData] = useState<ProductFormData>(initialData);
-  const [published, setPublished] = useState(true);
-  const [images, setImages] = useState<FileList | null>(null);
-
   const onChangeInput = (
     e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const target = e.currentTarget ?? e.target;
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
-      [target.name]: target.value,
+      [target.name]: target.value
     }));
   };
 
   const onChangePublished = () => {
-    setPublished((prev) => !prev);
+    setPublished(prev => !prev);
   };
 
   const onChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
@@ -57,7 +65,7 @@ const ProductForm = () => {
     e.preventDefault();
     const { name, description, price } = formData;
     const isValid = images && name && description && price;
-    
+
     let data = new FormData();
     if (isValid) {
       try {
@@ -115,6 +123,7 @@ const ProductForm = () => {
           <label htmlFor="description">Product images:</label>
           <input
             type="file"
+            accept="image/*"
             multiple={true}
             className={styles["form-control"]}
             placeholder="Select product images"

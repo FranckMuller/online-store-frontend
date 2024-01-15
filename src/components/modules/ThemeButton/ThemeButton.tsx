@@ -5,12 +5,16 @@ import { ThemeMode } from "@/store/theme/theme.slice";
 
 import styles from "./ThemeButton.module.scss";
 
-const ThemeButton = () => {
+type Props ={
+  className?: string
+}
+
+const ThemeButton = ({className}: Props) => {  
   const { toggleTheme, theme } = useTheme();
   const classButtonMode = styles[theme];
   return (
     <button
-      className={`${styles["button"]} ${classButtonMode}`}
+      className={`${styles["button"]} ${classButtonMode} ${className} || ''`}
       onClick={() => toggleTheme()}
     >
       <span className={styles["icon"]}>

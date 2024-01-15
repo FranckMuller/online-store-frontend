@@ -15,7 +15,7 @@ const AddProductModal = ({ showed, toggleModal }: Props) => {
     <div className={`${styles["modal"]} theme-bg`}>
       <div className={styles["content"]}>
         <h3 className={styles["title"]}>Fill product fields</h3>
-        <ProductForm />
+        <ProductForm successCallback={toggleModal} />
         <button onClick={toggleModal} className={styles["close-button"]}>
           <AiOutlineClose />
         </button>

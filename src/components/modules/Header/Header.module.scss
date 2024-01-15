@@ -8,6 +8,10 @@
   .theme-profile {
     display: flex;
     align-items: center;
+    
+    .theme-button {
+      margin-right: 15px;
+    }
   }
 
   a {

@@ -24,13 +24,13 @@ const ProfileDropdown = forwardRef<HTMLDivElement, DropdownProps & Props>(
     const {
       mutate: signout,
       isLoading,
-      isSuccess,
+      isSuccess
     } = useMutation({
       mutationFn: (userId: string) => Api.auth.signout(userId),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["auth/check"] });
         router.replace("/signin");
-      },
+      }
     });
 
     if (!user) return null;
@@ -41,7 +41,7 @@ const ProfileDropdown = forwardRef<HTMLDivElement, DropdownProps & Props>(
 
     return (
       <div ref={ref} className={styles["profile-dropdown"]}>
-        <div onClick={toggle}>
+        <div className={styles['avatar']} onClick={toggle}>
           <AvatarMini avatar={user.avatarMini} />
         </div>
         <AnimatePresence>

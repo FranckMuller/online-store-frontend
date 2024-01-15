@@ -1,4 +1,5 @@
-import RootLayout from "@/RootLayout";
+import RootLayout from "@/app/RootLayout";
+import AuthHeader from "@/components/modules/Auth/AuthHeader/AuthHeader";
 
 type Props = {
   children: React.ReactNode;
@@ -6,11 +7,16 @@ type Props = {
 
 export const metadata = {
   title: `${process.env.NEXT_PUBLIC_SITE_NAME} | Auth`,
-  description: "authorization",
+  description: "authorization"
 };
 
 const AuthLayout = ({ children }: Props) => {
-  return <RootLayout>{children}</RootLayout>;
+  return (
+    <RootLayout>
+      <AuthHeader />
+      {children}
+    </RootLayout>
+  );
 };
 
 export default AuthLayout;

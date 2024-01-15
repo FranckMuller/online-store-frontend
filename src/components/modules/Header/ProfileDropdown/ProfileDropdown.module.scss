@@ -2,8 +2,9 @@
   position: relative;
   font-size: 13px;
   transform-origin: right top;
-  /* font-weight: 600; */
-
+    .avatar {
+      max-width: 25px;
+    }
   .dropdown {
     position: absolute;
     right: 5px;
@@ -15,14 +16,15 @@
     color: var(--gray-dark);
     z-index: 100;
 
+
     .credentials {
       margin-bottom: 5px;
       border-bottom: 1px solid var(--gray-dark);
-    p + p{
+      p + p {
         margin-top: 3px;
         margin-bottom: 5px;
       }
-      
+
       a {
         color: inherit;
       }

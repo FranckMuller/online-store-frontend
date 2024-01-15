@@ -4,27 +4,27 @@ import styles from "./GeneralMenu.module.scss";
 
 const items = [
   {
-    href: "profile/products",
+    href: "/profile/products",
     name: "My products",
   },
   {
-    href: "profile/orders",
+    href: "/profile/orders",
     name: "Orders",
   },
   {
-    href: "profile/favorites-shops",
+    href: "/profile/favorites-shops",
     name: "Favorites shops",
   },
   {
-    href: "profile/cupons",
+    href: "/profile/cupons",
     name: "Cupons",
   },
   {
-    href: "profile/products-reviews",
+    href: "/profile/products-reviews",
     name: "Products reviwes",
   },
   {
-    href: "profile/mesages",
+    href: "/profile/mesages",
     name: "Messages",
   },
 ];

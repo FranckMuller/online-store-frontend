@@ -1,12 +1,10 @@
 "use client";
-import Link from "next/link";
-
 import { useAuth } from "@/hooks/useAuth";
-
+import Link from "next/link";
 import AuthControls from "./AuthControls/AuthControls";
 import ProfileDropdown from "./ProfileDropdown/ProfileDropdown";
-import ThemeButton from "./ThemeButton/ThemeButton";
-import HeaderLogo from '@/components/ui/HeaderLogo/HeaderLogo'
+import ThemeButton from "../ThemeButton/ThemeButton";
+import HeaderLogo from "@/components/ui/HeaderLogo/HeaderLogo";
 
 import styles from "./Header.module.scss";
 
@@ -15,10 +13,12 @@ const Header = () => {
   return (
     <header className={`${styles["header"]} header`}>
       <div className={styles["logo"]}>
-        <HeaderLogo />
+        <Link href="/">
+          <HeaderLogo />
+        </Link>
       </div>
       <div className={styles["theme-profile"]}>
-        <ThemeButton />
+        <ThemeButton className={styles["theme-button"]} />
         {isAuth && user && <ProfileDropdown user={user} />}
         {!isAuth && !isAuthChecking && <AuthControls />}
       </div>

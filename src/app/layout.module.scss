@@ -1,6 +1,7 @@
-.wrapper {
+.content-page {
   display: flex;
   overflow: hidden;
+  background-color: var(--main-bg-dark);
   .main {
     display: flex;
     flex-direction: column;

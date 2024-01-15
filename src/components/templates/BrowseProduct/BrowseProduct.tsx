@@ -13,9 +13,8 @@ type Props = {
 const BrowseProduct = ({ product }: Props) => {
   return (
     <div className={styles["browse-product"]}>
-      <div className={styles["product"]}>
+      
         <ProductCard product={product} />
-      </div>
       <div className={styles["reviews"]}>
         {product.reviews && <ProductReviews productId={product.id} />}
       </div>
