@@ -38,12 +38,17 @@ const ProductItem = ({ product }: Props) => {
           {product.category && (
             <p className={styles["category"]}>{product.category.name}</p>
           )}
-          <div className={styles["rating"]}>
-            <ProductRating initialValue={4} />
-            <span className={styles["reviews"]}>
-              {product.totalReviews} reviews
-            </span>
-          </div>
+          {product.rating && product.rating > 0 && (
+            <div className={styles["rating"]}>
+              <ProductRating initialValue={product.rating} />
+              <span className={styles["reviews"]}>
+                <Link href={`catalog/${product.id}#reviews`}>
+                  {product.totalReviews}{" "}
+                  {product.totalReviews === 1 ? "review" : "reviews"}
+                </Link>
+              </span>
+            </div>
+          )}
           <p className={styles["price"]}>${product.price}</p>
         </div>
 

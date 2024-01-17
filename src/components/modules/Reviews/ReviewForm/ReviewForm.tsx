@@ -5,16 +5,16 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
 
 import { useUser } from "@/hooks/useUser";
+import { useReviews } from "../hooks/useReviews";
 
 import AvatarMini from "@/components/modules/Profile/AvatarMini/AvatarMini";
 import ProductRating from "@/components/modules/Products/ProductRating/ProductRating";
-import ElementSpinner from "@/components/ui/ElementSpinner/ElementSpinner"; 
+import ElementSpinner from "@/components/ui/ElementSpinner/ElementSpinner";
 import Error from "@/components/ui/Error/Error";
 import { IoClose } from "react-icons/io5";
 
 import * as Api from "@/api";
 
-import type { ReviewData } from "@/api/reviews";
 import type { IProductReviews } from "@/interfaces/reviews.interface";
 
 import styles from "./ReviewForm.module.scss";
@@ -29,29 +29,22 @@ const ReviewForm = ({ productId }: Props) => {
   const [isShowed, setIsShowed] = useState(false);
   const [rating, setRating] = useState(0);
   const [error, setError] = useState("");
-  const [serverError, setServerError] = useState("");
+  const {
+    createReview,
+    isCreating,
+    isCreatingSuccess,
+    serverError,
+    setServerError
+  } = useReviews(productId);
   const user = useUser();
 
-  const { mutate: submitForm, isLoading } = useMutation({
-    mutationFn: (data: ReviewData) => Api.reviews.create(data, productId),
-    onSuccess: (data) => {
-      queryClient.setQueryData(["reviews", productId], (prev: any) => {
-        setRating(0);
-        setText("");
-        setIsShowed(false);
-        return {
-          pages: [{ results: [data] }, ...prev.pages],
-          pageParams: [...prev.pageParams],
-        };
-        // return prev ? [data, ...prev] : [data];
-      });
-    },
-    onError: (err) => {
-      if (err && isAxiosError(err)) {
-        setServerError(err.response?.data?.message);
-      }
-    },
-  });
+  useEffect(() => {
+    if (isCreatingSuccess) {
+      setRating(0);
+      setText("");
+      setIsShowed(false);
+    }
+  }, [isCreatingSuccess]);
 
   if (!user) return null;
 
@@ -85,7 +78,7 @@ const ReviewForm = ({ productId }: Props) => {
       setError("Required field");
       return;
     }
-    submitForm({ rating, text });
+    createReview({ rating, text });
   };
 
   return (
@@ -124,13 +117,13 @@ const ReviewForm = ({ productId }: Props) => {
             <div className={styles["error-button-wrap"]}>
               <div className={styles["button-wrap"]}>
                 <button
-                  disabled={isLoading}
+                  disabled={isCreating}
                   className={`${styles["submit-button"]} btn-secondary ${
-                    isLoading ? styles["loading"] : ""
+                    isCreating ? styles["loading"] : ""
                   }`}
                 >
                   Send review
-                  {isLoading && (
+                  {isCreating && (
                     <div className={styles["spinner"]}>
                       <ElementSpinner />
                     </div>

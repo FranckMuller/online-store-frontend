@@ -17,6 +17,7 @@ export interface IProduct {
   category?: ICategory;
   reviews?: IProductReviews;
   totalReviews?: number;
+  rating?: number;
 }
 
 export interface IProductPreviewImage {
@@ -29,7 +30,7 @@ export enum EProductsSort {
   HighPrice = "high-price",
   MinPrice = "min-price",
   Newest = "newest",
-  Oldest = "oldest",
+  Oldest = "oldest"
 }
 
 export type TRatingFilterValue = 1 | 2 | 3 | 4 | 5;

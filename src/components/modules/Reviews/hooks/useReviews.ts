@@ -2,18 +2,43 @@ import { useState } from "react";
 import {
   useInfiniteQuery,
   useMutation,
-  useQueryClient,
+  useQueryClient
 } from "@tanstack/react-query";
+import { isAxiosError } from "axios";
 import * as Api from "@/api";
 
+import type { ReviewData } from "@/api/reviews";
 import type { IUpdateReviewData } from "@/api/reviews";
 import type { IProductReview } from "@/interfaces/reviews.interface";
-
 
 // TODO handle errors
 export const useReviews = (productId: string) => {
   const queryClient = useQueryClient();
   const [isEditMode, setIsEditMode] = useState(false);
+  const [serverError, setServerError] = useState("");
+
+  const {
+    mutate: createReview,
+    isLoading: isCreating,
+    isSuccess: isCreatingSuccess
+  } = useMutation({
+    mutationFn: (data: ReviewData) => Api.reviews.create(data, productId),
+    onSuccess: data => {
+      queryClient.setQueryData(["reviews", productId], (prev: any) => {
+        queryClient.invalidateQueries([`product/${productId}`]);
+        return {
+          pages: [{ results: [data] }, ...prev.pages],
+          pageParams: [...prev.pageParams]
+        };
+        // return prev ? [data, ...prev] : [data];
+      });
+    },
+    onError: err => {
+      if (err && isAxiosError(err)) {
+        setServerError(err.response?.data?.message);
+      }
+    }
+  });
 
   const { mutate: deleteReview } = useMutation({
     mutationFn: (id: string) => Api.reviews.deleteOne(id),
@@ -39,10 +64,17 @@ export const useReviews = (productId: string) => {
 
         return {
           pageParams: [...prev.pageParams],
-          pages: [...pages],
+          pages: [...pages]
         };
       });
+
+      queryClient.invalidateQueries([`product/${productId}`]);
     },
+    onError: err => {
+      if (err && isAxiosError(err)) {
+        setServerError(err.response?.data?.message);
+      }
+    }
   });
 
   const { mutate: updateReview, isLoading: isUpdateLoading } = useMutation({
@@ -58,21 +90,31 @@ export const useReviews = (productId: string) => {
             }
           }
         }
+        queryClient.invalidateQueries([`product/${productId}`]);
+        setIsEditMode(false);
         return {
           pageParams: [...prev.pageParams],
-          pages: [...pages],
+          pages: [...pages]
         };
       });
-      // queryClient.invalidateQueries(["reviews", productId]);
-      setIsEditMode(false);
     },
+    onError: err => {
+      if (err && isAxiosError(err)) {
+        setServerError(err.response?.data?.message);
+      }
+    }
   });
 
   return {
+    createReview,
+    isCreating,
+    isCreatingSuccess,
     deleteReview,
     updateReview,
     isUpdateLoading,
     isEditMode,
     setIsEditMode,
+    serverError,
+    setServerError
   };
 };

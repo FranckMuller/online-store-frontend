@@ -10,13 +10,13 @@ type Props = {
 export const generateStaticParams = async () => {
   const products = await Api.products.getAll();
 
-  return products.map((p) => ({ productId: p.id }));
+  return products.map(p => ({ productId: p.id }));
 };
 
 const ProductPage = async ({ params: { productId } }: Props) => {
   const product = await Api.products.getById(productId);
 
-  return <BrowseProduct product={product} />;
+  return <BrowseProduct initialProduct={product} productId={productId} />;
 };
 
 export default ProductPage;

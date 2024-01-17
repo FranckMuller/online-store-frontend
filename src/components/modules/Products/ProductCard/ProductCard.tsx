@@ -15,7 +15,7 @@ const ProductCard = ({ product }: Props) => {
     <div className={styles["product-card"]}>
       <div className={styles["heading"]}>
         <h3 className={styles["name"]}>{product.name}</h3>
-        <ProductRating initialValue={4} />
+        {product.rating && product.rating > 0 && <ProductRating initialValue={product.rating} />}
       </div>
       <div className={styles["wrapper"]}>
         <div className={styles["slider"]}>

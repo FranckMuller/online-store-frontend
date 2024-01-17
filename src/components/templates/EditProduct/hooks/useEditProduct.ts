@@ -30,7 +30,7 @@ const initialData = {
   published: false,
 };
 
-export type TEditProductFormData = Omit<IProduct, "images" | "id">;
+export type TEditProductFormData = Omit<IProduct, "images" | "id" | 'rating'>;
 
 type FileImage = {
   id: string;
