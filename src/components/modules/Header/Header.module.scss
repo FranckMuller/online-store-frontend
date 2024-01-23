@@ -5,12 +5,16 @@
   justify-content: space-between;
   align-items: center;
   height: 40px;
-  .theme-profile {
+  .controls {
     display: flex;
     align-items: center;
-    
+
     .theme-button {
       margin-right: 15px;
+    }
+
+    .favorites {
+      margin-right: 10px;
     }
   }
 

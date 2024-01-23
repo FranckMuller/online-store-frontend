@@ -1,6 +1,9 @@
 import Image from "next/image";
 
 import ProductRating from "@/components/modules/Products/ProductRating/ProductRating";
+import Button from "@/components/ui/Button/Button";
+
+import { IoShieldCheckmark } from "react-icons/io5";
 
 import type { IProduct } from "@/interfaces/products.interface";
 
@@ -15,7 +18,9 @@ const ProductCard = ({ product }: Props) => {
     <div className={styles["product-card"]}>
       <div className={styles["heading"]}>
         <h3 className={styles["name"]}>{product.name}</h3>
-        {product.rating && product.rating > 0 && <ProductRating initialValue={product.rating} />}
+        {product.rating && product.rating > 0 && (
+          <ProductRating initialValue={product.rating} />
+        )}
       </div>
       <div className={styles["wrapper"]}>
         <div className={styles["slider"]}>
@@ -29,7 +34,7 @@ const ProductCard = ({ product }: Props) => {
           </div>
           <div className={styles["images"]}>
             {product.images.length &&
-              product.images.map((i) => (
+              product.images.map(i => (
                 <div key={i.id}>
                   <Image
                     width={1000}
@@ -42,18 +47,29 @@ const ProductCard = ({ product }: Props) => {
           </div>
         </div>
         <div className={styles["details"]}>
-          <p className={styles["price"]}>${product.price}</p>
-          <p className={styles["description"]}>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum
-            dolore nisi rerum, culpa, nam sequi animi quod perferendis ipsum
-            nesciunt aut, deleniti quaerat quam necessitatibus consequuntur
-            neque possimus dolores quidem.
+            <p className={styles["price"]}>${product.price}</p>
+            <p className={`${styles["description"]} theme-color__gray`}>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum
+              dolore nisi rerum, culpa, nam sequi animi quod perferendis ipsum
+              nesciunt aut, deleniti quaerat quam necessitatibus consequuntur
+              neque possimus dolores quidem.
+            </p>
+            {product.category && (
+              <p className={styles["category"]}>{product.category.name}</p>
+            )}
+            <Button
+              className={`${styles["cart-button"]} btn-primary`}
+              handleClick={() => {}}
+            >
+              Add to cart
+            </Button>
+          
+          <p className={styles["secure"]}>
+            <span className={styles["secure-icon"]}>
+              <IoShieldCheckmark />
+            </span>
+            <span className={styles["secure-text"]}>secure transaction</span>
           </p>
-          {product.category && (
-            <p className={styles["category"]}>{product.category.name}</p>
-          )}
-          <button>Add to cart</button>
-          <p className={styles["bottom-text"]}>secure transaction</p>
         </div>
       </div>
     </div>

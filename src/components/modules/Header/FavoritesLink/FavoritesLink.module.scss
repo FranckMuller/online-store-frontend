@@ -1,0 +1,21 @@
+.link {
+  position: relative;
+  .count {
+    display: block;
+    position: absolute;
+    background-color: var(--orange);
+    font-size: 8px;
+    bottom: 0;
+    right: -3px;
+    width: 12px;
+    height: 12px;
+    padding: 2px;
+    line-height: 9px;
+    border-radius: 50%;
+    text-align: center;
+  }
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}

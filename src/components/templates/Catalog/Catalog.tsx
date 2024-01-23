@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
+import { useMe } from "@/hooks/useMe";
 import { useProductsFilters } from "@/hooks/products/useProductsFilters";
 
 import ProductsList from "@/components/modules/Products/ProductsList/ProductsList";
@@ -14,7 +15,7 @@ import * as Api from "@/api";
 
 import type {
   IProducts,
-  IProductsFilters,
+  IProductsFilters
 } from "@/interfaces/products.interface";
 import type { ICategories } from "@/interfaces/categories.interface";
 
@@ -27,13 +28,14 @@ type Props = {
 const Catalog = ({ categories }: Props) => {
   const [filtersOpened, setFiltersOpened] = useState(false);
   const { updateFilters, filtersParams } = useProductsFilters();
+  const { isAuthed } = useMe();
 
   const {
     data: products,
     isFetching,
-    isSuccess,
+    isSuccess
   } = useQuery(["get/products", filtersParams], {
-    queryFn: () => Api.products.getAll(filtersParams),
+    queryFn: () => Api.products.getAll(filtersParams)
   });
 
   const itemListColumnCount = filtersOpened ? "3" : "4";
@@ -50,7 +52,10 @@ const Catalog = ({ categories }: Props) => {
           {filtersOpened ? "close" : "open"} filters
         </button>
         <div className={styles["sort"]}>
-          <ProductsSort value={filtersParams.sort} updateFilters={updateFilters} />
+          <ProductsSort
+            value={filtersParams.sort}
+            updateFilters={updateFilters}
+          />
         </div>
       </div>
       <div className={styles["filters-products"]}>
@@ -64,7 +69,11 @@ const Catalog = ({ categories }: Props) => {
           </div>
         )}
         {products && (
-          <ProductsList columnCount={itemListColumnCount} products={products} />
+          <ProductsList
+            columnCount={itemListColumnCount}
+            products={products}
+            isShowedControls={isAuthed}
+          />
         )}
       </div>
     </>

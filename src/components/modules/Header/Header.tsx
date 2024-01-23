@@ -5,6 +5,7 @@ import AuthControls from "./AuthControls/AuthControls";
 import ProfileDropdown from "./ProfileDropdown/ProfileDropdown";
 import ThemeButton from "../ThemeButton/ThemeButton";
 import HeaderLogo from "@/components/ui/HeaderLogo/HeaderLogo";
+import FavoritesLink from "./FavoritesLink/FavoritesLink";
 
 import styles from "./Header.module.scss";
 
@@ -17,7 +18,8 @@ const Header = () => {
           <HeaderLogo />
         </Link>
       </div>
-      <div className={styles["theme-profile"]}>
+      <div className={styles["controls"]}>
+        <span className={styles['favorites']}><FavoritesLink /></span>
         <ThemeButton className={styles["theme-button"]} />
         {isAuth && user && <ProfileDropdown user={user} />}
         {!isAuth && !isAuthChecking && <AuthControls />}

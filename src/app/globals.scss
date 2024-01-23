@@ -44,8 +44,16 @@ body {
     background-color: var(--main-bg);
   }
 
+  .theme-color__gray {
+    color: var(--gray-dark);
+  }
+
   &.dark_mode {
     color: var(--white);
+
+    .theme-color__gray {
+      color: var(--gray-light);
+    }
 
     .profile-page-menu {
       box-shadow: 4px -1px 15px -8px rgba(255, 255, 255, 0.3);

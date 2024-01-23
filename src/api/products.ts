@@ -4,7 +4,7 @@ import { apiInstance } from "./api";
 import type {
   IProducts,
   IProduct,
-  IProductsFilters,
+  IProductsFilters
 } from "@/interfaces/products.interface";
 
 interface CreateProductResponse {
@@ -14,32 +14,36 @@ interface CreateProductResponse {
   images: string[];
 }
 
+const PRODUCTS_SEGMENT = "products";
+
 export const getAll = async (searchParams = {} as IProductsFilters) => {
-  const response = await apiInstance.get<IProducts>("products", {
-    params: searchParams,
+  const response = await apiInstance.get<IProducts>(PRODUCTS_SEGMENT, {
+    params: searchParams
   });
 
   return response.data;
 };
 
 export const getById = async (id: string) => {
-  const response = await apiInstance.get<IProduct>(`products/${id}`);
+  const response = await apiInstance.get<IProduct>(`${PRODUCTS_SEGMENT}/${id}`);
 
   return response.data;
 };
 
 export const getMyById = async (id: string) => {
-  const response = await apiInstance.get<IProduct>(`products/my/${id}`);
+  const response = await apiInstance.get<IProduct>(
+    `${PRODUCTS_SEGMENT}/my/${id}`
+  );
 
   return response.data;
 };
 
 export const create = async (data: FormData) => {
   const response = await apiInstance.post<CreateProductResponse>(
-    "products",
+    PRODUCTS_SEGMENT,
     data,
     {
-      headers: { "Content-Type": "multipart/form-data" },
+      headers: { "Content-Type": "multipart/form-data" }
     }
   );
 
@@ -48,10 +52,10 @@ export const create = async (data: FormData) => {
 
 export const update = async (data: FormData, productId: string) => {
   const response = await apiInstance.patch<CreateProductResponse>(
-    `products/${productId}`,
+    `${PRODUCTS_SEGMENT}/${productId}`,
     data,
     {
-      headers: { "Content-Type": "multipart/form-data" },
+      headers: { "Content-Type": "multipart/form-data" }
     }
   );
 
@@ -59,11 +63,23 @@ export const update = async (data: FormData, productId: string) => {
 };
 
 export const deleteProduct = async (productId: string) => {
-  const response = await apiInstance.delete(`products/${productId}`);
+  const response = await apiInstance.delete(`${PRODUCTS_SEGMENT}/${productId}`);
   return response;
 };
 
 export const getMyProducts = async () => {
   const response = await apiInstance.get<IProducts>("/products/my");
+  return response.data;
+};
+
+export const toggleFavorites = (productId: string) => {
+  return apiInstance.patch(`${PRODUCTS_SEGMENT}/favorites/${productId}`);
+};
+
+export const getFavoritesProducts = async () => {
+  const response = await apiInstance.get<IProducts>(
+    `${PRODUCTS_SEGMENT}/favorites`
+  );
+
   return response.data;
 };

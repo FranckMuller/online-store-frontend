@@ -11,10 +11,16 @@
       img {
         margin: 0 auto;
       }
-      .button {
+      .controls {
+        display: flex;
         position: absolute;
-        right: 5px;
-        top: 5px;
+        right: 3px;
+        top: 0;
+        display: flex;
+        
+        > button + button {
+          margin-left: 3px;
+        }
       }
     }
 

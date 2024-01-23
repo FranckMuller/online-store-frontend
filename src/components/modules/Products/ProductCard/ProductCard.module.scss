@@ -8,6 +8,7 @@
   }
 
   .wrapper {
+    
     display: flex;
     .slider {
       flex: 0 0 35%;
@@ -25,20 +26,34 @@
       }
     }
 
-    .details {
-      flex-grow: 1;
-      flex-shrink: 1;
+      .details {
+        flex-grow: 1;
+        flex-shrink: 1;
+        .price {
+          font-size: 18px;
+          margin-bottom: 15px;
+          font-weight: 700;
+        }
 
-      .price {
-        font-size: 18px;
-        margin-bottom: 15px;
-        font-weight: 700;
-      }
+        .description {
+          font-size: 14px;
+          margin-bottom: 20px;
+        }
 
-      .description {
-        font-size: 14px;
-        color: var(--gray);
-        margin-bottom: 10px;
+        .cart-button {
+          margin-bottom: 10px;
+        }
+      
+
+      .secure {
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+        line-height: 0;
+
+        .secure-icon {
+          margin-right: 5px;
+        }
       }
     }
   }

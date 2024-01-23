@@ -5,6 +5,10 @@ export interface IUser {
   avatarMini: string;
 }
 
+export interface IUsers extends Array<IUser> {
+  
+}
+
 export interface IFullestUser extends IUser {
   avatar: string;
   phone?: string;
@@ -16,4 +20,5 @@ export interface IFullestUser extends IUser {
   };
   website?: string;
   delivery?: string;
+  reviews?: Array<string> 
 }

@@ -2,8 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 import EditControls from "../EditControls/EditControls";
-import AddToCartButton from "../AddToCartButton/AddToCartButton";
 import ProductRating from "../ProductRating/ProductRating";
+import AddToCartButton from "../AddToCartButton/AddToCartButton";
+import FavoritesButton from "../FavoritesButton/FavoritesButton";
 
 import type { IProduct } from "@/interfaces/products.interface";
 
@@ -11,10 +12,12 @@ import styles from "./ProductItem.module.scss";
 
 type Props = {
   product: Omit<IProduct, "images">;
+  isShowedControls: boolean;
+  isFavorite: boolean;
 };
 
 // TODO optimize images on mobile
-const ProductItem = ({ product }: Props) => {
+const ProductItem = ({ product, isShowedControls, isFavorite }: Props) => {
   return (
     <div className={styles["product-item"]}>
       <div className={styles["content"]}>
@@ -26,10 +29,12 @@ const ProductItem = ({ product }: Props) => {
               width={150}
               height={150}
             />
-
-            <div className={styles["button"]}>
-              <AddToCartButton productId={product.id} />
-            </div>
+            {isShowedControls && (
+              <div className={styles["controls"]}>
+                <AddToCartButton productId={product.id} />
+                <FavoritesButton isFavorite={isFavorite} productId={product.id} />
+              </div>
+            )}
           </div>
         </Link>
 
