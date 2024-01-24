@@ -10,7 +10,7 @@ const FavoritesLink = () => {
   const { favoritesTotalCount } = useFavorites();
 
   return (
-    <Link className={styles["link"]} href="/favorites">
+    <Link className={styles["link"]} href="/profile/favorites">
       <FaRegHeart />
       {favoritesTotalCount > 0 &&<span className={styles["count"]}>
         { favoritesTotalCount}

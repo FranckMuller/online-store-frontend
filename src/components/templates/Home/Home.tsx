@@ -1,7 +1,3 @@
-'use client'
-
-import { useMe } from "@/hooks/useMe";
-
 import ProductsList from "@/components/modules/Products/ProductsList/ProductsList";
 import HomeHeader from "./HomeHeader/HomeHeader";
 
@@ -14,11 +10,10 @@ type Props = {
 };
 
 const Home = async ({ products }: Props) => {
-  const { isAuthed } = useMe();
   return (
     <section className={styles["home"]}>
       <h3 className={styles["title"]}>Freshed products</h3>
-      <ProductsList isShowedControls={isAuthed} products={products} />
+      <ProductsList products={products} />
     </section>
   );
 };

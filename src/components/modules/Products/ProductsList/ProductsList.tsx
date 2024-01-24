@@ -1,3 +1,5 @@
+'use client'
+import { useMe } from "@/hooks/useMe";
 import { useFavorites } from "@/hooks/products/useFavorites";
 
 import ProductItem from "../ProductItem/ProductItem";
@@ -9,15 +11,14 @@ import styles from "./ProductsList.module.scss";
 type Props = {
   products: IProducts;
   columnCount?: "1" | "2" | "3" | "4";
-  isShowedControls?: boolean;
 };
 
 const ProductsList = ({
   products,
   columnCount = "4",
-  isShowedControls = false
 }: Props) => {
   const { favoritesProductsIdx } = useFavorites();
+  const {isAuthed} = useMe()
   let columnCountClassName = `col-${columnCount}`;
   return (
     <div
@@ -30,7 +31,7 @@ const ProductsList = ({
             <div key={p.id} className={styles["item"]}>
               <ProductItem
                 isFavorite={!!isFavorite}
-                isShowedControls={isShowedControls}
+                isShowedControls={isAuthed}
                 product={p}
               />
             </div>

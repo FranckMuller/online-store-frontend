@@ -2,10 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import * as Api from "@/api";
 
 export const useMe = () => {
-  const { data: auth } = useQuery(["auth"], {
-    queryFn: () => Api.auth.checkAuth()
+  const { data: auth, isLoading: isAuthChecking } = useQuery(["auth/check"], {
+    queryFn: () => Api.auth.checkAuth(),
+    keepPreviousData: true
   });
 
-  const isAuthed = auth ? true : false
-  return { auth, isAuthed };
+  const user = auth ? auth.user : null;
+  const isAuthed = auth ? true : false;
+
+  return { user, isAuthed, isAuthChecking };
 };

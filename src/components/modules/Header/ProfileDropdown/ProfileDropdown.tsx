@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 
-import { useAuth } from "@/hooks/useAuth";
+
 import { withClickOutside, DropdownProps } from "@/utils/withClickOutside";
 
 import Link from "next/link";

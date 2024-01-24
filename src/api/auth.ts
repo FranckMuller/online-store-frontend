@@ -1,10 +1,9 @@
 import { apiInstance } from "./api";
-import { ISignupData, ISigninData } from "@/interfaces/auth.interface";
 import { setAccessToken, removeAccessToken } from "./helpers";
-import type { AxiosError } from "axios";
+
+import type { ISignupData, ISigninData } from "@/interfaces/auth.interface";
 
 export interface IAuthResponse {
-
     user: {
       id: string;
       username: string;
@@ -12,7 +11,6 @@ export interface IAuthResponse {
       avatarMini: string;
     };
     accessToken: string;
-
 }
 
 export const signup = async (signupData: ISignupData) => {

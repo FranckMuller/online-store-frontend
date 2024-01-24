@@ -1,49 +1,51 @@
 "use client";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { redirect } from "next/navigation";
-import * as Api from "@/api";
-import { useAppDispatch } from "@/hooks/useAppDispatch";
-import { setCredentials } from "@/store/auth/auth.slice";
+import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+
+import { isAxiosError } from "axios";
+
 import type { ISigninData } from "@/interfaces/auth.interface";
+
+import * as Api from "@/api";
 
 import styles from "./SigninForm.module.scss";
 
 const initialData = {
   email: "",
-  password: "",
+  password: ""
 };
 
 const SigninForm = () => {
-  const dispatch = useAppDispatch();
-  const queryClient = useQueryClient();
+  const router = useRouter();
   const [data, setData] = useState(initialData);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState("");
   const {
     mutate: signin,
     data: authData,
     isLoading,
-    isSuccess,
+    isSuccess
   } = useMutation({
     mutationFn: (signinData: ISigninData) => Api.auth.signin(signinData),
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ["auth/check"] }),
-    onError: (error) => {
-      if (axios.isAxiosError(error) && error.response) {
+    onSuccess: data => {
+      setData(initialData);
+      router.replace("/");
+    },
+    onError: error => {
+      if (isAxiosError(error) && error.response) {
         setError(error.response.data.message);
       }
-    },
+    }
   });
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (error) {
-      setError(null);
+      setError('');
     }
 
-    setData((prev) => ({
+    setData(prev => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     }));
   };
 
@@ -51,14 +53,6 @@ const SigninForm = () => {
     e.preventDefault();
     signin(data);
   };
-
-  useEffect(() => {
-    if (isSuccess && authData) {
-      setData(initialData);
-      dispatch(setCredentials(authData.user));
-      redirect("/dashboard");
-    }
-  }, [isSuccess, authData, dispatch]);
 
   return (
     <div className={styles["signin-form"]}>

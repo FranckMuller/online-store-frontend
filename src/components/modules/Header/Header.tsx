@@ -1,6 +1,9 @@
 "use client";
-import { useAuth } from "@/hooks/useAuth";
+
+import { useMe } from "@/hooks/useMe";
+
 import Link from "next/link";
+
 import AuthControls from "./AuthControls/AuthControls";
 import ProfileDropdown from "./ProfileDropdown/ProfileDropdown";
 import ThemeButton from "../ThemeButton/ThemeButton";
@@ -10,7 +13,8 @@ import FavoritesLink from "./FavoritesLink/FavoritesLink";
 import styles from "./Header.module.scss";
 
 const Header = () => {
-  const { isAuth, user, isAuthChecking } = useAuth();
+  const { user, isAuthed, isAuthChecking } = useMe();
+
   return (
     <header className={`${styles["header"]} header`}>
       <div className={styles["logo"]}>
@@ -19,10 +23,14 @@ const Header = () => {
         </Link>
       </div>
       <div className={styles["controls"]}>
-        <span className={styles['favorites']}><FavoritesLink /></span>
+        {isAuthed && (
+          <span className={styles["favorites"]}>
+            <FavoritesLink />
+          </span>
+        )}
         <ThemeButton className={styles["theme-button"]} />
-        {isAuth && user && <ProfileDropdown user={user} />}
-        {!isAuth && !isAuthChecking && <AuthControls />}
+        {user && <ProfileDropdown user={user} />}
+        {!isAuthed && !isAuthChecking && <AuthControls />}
       </div>
     </header>
   );

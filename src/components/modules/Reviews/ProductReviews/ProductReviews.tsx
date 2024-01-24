@@ -1,7 +1,7 @@
 "use client";
 
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useUser } from "@/hooks/useUser";
+import {useMe} from "@/hooks/useMe";
 import * as Api from "@/api";
 
 import ProductReview from "../ProductReview/ProductReview";
@@ -16,7 +16,7 @@ type Props = {
 };
 
 const ProductReviews = ({ productId }: Props) => {
-  const user = useUser();
+  const {user} = useMe();
   const {
     data: reviews,
     fetchNextPage,

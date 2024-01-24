@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { isAxiosError } from "axios";
 
-import { useUser } from "@/hooks/useUser";
+import { useMe } from "@/hooks/useMe";
 import { useReviews } from "../hooks/useReviews";
 
 import AvatarMini from "@/components/modules/Profile/AvatarMini/AvatarMini";
@@ -36,7 +36,7 @@ const ReviewForm = ({ productId }: Props) => {
     serverError,
     setServerError
   } = useReviews(productId);
-  const user = useUser();
+  const {user} = useMe();
 
   useEffect(() => {
     if (isCreatingSuccess) {

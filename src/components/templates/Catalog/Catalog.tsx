@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
-import { useMe } from "@/hooks/useMe";
 import { useProductsFilters } from "@/hooks/products/useProductsFilters";
 
 import ProductsList from "@/components/modules/Products/ProductsList/ProductsList";
@@ -28,7 +27,6 @@ type Props = {
 const Catalog = ({ categories }: Props) => {
   const [filtersOpened, setFiltersOpened] = useState(false);
   const { updateFilters, filtersParams } = useProductsFilters();
-  const { isAuthed } = useMe();
 
   const {
     data: products,
@@ -72,7 +70,6 @@ const Catalog = ({ categories }: Props) => {
           <ProductsList
             columnCount={itemListColumnCount}
             products={products}
-            isShowedControls={isAuthed}
           />
         )}
       </div>

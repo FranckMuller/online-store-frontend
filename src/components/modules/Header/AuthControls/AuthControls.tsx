@@ -1,6 +1,4 @@
-"use client";
 import Link from "next/link";
-import { useAuth } from "@/hooks/useAuth";
 
 import styles from "./AuthControls.module.scss";
 
