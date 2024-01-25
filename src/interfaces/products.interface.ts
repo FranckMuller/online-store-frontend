@@ -45,3 +45,13 @@ export interface IProductsFilters {
 }
 
 export interface IProducts extends Array<IProduct> {}
+
+export interface ICartProduct {
+  id: string;
+  name: string;
+  image: string;
+  price: string;
+  count?: string;
+}
+
+export interface ICartProducts extends Array<ICartProduct> {}

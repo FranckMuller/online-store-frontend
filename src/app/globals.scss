@@ -43,6 +43,11 @@ body {
   .theme-bg {
     background-color: var(--main-bg);
   }
+  
+  .theme-bg__inverse {
+    background-color: var(--main-bg-dark);
+    color: var(--white);
+  }
 
   .theme-color__gray {
     color: var(--gray-dark);
@@ -62,6 +67,11 @@ body {
     .theme-bg {
       background-color: var(--main-bg-dark);
     }
+    
+    .theme-bg__inverse {
+    background-color: var(--main-bg);
+    color: var(--black);
+  }
 
     .search-input {
       border: 1px solid var(--white);

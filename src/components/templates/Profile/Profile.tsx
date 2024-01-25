@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
-import { useProfileAvatar } from "@/hooks/useProfileAvatar";
 import { useProfile } from "@/hooks/useProfile";
 import { handleAxiosError } from "@/utils/errors.utils";
 

@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 export enum ThemeMode {
   Light = "light",
-  Dark = "dark",
+  Dark = "dark"
 }
 
 const initialState: string = ThemeMode.Light;
@@ -14,9 +15,9 @@ const themeSlice = createSlice({
   reducers: {
     setTheme: (state, { payload }: PayloadAction<string>) => {
       state = payload;
-      return state
-    },
-  },
+      return state;
+    }
+  }
 });
 
 export const { setTheme } = themeSlice.actions;

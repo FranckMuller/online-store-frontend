@@ -7,6 +7,7 @@ import AddToCartButton from "../AddToCartButton/AddToCartButton";
 import FavoritesButton from "../FavoritesButton/FavoritesButton";
 
 import type { IProduct } from "@/interfaces/products.interface";
+import type { ICartProduct } from "@/interfaces/products.interface";
 
 import styles from "./ProductItem.module.scss";
 
@@ -14,10 +15,31 @@ type Props = {
   product: Omit<IProduct, "images">;
   isShowedControls: boolean;
   isFavorite: boolean;
+  isInCart?: boolean;
+  toggleProductCart?: (product: ICartProduct) => void;
 };
 
 // TODO optimize images on mobile
-const ProductItem = ({ product, isShowedControls, isFavorite }: Props) => {
+const ProductItem = ({
+  product,
+  isShowedControls,
+  isFavorite,
+  isInCart = false,
+  toggleProductCart
+}: Props) => {
+  const onCartButtonClick = () => {
+    if (toggleProductCart) {
+      toggleProductCart({
+        name: product.name,
+        id: product.id,
+        image: product.mainImage.path,
+        price: product.price
+      });
+    } else {
+      return null;
+    }
+  };
+
   return (
     <div className={styles["product-item"]}>
       <div className={styles["content"]}>
@@ -31,8 +53,15 @@ const ProductItem = ({ product, isShowedControls, isFavorite }: Props) => {
             />
             {isShowedControls && (
               <div className={styles["controls"]}>
-                <AddToCartButton productId={product.id} />
-                <FavoritesButton isFavorite={isFavorite} productId={product.id} />
+                <AddToCartButton
+                  isInCart={isInCart}
+                  toggleProductCart={onCartButtonClick}
+                  productId={product.id}
+                />
+                <FavoritesButton
+                  isFavorite={isFavorite}
+                  productId={product.id}
+                />
               </div>
             )}
           </div>

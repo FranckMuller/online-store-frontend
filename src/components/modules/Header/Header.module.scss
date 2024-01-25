@@ -5,6 +5,7 @@
   justify-content: space-between;
   align-items: center;
   height: 40px;
+  position: relative;
   .controls {
     display: flex;
     align-items: center;
@@ -14,7 +15,7 @@
     }
 
     .favorites {
-      margin-right: 10px;
+      margin-right: 5px;
     }
   }
 

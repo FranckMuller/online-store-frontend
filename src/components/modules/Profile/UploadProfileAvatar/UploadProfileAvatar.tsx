@@ -1,8 +1,6 @@
 import { useState, useRef } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { useAppDispatch } from "@/hooks/useAppDispatch";
-import { setAvatarMini } from "@/store/auth/auth.slice";
 import CropperImage from "@/components/modules/CropperImage/CropperImage";
 
 import { IoMdClose } from "react-icons/io";
@@ -28,17 +26,16 @@ const Output = ({ imageSrc }: { imageSrc: string }) => {
 
 const UploadProfileAvatar = () => {
   const queryClient = useQueryClient();
-  const dispatch = useAppDispatch();
   const inputFileRef = useRef<HTMLInputElement>(null);
 
   const { mutate: updateAvatar, isLoading } = useMutation({
     mutationFn: (data: FormData) => Api.users.updateAvatar(data),
-    onSuccess: (avatar) => {
-      console.log(avatar);
+    onSuccess: avatar => {
       reset();
-      queryClient.invalidateQueries(["profile"]);
-      dispatch(setAvatarMini(avatar));
-    },
+      console.log(avatar);
+      queryClient.invalidateQueries(["profile/me"]);
+      queryClient.invalidateQueries(["auth/check"]);
+    }
   });
 
   const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -49,11 +46,9 @@ const UploadProfileAvatar = () => {
   const [image, setImage] = useState<Blob | null>(null);
 
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.files);
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
       const imageSrc = getBlobImageUrl(file);
-      console.log(imageSrc);
       setImageSrc(imageSrc);
     }
   };

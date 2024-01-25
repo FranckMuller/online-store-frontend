@@ -8,6 +8,7 @@ import AuthControls from "./AuthControls/AuthControls";
 import ProfileDropdown from "./ProfileDropdown/ProfileDropdown";
 import ThemeButton from "../ThemeButton/ThemeButton";
 import HeaderLogo from "@/components/ui/HeaderLogo/HeaderLogo";
+import CartDropdown from './CartDropdown/CartDropdown'
 import FavoritesLink from "./FavoritesLink/FavoritesLink";
 
 import styles from "./Header.module.scss";
@@ -28,6 +29,7 @@ const Header = () => {
             <FavoritesLink />
           </span>
         )}
+        {user && <CartDropdown />}
         <ThemeButton className={styles["theme-button"]} />
         {user && <ProfileDropdown user={user} />}
         {!isAuthed && !isAuthChecking && <AuthControls />}

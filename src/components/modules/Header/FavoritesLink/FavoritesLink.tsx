@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { FaRegHeart } from "react-icons/fa";
+import { CiHeart } from "react-icons/ci";
 
 import { useFavorites } from "@/hooks/products/useFavorites";
 
@@ -11,7 +11,7 @@ const FavoritesLink = () => {
 
   return (
     <Link className={styles["link"]} href="/profile/favorites">
-      <FaRegHeart />
+      <CiHeart />
       {favoritesTotalCount > 0 &&<span className={styles["count"]}>
         { favoritesTotalCount}
       </span>}
