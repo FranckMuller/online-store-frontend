@@ -4,7 +4,8 @@ import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 
 
-import { withClickOutside, DropdownProps } from "@/utils/withClickOutside";
+import { withClickOutside } from "@/utils/withClickOutside";
+import type {  DropdownProps } from "@/utils/withClickOutside";
 
 import Link from "next/link";
 import AvatarMini from "@/components/modules/Profile/AvatarMini/AvatarMini";

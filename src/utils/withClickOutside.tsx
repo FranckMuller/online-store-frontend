@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import type {
   RefAttributes,
   ForwardRefExoticComponent,
-  MutableRefObject,
+  MutableRefObject
 } from "react";
 
 export type DropdownProps = {
@@ -18,7 +18,6 @@ export const withClickOutside = <P,>(
   const Component = (props: P) => {
     const ref = useRef() as MutableRefObject<HTMLDivElement>;
     const [opened, setOpened] = useState(false);
-
     useEffect(() => {
       const handleClickOutside = (e: MouseEvent) => {
         if (!ref.current) return null;

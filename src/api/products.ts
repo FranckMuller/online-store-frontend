@@ -68,7 +68,7 @@ export const deleteProduct = async (productId: string) => {
 };
 
 export const getMyProducts = async () => {
-  const response = await apiInstance.get<IProducts>("/products/my");
+  const response = await apiInstance.get<IProducts>(`${PRODUCTS_SEGMENT}/my`);
   return response.data;
 };
 

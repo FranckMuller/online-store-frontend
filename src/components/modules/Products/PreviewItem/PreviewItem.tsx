@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { IProduct } from "@/interfaces/products.interface";
-import AddToCartButton from "@/components/modules/Products/AddToCartButton/AddToCartButton";
 import ProductRating from "@/components/modules/Products/ProductRating/ProductRating";
 
 import styles from "./PreviewItem.module.scss";
@@ -30,10 +29,6 @@ const PreviewItem = ({ product }: Props) => {
           <p className={styles["description"]}>{product.description}</p>
           <p className={styles["price"]}>${product.price}</p>
           {product.rating && <ProductRating initialValue={product.rating} />}
-
-          <div className={styles["button"]}>
-            <AddToCartButton productId={`1`} />
-          </div>
         </div>
       </div>
     </div>

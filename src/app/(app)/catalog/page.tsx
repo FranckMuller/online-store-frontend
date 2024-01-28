@@ -2,22 +2,26 @@ import Catalog from "@/components/templates/Catalog/Catalog";
 
 import * as Api from "@/api";
 
-import type { IProductsFilters } from "@/interfaces/products.interface";
+import type { Metadata } from "next";
 
-// type Props = {
-//   searchParams: IProductsFilters;
-// };
-
-// export const revalidate = 1
+export const metadata: Metadata = {
+  title: "Nextstore | Catalog",
+  description: "Catalog of products",
+  keywords: ["online store, buy, sell, products"]
+};
 
 const CatalogPage = async () => {
-  // const products = await Api.products.getAll(searchParams);
-  const categories = await Api.categories.getAll()
-  // if (!products) return null;
+  const categoriesData = Api.categories.getAll();
+  const productsData = Api.products.getAll();
+
+  const [categories, products] = await Promise.all([
+    categoriesData,
+    productsData
+  ]);
 
   return (
     <>
-      <Catalog categories={categories} />
+      <Catalog initialProducts={products} categories={categories} />
     </>
   );
 };

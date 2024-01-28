@@ -3,8 +3,8 @@ import Link from "next/link";
 
 import EditControls from "../EditControls/EditControls";
 import ProductRating from "../ProductRating/ProductRating";
-import AddToCartButton from "../AddToCartButton/AddToCartButton";
-import FavoritesButton from "../FavoritesButton/FavoritesButton";
+import AddToCartButton from "./AddToCartButton/AddToCartButton";
+import FavoritesButton from "./FavoritesButton/FavoritesButton";
 
 import type { IProduct } from "@/interfaces/products.interface";
 import type { ICartProduct } from "@/interfaces/products.interface";
@@ -33,7 +33,8 @@ const ProductItem = ({
         name: product.name,
         id: product.id,
         image: product.mainImage.path,
-        price: product.price
+        price: product.price,
+        count: 1
       });
     } else {
       return null;

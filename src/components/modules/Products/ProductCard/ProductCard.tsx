@@ -48,12 +48,9 @@ const ProductCard = ({ product }: Props) => {
         </div>
         <div className={styles["details"]}>
             <p className={styles["price"]}>${product.price}</p>
-            <p className={`${styles["description"]} theme-color__gray`}>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum
-              dolore nisi rerum, culpa, nam sequi animi quod perferendis ipsum
-              nesciunt aut, deleniti quaerat quam necessitatibus consequuntur
-              neque possimus dolores quidem.
-            </p>
+            {product.description &&<p className={`${styles["description"]} theme-color__gray`}>
+              {product.description}
+            </p>}
             {product.category && (
               <p className={styles["category"]}>{product.category.name}</p>
             )}

@@ -51,7 +51,7 @@ export interface ICartProduct {
   name: string;
   image: string;
   price: string;
-  count?: string;
+  count: number;
 }
 
 export interface ICartProducts extends Array<ICartProduct> {}
