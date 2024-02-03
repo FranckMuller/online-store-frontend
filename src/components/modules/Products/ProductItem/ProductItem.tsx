@@ -34,7 +34,6 @@ const ProductItem = ({
         id: product.id,
         image: product.mainImage.path,
         price: product.price,
-        count: 1
       });
     } else {
       return null;

@@ -6,16 +6,21 @@ import type {
   ICartProducts
 } from "@/interfaces/products.interface";
 
+type TCartItems = Array<{
+  product: ICartProduct;
+  quantity: number;
+}>;
+
 type State = {
-  products: ICartProducts;
-  productsCount: number;
-  totalPrice: number;
+  items: TCartItems;
+  amount: number;
+  paymentUrl: string;
 };
 
 const initialState: State = {
-  products: [],
-  productsCount: 0,
-  totalPrice: 0
+  items: [],
+  amount: 0,
+  paymentUrl: '#'
 };
 
 const cartSlice = createSlice({
@@ -23,13 +28,13 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     toggleProductCart: (state, { payload }: PayloadAction<ICartProduct>) => {
-      const idx = state.products.findIndex(p => p.id === payload.id);
+      const idx = state.items.findIndex(i => i.product.id === payload.id);
       if (idx === -1) {
-        state.products.push(payload);
-        state.totalPrice = state.totalPrice + +payload.price;
+        state.items.push({ product: { ...payload }, quantity: 1 });
+        state.amount = state.amount + +payload.price;
       } else {
-        state.products.splice(idx, 1);
-        state.totalPrice = state.totalPrice - +payload.price;
+        state.items.splice(idx, 1);
+        state.amount = state.amount - +payload.price;
       }
     },
 
@@ -37,10 +42,10 @@ const cartSlice = createSlice({
       state,
       { payload }: PayloadAction<{ id: string }>
     ) => {
-      for (let i = 0; i < state.products.length; i++) {
-        if (state.products[i].id === payload.id) {
-          state.products[i].count++;
-          state.totalPrice += +state.products[i].price;
+      for (let i = 0; i < state.items.length; i++) {
+        if (state.items[i].product.id === payload.id) {
+          state.items[i].quantity++;
+          state.amount += +state.items[i].product.price;
           break;
         }
       }
@@ -50,21 +55,32 @@ const cartSlice = createSlice({
       state,
       { payload }: PayloadAction<{ id: string }>
     ) => {
-      for (let i = 0; i < state.products.length; i++) {
-        if (state.products[i].id === payload.id) {
-          if (state.products[i].count === 1) {
+      for (let i = 0; i < state.items.length; i++) {
+        if (state.items[i].product.id === payload.id) {
+          if (state.items[i].quantity === 1) {
             break;
           }
-          state.products[i].count--;
-          state.totalPrice -= +state.products[i].price;
+          state.items[i].quantity--;
+          state.amount -= +state.items[i].product.price;
           break;
         }
       }
+    },
+
+    setPaymentUrl: (
+      state,
+      { payload }: PayloadAction<{ paymentUrl: string }>
+    ) => {
+      state.paymentUrl = payload.paymentUrl;
     }
   }
 });
 
-export const { toggleProductCart, incrementProductCart, decrementProductCart } =
-  cartSlice.actions;
+export const {
+  toggleProductCart,
+  incrementProductCart,
+  decrementProductCart,
+  setPaymentUrl
+} = cartSlice.actions;
 
 export default cartSlice.reducer;
