@@ -1,7 +1,7 @@
 .cart-dropdown {
   .cart-dropdown-btn {
     margin-right: 10px;
-  position: relative;
+    position: relative;
     color: var(--white);
     .count {
       display: block;
@@ -30,9 +30,9 @@
     z-index: 10;
     margin-top: 5px;
     .dropdown {
-      padding: 10px;
-      border-bottom-left-radius: var(--common-br);
-      border-top-left-radius: var(--common-br);
+        padding: 10px;
+        border-bottom-left-radius: var(--common-br);
+        border-top-left-radius: var(--common-br);
       animation: showDropdown 0.3s ease-in-out forwards;
       transform: translateX(0);
       .title {
