@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useMe } from "@/hooks/useMe";
+import { useMe } from "@/hooks/auth/useMe";
 
 import { isAxiosError } from "axios";
 

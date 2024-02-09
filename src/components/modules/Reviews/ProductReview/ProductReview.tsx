@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
-import { useReviews } from "../hooks/useReviews";
+import { useReviews } from "@/hooks/reviews/useReviews";
 
 import ProductRating from "@/components/modules/Products/ProductRating/ProductRating";
 import ElementSpinner from "@/components/ui/ElementSpinner/ElementSpinner";
@@ -115,7 +115,7 @@ const ProductReview = ({ review, userId = null, productId }: Props) => {
                     Save
                     {isUpdateLoading && (
                       <div className={styles["spinner"]}>
-                        <ElementSpinner />
+                        <ElementSpinner isLoading={isUpdateLoading} />
                       </div>
                     )}
                   </button>

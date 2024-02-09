@@ -1,6 +1,6 @@
 "use client";
 
-import { useMe } from "@/hooks/useMe";
+import { useMe } from "@/hooks/auth/useMe";
 
 import Link from "next/link";
 

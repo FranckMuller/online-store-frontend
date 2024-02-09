@@ -4,8 +4,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { isAxiosError } from "axios";
 
-import { useMe } from "@/hooks/useMe";
-import { useReviews } from "../hooks/useReviews";
+import { useMe } from "@/hooks/auth/useMe";
+import { useReviews } from "@/hooks/reviews/useReviews";
 
 import AvatarMini from "@/components/modules/Profile/AvatarMini/AvatarMini";
 import ProductRating from "@/components/modules/Products/ProductRating/ProductRating";
@@ -125,7 +125,7 @@ const ReviewForm = ({ productId }: Props) => {
                   Send review
                   {isCreating && (
                     <div className={styles["spinner"]}>
-                      <ElementSpinner />
+                      <ElementSpinner isLoading={isCreating} />
                     </div>
                   )}
                 </button>

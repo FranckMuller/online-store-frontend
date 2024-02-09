@@ -3,13 +3,15 @@ import type { AxiosResponse } from "axios";
 import type { IAuthResponse } from "./auth";
 import { getAccessToken, setAccessToken, removeAccessToken } from "./helpers";
 
+const prodApiUrl = 'https://7d42-151-249-128-238.ngrok-free.app'
+
 const refreshToken = async () => {
   const response = await apiInstance.get("auth/refresh");
   setAccessToken(response.data.accessToken);
 };
 
 export const apiInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  baseURL: process.env.NEXT_PUBLIC_NODE_ENV === 'development' ? process.env.NEXT_PUBLIC_API_URL : prodApiUrl,
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",

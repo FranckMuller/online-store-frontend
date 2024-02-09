@@ -43,10 +43,14 @@ body {
   .theme-bg {
     background-color: var(--main-bg);
   }
-  
+
   .theme-bg__inverse {
     background-color: var(--main-bg-dark);
     color: var(--white);
+  }
+
+  .bg-white {
+    background-color: var(--white);
   }
 
   .theme-color__gray {
@@ -67,11 +71,11 @@ body {
     .theme-bg {
       background-color: var(--main-bg-dark);
     }
-    
+
     .theme-bg__inverse {
-    background-color: var(--main-bg);
-    color: var(--black);
-  }
+      background-color: var(--main-bg);
+      color: var(--black);
+    }
 
     .search-input {
       border: 1px solid var(--white);
@@ -145,10 +149,20 @@ img {
 }
 
 .btn-secondary {
+  font-size: 14px;
   background-color: var(--yellow);
   color: var(--white);
   padding: 5px 10px;
   border-radius: var(--button-br);
+}
+
+.btn-cancel {
+  font-size: 14px;
+  background-color: var(--red);
+  color: var(--white);
+  padding: 5px 10px;
+  border-radius: var(--button-br);
+  position: relative;
 }
 
 .btn-outline-theme {

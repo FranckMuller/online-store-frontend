@@ -20,8 +20,7 @@ import styles from "./Profile.module.scss";
 const Profile = () => {
   const { profile, isLoading, error } = useProfile();
 
-  if (isLoading) return <PageSpinner isLoading={isLoading} />;
-
+      // <PageSpinner isLoading={isLoading} />
   return (
     <>
       {profile && (

@@ -16,7 +16,7 @@ import {
 import { selectCart } from "@/store/cart/cart.selectors";
 
 import type { ICartProduct } from "@/interfaces/products.interface";
-import type { IOrder } from "@/interfaces/orders.interface";
+import type { IOrderData } from "@/interfaces/orders.interface";
 
 export const useCart = () => {
   const router = useRouter();
@@ -24,10 +24,11 @@ export const useCart = () => {
   const cart = useAppSelector(selectCart);
 
   const { mutate: createOrder } = useMutation({
-    mutationFn: (data: IOrder) => Api.orders.createOrder(data),
+    mutationFn: (data: Array<IOrderData>) => Api.orders.createOrder(data),
     onSuccess: data => {
+      console.log(data);
       dispatch(setPaymentUrl(data));
-      router.push("/checkout");
+      router.push("/profile/checkout");
     }
   });
 
@@ -65,6 +66,6 @@ export const useCart = () => {
     cartProductsIds,
     incrementProduct,
     decrementProduct,
-    onOrderCreate,
+    onOrderCreate
   };
 };

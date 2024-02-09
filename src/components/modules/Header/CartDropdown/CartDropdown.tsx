@@ -5,22 +5,19 @@ import Link from "next/link";
 import { useCart } from "@/hooks/cart/useCart";
 
 import { withClickOutside } from "@/utils/withClickOutside";
-import type { DropdownProps } from "@/utils/withClickOutside";
+
+import ProductQuantity from "@/components/modules/Cart/ProductQuantity/ProductQuantity";
 
 import { CiShoppingCart } from "react-icons/ci";
-import { FaTrash } from "react-icons/fa";
+
+import type { DropdownProps } from "@/utils/withClickOutside";
 
 import styles from "./CartDropdown.module.scss";
 
 const CartDropdown = forwardRef<HTMLDivElement, DropdownProps>(
   ({ opened, toggleDropdown }, ref) => {
-    const {
-      items,
-      toggleProduct,
-      amount,
-      incrementProduct,
-      decrementProduct,
-    } = useCart();
+    const { items, toggleProduct, amount, incrementProduct, decrementProduct } =
+      useCart();
 
     return (
       <div ref={ref} className={styles["cart-dropdown"]}>
@@ -30,8 +27,8 @@ const CartDropdown = forwardRef<HTMLDivElement, DropdownProps>(
         >
           <CiShoppingCart />
           {items.length > 0 && (
-        <span className={styles["count"]}>{items.length}</span>
-      )}
+            <span className={styles["count"]}>{items.length}</span>
+          )}
         </button>
         {opened && (
           <div className={styles["dropdown-wrapper"]}>
@@ -56,30 +53,17 @@ const CartDropdown = forwardRef<HTMLDivElement, DropdownProps>(
                         <p className={styles["product-price"]}>
                           ${i.product.price}
                         </p>
-                        <div className={styles["product-count"]}>
-                          <button
-                            onClick={e => decrementProduct(i.product.id)}
-                            className={styles["product-count-btn"]}
-                          >
-                            -
-                          </button>
-                          <input
-                            onChange={() => {}}
-                            type="number"
-                            value={i.quantity}
+                        <div className={styles["product-qyantity"]}>
+                          <ProductQuantity
+                            quantityValue={i.quantity}
+                            incrementHandler={() =>
+                              incrementProduct(i.product.id)
+                            }
+                            decrementHandler={() =>
+                              decrementProduct(i.product.id)
+                            }
+                            deleteHandler={() => toggleProduct(i.product)}
                           />
-                          <button
-                            onClick={e => incrementProduct(i.product.id)}
-                            className={styles["product-count-btn"]}
-                          >
-                            +
-                          </button>
-                          <button
-                            onClick={e => toggleProduct(i.product)}
-                            className={styles["remove-product-btn"]}
-                          >
-                            <FaTrash />
-                          </button>
                         </div>
                       </div>
                     </div>
@@ -92,9 +76,9 @@ const CartDropdown = forwardRef<HTMLDivElement, DropdownProps>(
               </div>
               <Link
                 className={`${styles["checkout-link"]} theme-bg`}
-                href="/cart"
+                href="/profile/cart"
               >
-                Go to checkout
+                Place order
               </Link>
             </div>
           </div>

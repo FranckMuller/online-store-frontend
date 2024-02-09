@@ -1,5 +1,5 @@
 "use client";
-import { useMe } from "@/hooks/useMe";
+import { useMe } from "@/hooks/auth/useMe";
 import { useFavorites } from "@/hooks/products/useFavorites";
 import { useCart } from "@/hooks/cart/useCart";
 

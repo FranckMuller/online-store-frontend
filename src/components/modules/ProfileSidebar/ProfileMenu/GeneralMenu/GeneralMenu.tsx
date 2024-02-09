@@ -8,8 +8,12 @@ const items = [
     name: "My products",
   },
   {
+    href: "/profile/cart",
+    name: "My cart",
+  },
+  {
     href: "/profile/orders",
-    name: "Orders",
+    name: "My orders",
   },
   {
     href: "/profile/favorites-shops",

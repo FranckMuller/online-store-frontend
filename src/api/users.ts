@@ -5,7 +5,7 @@ import type { IProducts } from "@/interfaces/products.interface";
 
 export const getAll = async () => {
   const response = await apiInstance.get<IUsers>("users");
-console.log(response.data)
+
   return response.data;
 };
 

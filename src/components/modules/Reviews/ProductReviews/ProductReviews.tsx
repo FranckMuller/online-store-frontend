@@ -1,7 +1,8 @@
 "use client";
-
 import { useInfiniteQuery } from "@tanstack/react-query";
-import {useMe} from "@/hooks/useMe";
+
+import {useMe} from "@/hooks/auth/useMe";
+
 import * as Api from "@/api";
 
 import ProductReview from "../ProductReview/ProductReview";
@@ -53,7 +54,7 @@ const ProductReviews = ({ productId }: Props) => {
 
       {hasNextPage && (
         <div className={styles["load-more-btn"]}>
-          {isFetchingNextPage && <ElementSpinner />}
+          {isFetchingNextPage && <ElementSpinner isLoading={isFetchingNextPage} />}
           <button
             disabled={!hasNextPage || isFetchingNextPage}
             onClick={() => fetchNextPage()}
