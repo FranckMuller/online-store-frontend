@@ -12,7 +12,6 @@ const AuthorizedGuard = ({ children }: { children: React.ReactNode }) => {
     redirect("/signin");
   }
 
-  console.log(isAuthChecking);
   return (
     <>
       <PageSpinner isLoading={isAuthChecking} />

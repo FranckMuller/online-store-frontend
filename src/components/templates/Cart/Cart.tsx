@@ -1,22 +1,32 @@
 "use client";
 import { useCart } from "@/hooks/cart/useCart";
+import { useCreateOrder } from "@/hooks/orders/useCreateOrder";
 
 import Image from "next/image";
 import Link from "next/link";
 
 import ProductQuantity from "@/components/modules/Cart/ProductQuantity/ProductQuantity";
+import Button from "@/components/ui/Button/Button";
 
 import styles from "./Cart.module.scss";
 
 const Cart = () => {
-  const {
-    items,
-    toggleProduct,
-    incrementProduct,
-    decrementProduct,
-    onOrderCreate,
-    amount
-  } = useCart();
+  const { items, toggleProduct, incrementProduct, decrementProduct, amount } =
+    useCart();
+
+  const createOrder = useCreateOrder();
+
+  const onOrderCreate = () => {
+    if (items.length) {
+      const data = items.map(i => ({
+        quantity: i.quantity,
+        product: i.product.id
+      }));
+
+      createOrder.create(data);
+    }
+  };
+
   return (
     <div className={styles["shop-cart"]}>
       <h3 className={styles["title"]}>Cart</h3>
@@ -55,9 +65,7 @@ const Cart = () => {
           )}
         </div>
         <div className={styles["order"]}>
-          <button onClick={onOrderCreate} className="btn-primary">
-            Place order
-          </button>
+          <Button text="Place order" loading={createOrder.isLoading} disabled={createOrder.isLoading} onClick={onOrderCreate} />
           <p>Total: ${amount}</p>
         </div>
       </div>

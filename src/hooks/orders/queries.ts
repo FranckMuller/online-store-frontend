@@ -39,14 +39,15 @@ export const useMutationCancelOrder = () => {
   return { cancelOrder, isLoadingCancelOrder };
 };
 
-export const useDeleteOrderMutation = () => {
+
+export const useDeleteOrder = () => {
   const queryClient = useQueryClient();
-  const { mutate: deleteOrder, isLoading: isLoadingDelete } = useMutation({
-    mutationFn: (orderId: string) => Api.orders.deleteOrder(orderId),
-    onSuccess: () => {
-      queryClient.invalidateQueries(["get/orders"]);
+  const { mutateAsync: deleteOrder, isLoading: isLoadingDelete } = useMutation({
+    mutationFn: Api.orders.deleteOrder,
+    async onSuccess() {
+      await queryClient.invalidateQueries(["get/orders"]);
     }
   });
-  
-  return {deleteOrder, isLoadingDelete}
+
+  return { deleteOrder, isLoadingDelete };
 };

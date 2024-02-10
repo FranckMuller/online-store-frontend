@@ -1,0 +1,93 @@
+.btn {
+  font-size: 14px;
+  padding: 5px 10px;
+  border-radius: var(--button-br);
+  position: relative;
+
+  &.btn-loading {
+    pointer-events: none;
+    color: transparent;
+    transition: color ease 0.3s;
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: rgba(255, 255, 255, 0.2);
+      z-index: 1;
+    }
+    .btn-spinner {
+      animation: show-spinner 0.3s ease-in-out forwards;
+      color: var(--white);
+    }
+  }
+
+  .btn-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.btn-primary {
+  background-color: var(--blue);
+  color: var(--white);
+}
+
+.btn-secondary {
+  background-color: var(--yellow);
+  color: var(--white);
+}
+
+.btn-success {
+  background-color: var(--green);
+  color: var(--white);
+}
+
+.btn-danger {
+  background-color: var(--red);
+  color: var(--white);
+}
+
+.btn-warning {
+}
+
+.btn-info {
+}
+
+.btn-light {
+}
+
+.btn-dark {
+}
+
+.btn-link {
+}
+
+.btn-sm {
+  font-size: 12px;
+}
+
+.btn-md {
+  font-size: 14px;
+}
+
+.btn-lg {
+  font-size: 16px;
+}
+
+@keyframes show-spinner {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

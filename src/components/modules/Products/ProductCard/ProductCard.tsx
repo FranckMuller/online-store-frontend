@@ -56,10 +56,8 @@ const ProductCard = ({ product }: Props) => {
             )}
             <Button
               className={`${styles["cart-button"]} btn-primary`}
-              handleClick={() => {}}
-            >
-              Add to cart
-            </Button>
+              text="Add to cart"
+            />
           
           <p className={styles["secure"]}>
             <span className={styles["secure-icon"]}>

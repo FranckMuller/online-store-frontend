@@ -1,6 +1,9 @@
+import { useDeleteOrder } from "@/hooks/orders/queries";
+
 import Image from "next/image";
 import Link from "next/link";
 import ElementSpinner from "@/components/ui/ElementSpinner/ElementSpinner";
+import Button, { EButtonVariants } from "@/components/ui/Button/Button";
 
 import { IOrder } from "@/interfaces/orders.interface";
 
@@ -18,7 +21,6 @@ type Props = {
   isLoadingCancel?: boolean;
   showPaymentDetails?: boolean;
   showOrderDetails?: boolean;
-  onDelete?: (orderId: string) => void;
 };
 
 const OrderItem = ({
@@ -26,9 +28,10 @@ const OrderItem = ({
   onCancelOrder,
   isLoadingCancel,
   showPaymentDetails,
-  showOrderDetails,
-  onDelete
+  showOrderDetails
 }: Props) => {
+  const { deleteOrder, isLoadingDelete } = useDeleteOrder();
+
   return (
     <div className={styles["order-item"]}>
       <div className={`${styles["products"]} bg-white`}>
@@ -105,14 +108,16 @@ const OrderItem = ({
             </span>
           </p>
           <p className={styles["total"]}>Total: {order.amount}</p>
-          {onDelete && (
-            <button
-              onClick={() => onDelete(order.id)}
-              className={`${styles["delete-btn"]} btn-cancel`}
-            >
-              delete order
-            </button>
-          )}
+          
+            <Button
+              customClass={styles["delete-btn"]}
+              text="Delete order"
+              variant={EButtonVariants.DANGER}
+              onClick={() => deleteOrder(order.id)}
+              loading={isLoadingDelete}
+              disabled={isLoadingDelete}
+            />
+          
         </div>
       )}
     </div>

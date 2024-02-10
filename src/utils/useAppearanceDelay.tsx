@@ -7,7 +7,6 @@ type Options = {
 };
 
 const useAppearanceDelay = (show?: boolean, options = {} as Options) => {
-  console.log(show);
   const {
     defaultValue = false,
     minDisplay = 500,
