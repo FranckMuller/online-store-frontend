@@ -24,3 +24,20 @@ export interface IOrderData {
   quantity: number;
   product: string;
 }
+
+export enum EOrdersParamsKeyes {
+  STATUS = "status"
+}
+
+export enum EOrderSortStatuses {
+  ALL = "",
+  PENDING = "pending",
+  PAYED = "payed",
+  SHIPPED = "shippped",
+  DELIVERED = "delivered",
+  CANCELED = "canceled"
+}
+
+export interface IFetchOrdersParams {
+  status?: EOrderSortStatuses;
+}

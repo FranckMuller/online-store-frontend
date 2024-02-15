@@ -1,10 +1,9 @@
 import { forwardRef} from "react";
-import { withClickOutside } from "@/utils/withClickOutside";
+import { withClickOutside, type DropdownProps  } from "@/utils/withClickOutside";
 import { EProductsFilterKeys } from "@/hooks/products/useProductsFilters";
 
 import { FaCaretDown } from "react-icons/fa";
 
-import type { DropdownProps } from "@/utils/withClickOutside";
 import {
   EProductsSort,
   IProductsFilters,

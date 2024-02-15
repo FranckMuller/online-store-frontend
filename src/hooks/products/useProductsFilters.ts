@@ -3,7 +3,7 @@ import { useSearchParams } from "next/navigation";
 import {
   useQueryState,
   useQueryStates,
-  UseQueryStatesKeysMap,
+  UseQueryStatesKeysMap
 } from "next-usequerystate";
 
 import type { IProductsFilters } from "@/interfaces/products.interface";
@@ -13,7 +13,7 @@ export enum EProductsFilterKeys {
   MaxPrice = "maxPrice",
   MinPrice = "minPrice",
   Category = "category",
-  Rating = "rating",
+  Rating = "rating"
 }
 
 export const useProductsFilters = () => {
@@ -29,28 +29,27 @@ export const useProductsFilters = () => {
 
   useEffect(() => {
     searchParams.forEach((value, key) => {
-      setFiltersParams((prev) => ({
+      setFiltersParams(prev => ({
         ...prev,
-        [key]: value,
+        [key]: value
       }));
     });
   }, [searchParams]);
 
   const updateFilters = (key: keyof IProductsFilters, value: string) => {
-    console.log(value)
     if (value) {
       setParams({
-        [key]: value,
+        [key]: value
       });
     } else {
       setParams({
-        [key]: null,
+        [key]: null
       });
     }
 
-    setFiltersParams((prev) => ({
+    setFiltersParams(prev => ({
       ...prev,
-      [key]: value,
+      [key]: value
     }));
   };
 

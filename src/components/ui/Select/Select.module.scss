@@ -1,0 +1,62 @@
+.select {
+  position: relative;
+  display: inline-block;
+  .options {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    padding-top: 5px;
+    overflow: hidden;
+    z-index: 10;
+
+    .option {
+      padding: 3px 8px;
+      background-color: var(--white);
+      color: var(--black);
+      font-size: 14px;
+      animation: slideOptions 0.5s forwards;
+      transform: translateX(100%);
+      border-radius: var(--common-br);
+
+      & + .option {
+        margin-top: 5px;
+      }
+
+      @for$i from 1 through 4 {
+        &:nth-child(#{$i}) {
+          animation-delay: 0.1s * $i;
+        }
+      }
+    }
+  }
+
+  .current {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: 12px;
+    display: flex;
+    color: inherit;
+    .title {
+      font-weight: 700;
+      margin-right: 10px;
+    }
+
+    .text {
+      margin-right: 5px;
+      font-style: italic;
+    }
+  }
+}
+
+@keyframes slideOptions {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

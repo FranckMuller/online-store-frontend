@@ -1,8 +1,8 @@
-import { useDeleteOrder } from "@/hooks/orders/queries";
+import { useRemoveOrder } from "@/hooks/orders/useRemoveOrder";
+import { useCancelOrder } from "@/hooks/orders/useCancelOrder";
 
 import Image from "next/image";
 import Link from "next/link";
-import ElementSpinner from "@/components/ui/ElementSpinner/ElementSpinner";
 import Button, { EButtonVariants } from "@/components/ui/Button/Button";
 
 import { IOrder } from "@/interfaces/orders.interface";
@@ -10,27 +10,20 @@ import { IOrder } from "@/interfaces/orders.interface";
 import styles from "./OrderItem.module.scss";
 
 const orderStatuses = {
-  PENDING: { title: "pending", styles: { backgroundColor: "var(--blue)" } },
-  PAYED: { title: "payed", styles: { backgroundColor: "var(--green)" } },
-  CANCELED: { title: "canceled", styles: { backgroundColor: "var(--orange)" } }
+  pending: { title: "pending", styles: { backgroundColor: "var(--blue)" } },
+  payed: { title: "payed", styles: { backgroundColor: "var(--green)" } },
+  canceled: { title: "canceled", styles: { backgroundColor: "var(--orange)" } }
 };
 
 type Props = {
   order: IOrder;
-  onCancelOrder?: (orderId: string) => void;
-  isLoadingCancel?: boolean;
   showPaymentDetails?: boolean;
   showOrderDetails?: boolean;
 };
 
-const OrderItem = ({
-  order,
-  onCancelOrder,
-  isLoadingCancel,
-  showPaymentDetails,
-  showOrderDetails
-}: Props) => {
-  const { deleteOrder, isLoadingDelete } = useDeleteOrder();
+const OrderItem = ({ order, showPaymentDetails, showOrderDetails }: Props) => {
+  const removeOrder = useRemoveOrder();
+  const cancelOrder = useCancelOrder();
 
   return (
     <div className={styles["order-item"]}>
@@ -72,16 +65,13 @@ const OrderItem = ({
           </p>
 
           <div className={styles["order-controls"]}>
-            {onCancelOrder && (
-              <button
-                disabled={!!isLoadingCancel}
-                className="btn-cancel"
-                onClick={() => onCancelOrder(order.id)}
-              >
-                Cancel order
-                <ElementSpinner isLoading={!!isLoadingCancel} />
-              </button>
-            )}
+            <Button
+              text="Cancel order"
+              variant={EButtonVariants.DANGER}
+              onClick={() => cancelOrder.cancel(order.id)}
+              loading={cancelOrder.isLoading}
+              disabled={cancelOrder.isLoading}
+            />
 
             {order.paymentUrl && (
               <Link
@@ -101,23 +91,23 @@ const OrderItem = ({
             Status:
             <span
               style={
-                orderStatuses[order.status as keyof typeof orderStatuses].styles
+                orderStatuses[order.status as keyof typeof orderStatuses]
+                  .styles
               }
             >
               {orderStatuses[order.status as keyof typeof orderStatuses].title}
             </span>
           </p>
           <p className={styles["total"]}>Total: {order.amount}</p>
-          
-            <Button
-              customClass={styles["delete-btn"]}
-              text="Delete order"
-              variant={EButtonVariants.DANGER}
-              onClick={() => deleteOrder(order.id)}
-              loading={isLoadingDelete}
-              disabled={isLoadingDelete}
-            />
-          
+
+          <Button
+            customClass={styles["delete-btn"]}
+            text="Delete order"
+            variant={EButtonVariants.DANGER}
+            onClick={() => removeOrder.remove(order.id)}
+            loading={removeOrder.isLoading}
+            disabled={removeOrder.isLoading}
+          />
         </div>
       )}
     </div>

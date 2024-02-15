@@ -1,28 +1,85 @@
 "use client";
-import OrderItem from "@/components/modules/Orders/OrderItem/OrderItem";
+import { useQueryStates } from "next-usequerystate";
 
-import { useQueryOrders } from "@/hooks/orders/queries";
+import OrderItem from "@/components/modules/Orders/OrderItem/OrderItem";
+import Select from "@/components/ui/Select/Select";
+import PageSpinner from "@/components/ui/PageSpinner/PageSpinner";
+
+import { useFetchOrders } from "@/hooks/orders/useFetchOrders";
+import { useQueryParams } from "@/hooks/use-query-params";
+
+import {
+  EOrdersParamsKeyes,
+  EOrderSortStatuses,
+  type IFetchOrdersParams
+} from "@/interfaces/orders.interface";
 
 import styles from "./Orders.module.scss";
 
+type SortOption = {
+  text: string;
+  value: EOrderSortStatuses;
+};
+
+const sortOptions = [
+  { text: "All", value: EOrderSortStatuses.ALL },
+  { text: "Pending", value: EOrderSortStatuses.PENDING },
+  { text: "Payed", value: EOrderSortStatuses.PAYED },
+  { text: "Canceled", value: EOrderSortStatuses.CANCELED }
+];
+
+const initOrdersParamsObj = {
+  status: EOrdersParamsKeyes.STATUS
+};
+
+type TInitOrdersParamsObj = typeof initOrdersParamsObj;
+
 const Orders = () => {
-  const { orders, isLoadingOrders } = useQueryOrders();
+  const { updateQueryParams, params } =
+    useQueryParams<TInitOrdersParamsObj>(initOrdersParamsObj);
+  const fetchOrders = useFetchOrders(params);
+
+  const onSortOrders = (
+    sortBy: keyof IFetchOrdersParams,
+    value: EOrderSortStatuses
+  ) => {
+    updateQueryParams(sortBy, value);
+  };
+
+  const defaultSortOption = sortOptions.find(o => o.value === params.status);
 
   return (
-    <div className={styles["orders"]}>
-      <h3>Orders</h3>
-      {orders && orders.length ? (
-        orders.map(order => (
-          <OrderItem
-            showOrderDetails={true}
-            key={order.id}
-            order={order}
+    <>
+      <PageSpinner
+        minDisplay={200}
+        appearenceDelay={200}
+        isLoading={fetchOrders.isLoading}
+      />
+
+      <div className={styles["orders"]}>
+        <div className={styles["heading"]}>
+          <h3>Orders</h3>
+          <Select
+            title="Sort by:"
+            defaultOption={defaultSortOption ?? sortOptions[0]}
+            options={sortOptions}
+            onChange={(value: EOrderSortStatuses) =>
+              onSortOrders(EOrdersParamsKeyes.STATUS, value)
+            }
           />
-        ))
-      ) : (
-        <p>you have no orders</p>
-      )}
-    </div>
+        </div>
+
+        {fetchOrders.orders && !fetchOrders.orders.length && (
+          <p>you have no orders</p>
+        )}
+
+        {fetchOrders.orders &&
+          !!fetchOrders.orders.length &&
+          fetchOrders.orders.map(order => (
+            <OrderItem showOrderDetails={true} key={order.id} order={order} />
+          ))}
+      </div>
+    </>
   );
 };
 

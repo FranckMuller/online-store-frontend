@@ -1,8 +1,6 @@
 "use client";
-import {
-  useQueryPendingOrders,
-  useMutationCancelOrder
-} from "@/hooks/orders/queries";
+import { useFetchOrders } from "@/hooks/orders/useFetchOrders";
+import { EOrderSortStatuses } from "@/interfaces/orders.interface";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -12,8 +10,7 @@ import OrderItem from "@/components/modules/Orders/OrderItem/OrderItem";
 import styles from "./Checkout.module.scss";
 
 const Checkout = () => {
-  const { orders } = useQueryPendingOrders();
-  const { cancelOrder, isLoadingCancelOrder } = useMutationCancelOrder();
+  const fetchOrders = useFetchOrders({ status: EOrderSortStatuses.PENDING });
 
   return (
     <div className={styles["checkout"]}>
@@ -33,15 +30,9 @@ const Checkout = () => {
         </div>
       </div>
       <div className={styles["order-items"]}>
-        {orders && orders.length > 0 ? (
-          orders.map(order => (
-            <OrderItem
-              key={order.id}
-              onCancelOrder={cancelOrder}
-              isLoadingCancel={isLoadingCancelOrder}
-              order={order}
-              showPaymentDetails={true}
-            />
+        {fetchOrders.orders && fetchOrders.orders.length > 0 ? (
+          fetchOrders.orders.map(order => (
+            <OrderItem key={order.id} order={order} showPaymentDetails={true} />
           ))
         ) : (
           <p>You have no active orders</p>

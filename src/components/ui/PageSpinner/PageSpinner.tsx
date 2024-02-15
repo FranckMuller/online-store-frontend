@@ -4,11 +4,12 @@ import styles from "./PageSpinner.module.scss";
 
 type Props = {
   isLoading: boolean;
+  appearenceDelay?: number;
+  minDisplay?: number;
 };
 
-const PageSpinner = ({ isLoading }: Props) => {
-  const show = useAppearanceDelay(isLoading);
-  console.log(isLoading);
+const PageSpinner = ({ isLoading, ...appearenceDelayOptions }: Props) => {
+  const show = useAppearanceDelay(isLoading, {...appearenceDelayOptions});
   useEffect(() => {
     if (show) {
       document.body.classList.add("no-scroll");
@@ -20,7 +21,7 @@ const PageSpinner = ({ isLoading }: Props) => {
       document.body.classList.remove("no-scroll");
     };
   }, [show]);
-  
+
   if (!show) return null;
 
   return (

@@ -12,6 +12,10 @@ const items = [
     name: "My cart",
   },
   {
+    href: "/profile/checkout",
+    name: "Checkout",
+  },
+  {
     href: "/profile/orders",
     name: "My orders",
   },
