@@ -2,21 +2,24 @@ import PriceFilter from "./PriceFilter/PriceFilter";
 import CategoryFilter from "./CategoryFilter/CategoryFilter";
 import RatingFilter from "./RatingFilter/RatingFilter";
 
-import type { IProductsFilters } from "@/interfaces/products.interface";
+import type {
+  EProductsParamsKeys,
+  IFetchProductsParams
+} from "@/interfaces/products.interface";
 import type { ICategories } from "@/interfaces/categories.interface";
 
 import styles from "./ProductsFilters.module.scss";
 
 type Props = {
-  updateFilters: (key: keyof IProductsFilters, value: string) => void;
+  updateFilters: (key: EProductsParamsKeys, value: string) => void;
   categories: ICategories;
-  filtersParams: IProductsFilters;
+  filtersParams: IFetchProductsParams;
 };
 
 const ProductsFilters = ({
   updateFilters,
   categories,
-  filtersParams,
+  filtersParams
 }: Props) => {
   return (
     <div className={styles["filters"]}>
@@ -37,7 +40,10 @@ const ProductsFilters = ({
         </div>
       )}
       <div className={styles["rating"]}>
-        <RatingFilter currentValue={filtersParams.rating} updateFilters={updateFilters} />
+        <RatingFilter
+          currentValue={filtersParams.rating}
+          updateFilters={updateFilters}
+        />
       </div>
     </div>
   );

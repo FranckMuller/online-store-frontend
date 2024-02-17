@@ -1,8 +1,21 @@
+import { dehydrate, Hydrate } from "@tanstack/react-query";
+import { getQueryClient } from "@/app/getQueryClient";
+import { EProductsParamsKeys } from "@/interfaces/products.interface";
+
 import Catalog from "@/components/templates/Catalog/Catalog";
 
 import * as Api from "@/api";
 
 import type { Metadata } from "next";
+
+const initProductsParamsObj = {
+  sort: null,
+  searchTerm: null,
+  rating: null,
+  minPrice: null,
+  maxPrice: null,
+  category: null
+};
 
 export const metadata: Metadata = {
   title: "Nextstore | Catalog",
@@ -11,18 +24,20 @@ export const metadata: Metadata = {
 };
 
 const CatalogPage = async () => {
-  const categoriesData = Api.categories.getAll();
-  const productsData = Api.products.getAll();
+  const queryClient = getQueryClient();
+  await queryClient.prefetchQuery(["get/products", initProductsParamsObj], {
+    queryFn: () => Api.products.getAll()
+  });
+  const dehydratedState = dehydrate(queryClient);
 
-  const [categories, products] = await Promise.all([
-    categoriesData,
-    productsData
-  ]);
+  const categoriesData = Api.categories.getAll();
+
+  const [categories] = await Promise.all([categoriesData]);
 
   return (
-    <>
-      <Catalog initialProducts={products} categories={categories} />
-    </>
+    <Hydrate state={dehydratedState}>
+      <Catalog categories={categories} />
+    </Hydrate>
   );
 };
 

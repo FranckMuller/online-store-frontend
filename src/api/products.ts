@@ -4,7 +4,7 @@ import { apiInstance } from "./api";
 import type {
   IProducts,
   IProduct,
-  IProductsFilters
+  IFetchProductsParams
 } from "@/interfaces/products.interface";
 
 interface CreateProductResponse {
@@ -16,7 +16,7 @@ interface CreateProductResponse {
 
 const PRODUCTS_SEGMENT = "products";
 
-export const getAll = async (searchParams = {} as IProductsFilters) => {
+export const getAll = async (searchParams = {} as IFetchProductsParams) => {
   const response = await apiInstance.get<IProducts>(PRODUCTS_SEGMENT, {
     params: searchParams
   });

@@ -67,7 +67,7 @@ const OrderItem = ({ order, showPaymentDetails, showOrderDetails }: Props) => {
           <div className={styles["order-controls"]}>
             <Button
               text="Cancel order"
-              variant={EButtonVariants.DANGER}
+              variant={EButtonVariants.Danger}
               onClick={() => cancelOrder.cancel(order.id)}
               loading={cancelOrder.isLoading}
               disabled={cancelOrder.isLoading}
@@ -103,7 +103,7 @@ const OrderItem = ({ order, showPaymentDetails, showOrderDetails }: Props) => {
           <Button
             customClass={styles["delete-btn"]}
             text="Delete order"
-            variant={EButtonVariants.DANGER}
+            variant={EButtonVariants.Danger}
             onClick={() => removeOrder.remove(order.id)}
             loading={removeOrder.isLoading}
             disabled={removeOrder.isLoading}

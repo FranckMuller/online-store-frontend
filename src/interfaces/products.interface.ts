@@ -26,6 +26,15 @@ export interface IProductPreviewImage {
   isMain?: boolean;
 }
 
+export enum EProductsParamsKeys {
+  Sort = "sort",
+  MaxPrice = "maxPrice",
+  MinPrice = "minPrice",
+  Category = "category",
+  Rating = "rating",
+  SearchTerm = "searchTerm"
+}
+
 export enum EProductsSort {
   HighPrice = "high-price",
   MinPrice = "min-price",
@@ -35,7 +44,7 @@ export enum EProductsSort {
 
 export type TRatingFilterValue = 1 | 2 | 3 | 4 | 5;
 
-export interface IProductsFilters {
+export interface IFetchProductsParams {
   sort?: EProductsSort | string;
   searchTerm?: string;
   rating?: string;

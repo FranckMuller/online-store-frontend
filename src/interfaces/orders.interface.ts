@@ -25,7 +25,7 @@ export interface IOrderData {
   product: string;
 }
 
-export enum EOrdersParamsKeyes {
+export enum EOrdersParamsKeys {
   STATUS = "status"
 }
 

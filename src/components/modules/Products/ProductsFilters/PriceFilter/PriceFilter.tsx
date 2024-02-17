@@ -1,24 +1,15 @@
 import { useState, useEffect, useRef } from "react";
 
-import {
-  EProductsFilterKeys,
-} from "@/hooks/products/useProductsFilters";
-
-import type { IProductsFilters } from "@/interfaces/products.interface";
+import { EProductsParamsKeys } from "@/interfaces/products.interface";
 
 import styles from "./PriceFilter.module.scss";
-
-enum EPriceFiltersKeys {
-  minPrice = "min-price",
-  maxPrice = "max-price",
-}
 
 type Props = {
   min?: number;
   max?: number;
   initialFromValue?: string;
   initialToValue?: string;
-  updateFilters: (key: keyof IProductsFilters, value: string) => void;
+  updateFilters: (key: EProductsParamsKeys, value: string) => void;
 };
 
 const PriceFilter = ({
@@ -26,7 +17,7 @@ const PriceFilter = ({
   max = 2000,
   initialFromValue,
   initialToValue,
-  updateFilters,
+  updateFilters
 }: Props) => {
   const shouldUpdateTilters = useRef(false);
   const [fromValue, setFromValue] = useState(initialFromValue || "");
@@ -46,7 +37,7 @@ const PriceFilter = ({
       let timeoutId: ReturnType<typeof setTimeout>;
 
       timeoutId = setTimeout(() => {
-        updateFilters(EProductsFilterKeys.MinPrice, fromValue);
+        updateFilters(EProductsParamsKeys.MinPrice, fromValue);
       }, 1000);
       return () => {
         clearTimeout(timeoutId);
@@ -59,7 +50,7 @@ const PriceFilter = ({
       let timeoutId: ReturnType<typeof setTimeout>;
 
       timeoutId = setTimeout(() => {
-        updateFilters(EProductsFilterKeys.MaxPrice, toValue);
+        updateFilters(EProductsParamsKeys.MaxPrice, toValue);
       }, 1000);
 
       return () => {

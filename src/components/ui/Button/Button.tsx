@@ -1,16 +1,15 @@
 import cn from "clsx";
-import { useAppearanceDelay } from "@/utils/useAppearanceDelay";
+import { useAppearanceDelay } from "@/hooks/useAppearanceDelay";
 
 import Spinner from "../Spinner/Spinner";
 
 import styles from "./Button.module.scss";
 
-
 export enum EButtonVariants {
-  PRIMARY = "primary",
-  SECONDARY = "secondary",
-  SUCCESS = "success",
-  DANGER = "danger"
+  Primary = "primary",
+  Secondary = "secondary",
+  Success = "success",
+  Danger = "danger"
 }
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -33,7 +32,7 @@ const getBtnClassNames = (
   if (variant) {
     classNamesArray.push(styles[`${BTN}-${variant}`]);
   } else {
-    classNamesArray.push(styles[`${BTN}-${EButtonVariants.PRIMARY}`]);
+    classNamesArray.push(styles[`${BTN}-${EButtonVariants.Primary}`]);
   }
 
   if (customClass) {

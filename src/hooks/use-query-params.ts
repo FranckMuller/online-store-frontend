@@ -1,19 +1,27 @@
-import {useEffect} from 'react'
-import {useSearchParams} from 'next/navigation'
+import { useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { useQueryStates } from "next-usequerystate";
 
 export const useQueryParams = <K>(paramsInitObj: K) => {
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams();
   const [params, setParams] = useQueryStates<any>(paramsInitObj);
 
+// TODO need refactoring
   const updateQueryParams = (key: keyof K, value: string) => {
-    if (value) {
-      setParams({ [key]: value });
+    console.log(params[key], value);
+    if (params[key] === value) {
+      if (key !== "maxPrice" || key !== "minPrice") {
+        setParams({ [key]: null });
+      }
     } else {
-      setParams({ [key]: null });
+      if (value) {
+        setParams({ [key]: value });
+      } else {
+        setParams({ [key]: null });
+      }
     }
   };
-  
+
   useEffect(() => {
     searchParams.forEach((value, key) => {
       setParams(prev => ({
@@ -23,5 +31,5 @@ export const useQueryParams = <K>(paramsInitObj: K) => {
     });
   }, [searchParams]);
 
-  return { params, updateQueryParams };
+  return { queryParams: params, updateQueryParams };
 };

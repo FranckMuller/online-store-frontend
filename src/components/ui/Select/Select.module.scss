@@ -17,6 +17,7 @@
       animation: slideOptions 0.5s forwards;
       transform: translateX(100%);
       border-radius: var(--common-br);
+      white-space: nowrap;
 
       & + .option {
         margin-top: 5px;

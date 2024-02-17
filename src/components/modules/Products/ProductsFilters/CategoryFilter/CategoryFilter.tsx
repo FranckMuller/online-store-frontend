@@ -1,18 +1,17 @@
 import { useState } from "react";
-import { EProductsFilterKeys } from "@/hooks/products/useProductsFilters";
-import type { ICategories, ICategory } from "@/interfaces/categories.interface";
-import type { IProductsFilters } from "@/interfaces/products.interface";
+import type { ICategories } from "@/interfaces/categories.interface";
+import { EProductsParamsKeys } from "@/interfaces/products.interface";
 
 import styles from "./CategoryFilter.module.scss";
 
 type Props = {
-  updateFilters: (key: keyof IProductsFilters, value: string) => void;
+  updateFilters: (key: EProductsParamsKeys.Category, value: string) => void;
   categories: ICategories;
   value?: string;
 };
 
 const CategoryFilter = ({ updateFilters, categories, value }: Props) => {
-  if(!categories) return null
+  if (!categories) return null;
   return (
     <div className={styles["category-filter"]}>
       <h4 className={styles["title"]}>Categories</h4>
@@ -21,20 +20,20 @@ const CategoryFilter = ({ updateFilters, categories, value }: Props) => {
           <input
             id="all"
             type="checkbox"
-            onChange={(e) => updateFilters(EProductsFilterKeys.Category, "all")}
-            checked={value === "all"}
+            onChange={e => updateFilters(EProductsParamsKeys.Category, "")}
+            checked={!value}
           />
-          <label htmlFor='all' className={styles["label"]}>
+          <label htmlFor="all" className={styles["label"]}>
             All
           </label>
         </li>
-        {categories.map((c) => (
+        {categories.map(c => (
           <li className={styles["item"]} key={c.id}>
             <input
               id={c.id}
               type="checkbox"
-              onChange={(e) =>
-                updateFilters(EProductsFilterKeys.Category, c.name)
+              onChange={e =>
+                updateFilters(EProductsParamsKeys.Category, c.name)
               }
               checked={value === c.name}
             />

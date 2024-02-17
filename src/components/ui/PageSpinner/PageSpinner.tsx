@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import { useAppearanceDelay } from "@/utils/useAppearanceDelay";
+import { useAppearanceDelay } from "@/hooks/useAppearanceDelay";
+
 import styles from "./PageSpinner.module.scss";
 
 type Props = {
@@ -9,7 +10,7 @@ type Props = {
 };
 
 const PageSpinner = ({ isLoading, ...appearenceDelayOptions }: Props) => {
-  const show = useAppearanceDelay(isLoading, {...appearenceDelayOptions});
+  const show = useAppearanceDelay(isLoading, { ...appearenceDelayOptions });
   useEffect(() => {
     if (show) {
       document.body.classList.add("no-scroll");

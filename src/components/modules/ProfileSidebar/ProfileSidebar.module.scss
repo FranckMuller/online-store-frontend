@@ -9,6 +9,12 @@
   .menu {
     flex-grow: 1;
     margin-bottom: 20px;
+    
+    ul {
+      li {
+        white-space: nowrap;
+      }
+    }
   }
 
   .logout-btn {

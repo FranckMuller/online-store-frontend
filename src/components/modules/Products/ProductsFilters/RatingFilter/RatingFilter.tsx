@@ -3,19 +3,18 @@ import Checkbox from "@/components/ui/Checkbox/Checkbox";
 
 import { updateRatingQueryString } from "@/utils/products-filters.utils";
 
-import { EProductsFilterKeys } from "@/hooks/products/useProductsFilters";
-import type {
-  IProductsFilters,
-  TRatingFilterValue,  
+import {
+  EProductsParamsKeys,
+  type TRatingFilterValue
 } from "@/interfaces/products.interface";
 
 import styles from "./RatingFilter.module.scss";
 
-const RATING_FILTERS_ITEMS: Array<TRatingFilterValue> = [1, 2, 3, 4, 5];
+const RatingFilterValues: Array<TRatingFilterValue> = [1, 2, 3, 4, 5];
 
 type Props = {
   currentValue?: string;
-  updateFilters: (key: keyof IProductsFilters, value: string) => void;
+  updateFilters: (key: EProductsParamsKeys.Rating, value: string) => void;
 };
 
 const RatingFilter = ({ updateFilters, currentValue = "" }: Props) => {
@@ -23,14 +22,18 @@ const RatingFilter = ({ updateFilters, currentValue = "" }: Props) => {
     <div className={styles["rating-filter"]}>
       <p className={styles["title"]}>Rating</p>
 
-      {RATING_FILTERS_ITEMS.map((value) => (
+      {RatingFilterValues.map(value => (
         <div className={styles["item"]} key={value}>
           <Checkbox
-            id={`${EProductsFilterKeys.Rating}${value}`}
-            isChecked={currentValue.split('|').includes(value.toString())}
+            id={`${EProductsParamsKeys.Rating}${value}`}
+            isChecked={
+              currentValue
+                ? currentValue.split("|").includes(value.toString())
+                : false
+            }
             onChange={() =>
               updateFilters(
-                EProductsFilterKeys.Rating,
+                EProductsParamsKeys.Rating,
                 updateRatingQueryString(currentValue, value)
               )
             }

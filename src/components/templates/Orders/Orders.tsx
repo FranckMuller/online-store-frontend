@@ -9,7 +9,7 @@ import { useFetchOrders } from "@/hooks/orders/useFetchOrders";
 import { useQueryParams } from "@/hooks/use-query-params";
 
 import {
-  EOrdersParamsKeyes,
+  EOrdersParamsKeys,
   EOrderSortStatuses,
   type IFetchOrdersParams
 } from "@/interfaces/orders.interface";
@@ -29,15 +29,15 @@ const sortOptions = [
 ];
 
 const initOrdersParamsObj = {
-  status: EOrdersParamsKeyes.STATUS
+  status: EOrdersParamsKeys.STATUS
 };
 
 type TInitOrdersParamsObj = typeof initOrdersParamsObj;
 
 const Orders = () => {
-  const { updateQueryParams, params } =
+  const { updateQueryParams, queryParams } =
     useQueryParams<TInitOrdersParamsObj>(initOrdersParamsObj);
-  const fetchOrders = useFetchOrders(params);
+  const fetchOrders = useFetchOrders(queryParams);
 
   const onSortOrders = (
     sortBy: keyof IFetchOrdersParams,
@@ -46,7 +46,7 @@ const Orders = () => {
     updateQueryParams(sortBy, value);
   };
 
-  const defaultSortOption = sortOptions.find(o => o.value === params.status);
+  const defaultSortOption = sortOptions.find(o => o.value === queryParams.status);
 
   return (
     <>
@@ -64,7 +64,7 @@ const Orders = () => {
             defaultOption={defaultSortOption ?? sortOptions[0]}
             options={sortOptions}
             onChange={(value: EOrderSortStatuses) =>
-              onSortOrders(EOrdersParamsKeyes.STATUS, value)
+              onSortOrders(EOrdersParamsKeys.STATUS, value)
             }
           />
         </div>

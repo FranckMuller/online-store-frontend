@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import {useAppearanceDelay} from '@/utils/useAppearanceDelay'
+import {useAppearanceDelay} from '@/hooks/useAppearanceDelay'
 
 import styles from "./ElementSpinner.module.scss";
 
