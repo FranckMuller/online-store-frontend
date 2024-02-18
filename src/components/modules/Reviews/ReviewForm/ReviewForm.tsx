@@ -1,16 +1,14 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-
-import { isAxiosError } from "axios";
 
 import { useMe } from "@/hooks/auth/useMe";
-import { useReviews } from "@/hooks/reviews/useReviews";
+import { useCreateReview } from "@/hooks/reviews/useCreateReview";
 
 import AvatarMini from "@/components/modules/Profile/AvatarMini/AvatarMini";
 import ProductRating from "@/components/modules/Products/ProductRating/ProductRating";
 import ElementSpinner from "@/components/ui/ElementSpinner/ElementSpinner";
 import Error from "@/components/ui/Error/Error";
+import Button, { EButtonVariants } from "@/components/ui/Button/Button";
 import { IoClose } from "react-icons/io5";
 
 import * as Api from "@/api";
@@ -24,27 +22,28 @@ type Props = {
 };
 
 const ReviewForm = ({ productId }: Props) => {
-  const queryClient = useQueryClient();
   const [text, setText] = useState("");
   const [isShowed, setIsShowed] = useState(false);
   const [rating, setRating] = useState(0);
   const [error, setError] = useState("");
-  const {
-    createReview,
-    isCreating,
-    isCreatingSuccess,
-    serverError,
-    setServerError
-  } = useReviews(productId);
-  const {user} = useMe();
+  const [serverError, setServerError] = useState("");
+  
+  const createReview = useCreateReview(productId);
+  const { user } = useMe();
 
   useEffect(() => {
-    if (isCreatingSuccess) {
+    if (createReview.isSuccess) {
       setRating(0);
       setText("");
       setIsShowed(false);
     }
-  }, [isCreatingSuccess]);
+  }, [createReview.isSuccess]);
+
+  useEffect(() => {
+    if (createReview.error) {
+      setServerError(createReview.error);
+    }
+  }, [createReview.error]);
 
   if (!user) return null;
 
@@ -78,7 +77,7 @@ const ReviewForm = ({ productId }: Props) => {
       setError("Required field");
       return;
     }
-    createReview({ rating, text });
+    createReview.create({ rating, text });
   };
 
   return (
@@ -116,19 +115,12 @@ const ReviewForm = ({ productId }: Props) => {
 
             <div className={styles["error-button-wrap"]}>
               <div className={styles["button-wrap"]}>
-                <button
-                  disabled={isCreating}
-                  className={`${styles["submit-button"]} btn-secondary ${
-                    isCreating ? styles["loading"] : ""
-                  }`}
-                >
-                  Send review
-                  {isCreating && (
-                    <div className={styles["spinner"]}>
-                      <ElementSpinner isLoading={isCreating} />
-                    </div>
-                  )}
-                </button>
+                <Button
+                  text="Send review"
+                  disabled={createReview.isLoading}
+                  variant={EButtonVariants.Secondary}
+                  loading={createReview.isLoading}
+                />
               </div>
 
               {serverError && <Error text={serverError} />}
@@ -141,12 +133,11 @@ const ReviewForm = ({ productId }: Props) => {
         </div>
       )}
       {!isShowed && (
-        <button
+        <Button
+          text="Leave review"
           onClick={toggleForm}
-          className={`${styles["open-btn"]} btn-primary`}
-        >
-          Leave review
-        </button>
+          customClass={styles["open-btn"]}
+        />
       )}
     </div>
   );

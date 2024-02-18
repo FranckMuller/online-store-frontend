@@ -7,7 +7,6 @@ import {
 import { isAxiosError } from "axios";
 import * as Api from "@/api";
 
-import type { ReviewData } from "@/api/reviews";
 import type { IUpdateReviewData } from "@/api/reviews";
 import type { IProductReview } from "@/interfaces/reviews.interface";
 
@@ -16,29 +15,6 @@ export const useReviews = (productId: string) => {
   const queryClient = useQueryClient();
   const [isEditMode, setIsEditMode] = useState(false);
   const [serverError, setServerError] = useState("");
-
-  const {
-    mutate: createReview,
-    isLoading: isCreating,
-    isSuccess: isCreatingSuccess
-  } = useMutation({
-    mutationFn: (data: ReviewData) => Api.reviews.create(data, productId),
-    onSuccess: data => {
-      queryClient.setQueryData(["reviews", productId], (prev: any) => {
-        queryClient.invalidateQueries([`product/${productId}`]);
-        return {
-          pages: [{ results: [data] }, ...prev.pages],
-          pageParams: [...prev.pageParams]
-        };
-        // return prev ? [data, ...prev] : [data];
-      });
-    },
-    onError: err => {
-      if (err && isAxiosError(err)) {
-        setServerError(err.response?.data?.message);
-      }
-    }
-  });
 
   const { mutate: deleteReview } = useMutation({
     mutationFn: (id: string) => Api.reviews.deleteOne(id),
@@ -106,9 +82,6 @@ export const useReviews = (productId: string) => {
   });
 
   return {
-    createReview,
-    isCreating,
-    isCreatingSuccess,
     deleteReview,
     updateReview,
     isUpdateLoading,

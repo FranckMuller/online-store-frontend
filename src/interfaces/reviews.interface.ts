@@ -7,4 +7,7 @@ export interface IProductReview {
   user: IUser;
 }
 
+export type TCreateReviewData = {rating: number;
+  text?: string;}
+
 export interface IProductReviews extends Array<IProductReview> {}

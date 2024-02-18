@@ -3,18 +3,14 @@ import { apiInstance } from "./api";
 import type {
   IProductReview,
   IProductReviews,
+  TCreateReviewData
 } from "@/interfaces/reviews.interface";
 
 import type { QueryFunctionContext } from "@tanstack/react-query";
 
 const LIMIT = 2;
 
-export interface ReviewData {
-  rating: number;
-  text?: string;
-}
-
-export interface IUpdateReviewData extends ReviewData {
+export interface IUpdateReviewData extends TCreateReviewData {
   reviewId: string;
 }
 
@@ -32,7 +28,7 @@ type IPaginateReviewsResponse = {
   offset: number | undefined;
 };
 
-export const create = async (data: ReviewData, productId: string) => {
+export const create = async (data: TCreateReviewData, productId: string) => {
   const response = await apiInstance.post<IProductReview>(
     `reviews/${productId}`,
     data
@@ -42,7 +38,7 @@ export const create = async (data: ReviewData, productId: string) => {
 
 export const getAllByProduct = async ({
   offset,
-  productId,
+  productId
 }: {
   offset: number;
   productId: string;
@@ -53,7 +49,7 @@ export const getAllByProduct = async ({
 
   return {
     results: response.data.reviews,
-    offset: response.data.offset,
+    offset: response.data.offset
   };
 };
 
