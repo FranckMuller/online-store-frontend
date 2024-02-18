@@ -1,13 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 
-import { useReviews } from "@/hooks/reviews/useReviews";
-
 import ProductRating from "@/components/modules/Products/ProductRating/ProductRating";
 import ElementSpinner from "@/components/ui/ElementSpinner/ElementSpinner";
 import AvatarMini from "@/components/modules/Profile/AvatarMini/AvatarMini";
 import Error from "@/components/ui/Error/Error";
-
+import Button, { EButtonVariants } from "@/components/ui/Button/Button";
 import { MdDelete, MdEdit } from "react-icons/md";
+
+import { useRemoveReview } from "@/hooks/reviews/useRemoveReview";
+import { useUpdateReview } from "@/hooks/reviews/useUpdateReview";
 
 import type { IProductReview } from "@/interfaces/reviews.interface";
 
@@ -20,18 +21,21 @@ type Props = {
 };
 
 const ProductReview = ({ review, userId = null, productId }: Props) => {
-  const {
-    deleteReview,
-    updateReview,
-    isUpdateLoading,
-    isEditMode,
-    setIsEditMode,
-  } = useReviews(productId);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const [isEditMode, setIsEditMode] = useState(false);
   const [rating, setRating] = useState(0);
   const [text, setText] = useState("");
   const [serverError, setServerError] = useState("");
   const [error, setSrror] = useState("");
+
+  const removeReview = useRemoveReview(productId);
+  const updateReview = useUpdateReview(productId, review.id);
+
+  useEffect(() => {
+    if (updateReview.isSuccess && isEditMode) {
+      setIsEditMode(false);
+    }
+  }, [updateReview.isSuccess]);
 
   useEffect(() => {
     if (review?.text) {
@@ -39,6 +43,13 @@ const ProductReview = ({ review, userId = null, productId }: Props) => {
     }
     setRating(review.rating);
   }, [review]);
+
+  useEffect(() => {
+    const error = removeReview.error ?? updateReview.error;
+    if (error) {
+      setServerError(error);
+    }
+  }, [removeReview.error, updateReview.error]);
 
   useEffect(() => {
     if (review?.text && text !== review.text) {
@@ -53,7 +64,7 @@ const ProductReview = ({ review, userId = null, productId }: Props) => {
   }, [isEditMode]);
 
   const onToggleEditMode = () => {
-    setIsEditMode((prev) => !prev);
+    setIsEditMode(prev => !prev);
   };
 
   const onTextChange = (e: React.FormEvent<HTMLTextAreaElement>) => {
@@ -62,10 +73,6 @@ const ProductReview = ({ review, userId = null, productId }: Props) => {
 
   const onRatingChange = (value: number) => {
     setRating(value);
-  };
-
-  const onUpdate = (e: React.MouseEvent<HTMLButtonElement>) => {
-    updateReview({ rating, text, reviewId: review.id });
   };
 
   const isRatingDisabled = isEditMode ? false : true;
@@ -105,20 +112,14 @@ const ProductReview = ({ review, userId = null, productId }: Props) => {
             <div className={styles["edit-controls"]}>
               <div className={styles["error-button-wrap"]}>
                 <div className={styles["button-wrap"]}>
-                  <button
-                    onClick={onUpdate}
-                    disabled={isUpdateLoading}
-                    className={`${styles["save-btn"]} btn-secondary ${
-                      isUpdateLoading ? styles["loading"] : ""
-                    }`}
-                  >
-                    Save
-                    {isUpdateLoading && (
-                      <div className={styles["spinner"]}>
-                        <ElementSpinner isLoading={isUpdateLoading} />
-                      </div>
-                    )}
-                  </button>
+                  <Button
+                    text="Save"
+                    loading={updateReview.isLoading}
+                    onClick={() => updateReview.update({ rating, text })}
+                    disabled={updateReview.isLoading}
+                    customClass={styles["save-btn"]}
+                    variant={EButtonVariants.Secondary}
+                  />
                 </div>
 
                 {serverError && <Error text={serverError} />}
@@ -139,7 +140,7 @@ const ProductReview = ({ review, userId = null, productId }: Props) => {
               <MdEdit />
             </button>
             <button
-              onClick={() => deleteReview(review.id)}
+              onClick={() => removeReview.remove(review.id)}
               className={styles["delete-btn"]}
             >
               <MdDelete />

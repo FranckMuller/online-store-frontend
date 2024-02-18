@@ -2,14 +2,14 @@ import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
 import * as Api from "@/api";
-import type { TCreateReviewData } from "@/interfaces/reviews.interface";
+import type { TReviewData } from "@/interfaces/reviews.interface";
 
 export const useCreateReview = (productId: string) => {
   const queryClient = useQueryClient();
   const [error, setError] = useState("");
 
   const { mutate, isLoading, isSuccess } = useMutation({
-    mutationFn: (data: TCreateReviewData) =>
+    mutationFn: (data: TReviewData) =>
       Api.reviews.create(data, productId),
     onSuccess: data => {
       queryClient.setQueryData(["reviews", productId], (prev: any) => {
