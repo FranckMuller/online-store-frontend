@@ -50,12 +50,10 @@ const Cart = () => {
                   <p className={styles["shipping"]}>free shipping</p>
 
                   <div className={styles["quantity"]}>
-                    <ProductQuantity
+                    {/*<ProductQuantity
                       quantityValue={i.quantity}
-                      incrementHandler={() => incrementProduct(i.product.id)}
-                      decrementHandler={() => decrementProduct(i.product.id)}
                       deleteHandler={() => toggleProduct(i.product)}
-                    />
+                    />*/}
                   </div>
                 </div>
               </div>
@@ -65,7 +63,12 @@ const Cart = () => {
           )}
         </div>
         <div className={styles["order"]}>
-          <Button text="Place order" loading={createOrder.isLoading} disabled={createOrder.isLoading} onClick={onOrderCreate} />
+          <Button
+            text="Place order"
+            loading={createOrder.isLoading}
+            disabled={createOrder.isLoading}
+            onClick={onOrderCreate}
+          />
           <p>Total: ${amount}</p>
         </div>
       </div>

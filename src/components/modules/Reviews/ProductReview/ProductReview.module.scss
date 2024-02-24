@@ -59,7 +59,6 @@
           justify-content: center;
           align-items: center;
         }
-      
       }
     }
   }
@@ -71,10 +70,10 @@
     button {
       padding: 2px;
       &.edit-btn {
-        color: var(--blue);
+        color: var(--blue-dark);
       }
       &.delete-btn {
-        color: var(--orange);
+        color: var(--red);
       }
       svg {
         width: 15px;

@@ -30,6 +30,7 @@
     z-index: 10;
     margin-top: 5px;
     .dropdown {
+      position: relative;
       max-height: 50vh;
       overflow-y: auto;
       padding: 10px;
@@ -39,33 +40,6 @@
       transform: translateX(0);
       .title {
         margin-bottom: 10px;
-      }
-
-      .dropdown-item {
-        & + .dropdown-item {
-          margin-top: 10px;
-        }
-
-        .product {
-          display: flex;
-          .product-image {
-            flex: 0 0 80px;
-            margin-right: 10px;
-          }
-
-          .product-info {
-            flex: 1;
-            .product-name {
-              margin-bottom: 3px;
-            }
-
-            .product-price {
-              font-weight: 700;
-              font-size: 11px;
-              margin-bottom: 10px;
-            }
-          }
-        }
       }
 
       .total {
@@ -86,6 +60,20 @@
         padding: 4px 10px;
         color: var(--orange);
         border-radius: var(--common-br);
+      }
+
+      .spinner-wrapper {
+        position: absolute;
+        top: 0;
+        right: 0;
+        /* bottom: 0; */
+        left: 0;
+        height: 100%;
+        backdrop-filter: blur(1px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
       }
     }
   }

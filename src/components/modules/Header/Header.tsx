@@ -8,7 +8,7 @@ import AuthControls from "./AuthControls/AuthControls";
 import ProfileDropdown from "./ProfileDropdown/ProfileDropdown";
 import ThemeButton from "../ThemeButton/ThemeButton";
 import HeaderLogo from "@/components/ui/HeaderLogo/HeaderLogo";
-import CartDropdown from './CartDropdown/CartDropdown'
+import CartDropdown from "@/components/modules/Cart/CartDropdown/CartDropdown";
 import FavoritesLink from "./FavoritesLink/FavoritesLink";
 
 import styles from "./Header.module.scss";

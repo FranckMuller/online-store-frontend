@@ -16,7 +16,7 @@ type Props = {
   isShowedControls: boolean;
   isFavorite: boolean;
   isInCart?: boolean;
-  toggleProductCart?: (product: ICartProduct) => void;
+  toggleProductCart?: (productId: string) => void;
 };
 
 // TODO optimize images on mobile
@@ -29,12 +29,7 @@ const ProductItem = ({
 }: Props) => {
   const onCartButtonClick = () => {
     if (toggleProductCart) {
-      toggleProductCart({
-        name: product.name,
-        id: product.id,
-        image: product.mainImage.path,
-        price: product.price,
-      });
+      toggleProductCart(product.id);
     } else {
       return null;
     }

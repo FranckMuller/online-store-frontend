@@ -5,34 +5,39 @@ import { FaTrash } from "react-icons/fa";
 import styles from "./ProductQuantity.module.scss";
 
 type Props = {
-  quantityValue: number;
-  incrementHandler: () => void;
-  decrementHandler: () => void;
-  deleteHandler: () => void;
+  quantityValue: number | undefined;
+  onChangeQuantity: (value: number | string) => void;
+  onDeleteItem: () => void;
 };
 
 const ProductQuantity = ({
   quantityValue,
-  incrementHandler,
-  decrementHandler,
-  deleteHandler
+  onDeleteItem,
+  onChangeQuantity
 }: Props) => {
   return (
     <div className={styles["product-quantity"]}>
       <button
-        onClick={decrementHandler}
+        disabled={(quantityValue && quantityValue < 2) || !quantityValue}
+        onClick={() => onChangeQuantity(quantityValue ? +quantityValue - 1 : 0)}
         className={styles["product-count-btn"]}
       >
         -
       </button>
-      <input onChange={() => {}} type="number" value={quantityValue} />
+      <input
+        onChange={e => {
+          onChangeQuantity(e.target.value);
+        }}
+        type="number"
+        value={quantityValue}
+      />
       <button
-        onClick={incrementHandler}
+        onClick={() => onChangeQuantity(quantityValue ? +quantityValue + 1 : 1)}
         className={styles["product-count-btn"]}
       >
         +
       </button>
-      <button onClick={deleteHandler} className={styles["remove-product-btn"]}>
+      <button onClick={onDeleteItem} className={styles["remove-product-btn"]}>
         <FaTrash />
       </button>
     </div>

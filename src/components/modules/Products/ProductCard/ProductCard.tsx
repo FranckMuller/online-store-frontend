@@ -55,7 +55,7 @@ const ProductCard = ({ product }: Props) => {
               <p className={styles["category"]}>{product.category.name}</p>
             )}
             <Button
-              className={`${styles["cart-button"]} btn-primary`}
+              customClass={styles["cart-button"]}
               text="Add to cart"
             />
           

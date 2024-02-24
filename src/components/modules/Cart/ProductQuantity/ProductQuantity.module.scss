@@ -5,6 +5,10 @@
   input {
     color: inherit;
   }
+  
+  button:disabled {
+    color: transparent;
+  }
 
   input {
     flex-grow: 0;

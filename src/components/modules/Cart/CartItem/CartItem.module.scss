@@ -1,0 +1,25 @@
+.cart-item {
+  & + .cart-item {
+    margin-top: 10px;
+  }
+  .product {
+    display: flex;
+    .product-image {
+      flex: 0 0 80px;
+      margin-right: 10px;
+    }
+
+    .product-info {
+      flex: 1;
+      .product-name {
+        margin-bottom: 3px;
+      }
+
+      .product-price {
+        font-weight: 700;
+        font-size: 11px;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}

@@ -63,16 +63,8 @@ const ProductReview = ({ review, userId = null, productId }: Props) => {
     }
   }, [isEditMode]);
 
-  const onToggleEditMode = () => {
-    setIsEditMode(prev => !prev);
-  };
-
   const onTextChange = (e: React.FormEvent<HTMLTextAreaElement>) => {
     setText(e.currentTarget.value);
-  };
-
-  const onRatingChange = (value: number) => {
-    setRating(value);
   };
 
   const isRatingDisabled = isEditMode ? false : true;
@@ -88,7 +80,7 @@ const ProductReview = ({ review, userId = null, productId }: Props) => {
             <ProductRating
               disabled={isRatingDisabled}
               initialValue={review.rating}
-              handleRating={onRatingChange}
+              handleRating={setRating}
             />
           </div>
           {!isEditMode && review.text && (
@@ -125,7 +117,7 @@ const ProductReview = ({ review, userId = null, productId }: Props) => {
                 {serverError && <Error text={serverError} />}
               </div>
               <button
-                onClick={onToggleEditMode}
+                onClick={() => setIsEditMode(false)}
                 className={`${styles["save-btn"]} btn-link`}
               >
                 cancel
@@ -136,7 +128,7 @@ const ProductReview = ({ review, userId = null, productId }: Props) => {
 
         {userId && userId === review.user.id && !isEditMode && (
           <div className={styles["controls"]}>
-            <button onClick={onToggleEditMode} className={styles["edit-btn"]}>
+            <button onClick={() => setIsEditMode(true)} className={styles["edit-btn"]}>
               <MdEdit />
             </button>
             <button

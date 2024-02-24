@@ -2,6 +2,8 @@
 import { useMe } from "@/hooks/auth/useMe";
 import { useFavorites } from "@/hooks/products/useFavorites";
 import { useCart } from "@/hooks/cart/useCart";
+import { useAddProduct } from "@/hooks/cart/useAddProduct";
+import { useFetchCart } from "@/hooks/cart/useFetchCart";
 
 import ProductItem from "../ProductItem/ProductItem";
 
@@ -17,9 +19,21 @@ type Props = {
 const ProductsList = ({ products, columnCount = "4" }: Props) => {
   const { favoritesProductsIdx } = useFavorites();
   const { isAuthed } = useMe();
-  const { toggleProduct, cartProductsIds } = useCart();
+  const addProduct = useAddProduct();
+  const fetchCart = useFetchCart();
 
   let columnCountClassName = `col-${columnCount}`;
+
+  const cartProductsIds = fetchCart?.cart?.items
+    ? fetchCart?.cart?.items.map(i => i.product.id)
+    : [];
+
+  const toggleProduct = (productId: string) => {
+    const isInCart = cartProductsIds?.includes(productId);
+    if (!isInCart) {
+      addProduct.add({ productId, quantity: 1 });
+    }
+  };
 
   return (
     <div
