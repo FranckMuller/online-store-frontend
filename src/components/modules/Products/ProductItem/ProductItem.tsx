@@ -30,8 +30,6 @@ const ProductItem = ({
   const onCartButtonClick = () => {
     if (toggleProductCart) {
       toggleProductCart(product.id);
-    } else {
-      return null;
     }
   };
 

@@ -5,7 +5,7 @@ export const useDebouncedCallback = <T extends (...args: any[]) => void>(
   delay: number
 ): ((...args: Parameters<T>) => void) => {
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
-  console.log(callback);
+  
 
   useEffect(() => {
     return () => {
@@ -16,7 +16,6 @@ export const useDebouncedCallback = <T extends (...args: any[]) => void>(
   }, []);
 
   const debouncedCallback = (...args: Parameters<T>) => {
-    console.log(args)
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }

@@ -1,9 +1,9 @@
 "use client";
 import { useMe } from "@/hooks/auth/useMe";
 import { useFavorites } from "@/hooks/products/useFavorites";
-import { useCart } from "@/hooks/cart/useCart";
 import { useAddProduct } from "@/hooks/cart/useAddProduct";
 import { useFetchCart } from "@/hooks/cart/useFetchCart";
+import { useRemoveCartItem } from "@/hooks/cart/useRemoveCartItem";
 
 import ProductItem from "../ProductItem/ProductItem";
 
@@ -21,6 +21,7 @@ const ProductsList = ({ products, columnCount = "4" }: Props) => {
   const { isAuthed } = useMe();
   const addProduct = useAddProduct();
   const fetchCart = useFetchCart();
+  const removeCartItem = useRemoveCartItem();
 
   let columnCountClassName = `col-${columnCount}`;
 
@@ -32,6 +33,13 @@ const ProductsList = ({ products, columnCount = "4" }: Props) => {
     const isInCart = cartProductsIds?.includes(productId);
     if (!isInCart) {
       addProduct.add({ productId, quantity: 1 });
+    } else {
+      const existedCartItem = fetchCart?.cart?.items.find(
+        i => i.product.id === productId
+      );
+      if (existedCartItem) {
+        removeCartItem.remove(existedCartItem.id);
+      }
     }
   };
 

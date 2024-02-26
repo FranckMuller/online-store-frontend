@@ -6,10 +6,12 @@ export type TCartItemProduct = {
     path: string;
   };
   price: number;
+  averageRating: number;
+  description: string
 };
 
 export type TCartItem = {
-  id: string
+  id: string;
   product: TCartItemProduct;
   quantity: number;
   total: number;
@@ -23,6 +25,6 @@ export type TCart = {
 };
 
 export type TProductData = {
-  productId: string,
-  quantity: number
-}
+  productId: string;
+  quantity: number;
+};

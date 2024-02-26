@@ -4,7 +4,7 @@
   }
   .cart {
     display: flex;
-
+    align-items: flex-start;
     .cart-list {
       margin-right: 50px;
       .cart-item {
@@ -28,19 +28,21 @@
             margin-bottom: 10px;
           }
 
-          .shipping {  
+          .shipping {
             font-size: 12px;
             margin-bottom: 20px;
           }
         }
       }
     }
-    
-  .order {
-    button {
-      margin-bottom: 10px;
+
+    .order {
+      padding: 10px 15px;
+      border-radius: var(--common-br);
+      flex-grow: 1;
+      button {
+        margin-bottom: 10px;
+      }
     }
   }
-  }
-  
 }

@@ -1,6 +1,7 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import ProductQuantity from "../ProductQuantity/ProductQuantity";
+import Rating from "@/components/ui/Rating/Rating";
 import { useDebouncedCallback } from "@/hooks/useDebouncedCallback";
 import type { TCartItem, TProductData } from "@/types/cart.types";
 
@@ -11,20 +12,19 @@ type Props = {
   changeQuantity: ({ productId, quantity }: TProductData) => void;
   removeItem: (id: string) => void;
   isErrorAddProduct: boolean;
+  isFullestItem?: boolean;
 };
 
 const CartItem = ({
   item,
   changeQuantity,
   removeItem,
-  isErrorAddProduct
+  isErrorAddProduct,
+  isFullestItem
 }: Props) => {
   const [quantity, setQuantity] = useState<number | undefined>(item.quantity);
 
-  const debouncedChangeQuantity = useDebouncedCallback(
-    changeQuantity,
-    1000
-  );
+  const debouncedChangeQuantity = useDebouncedCallback(changeQuantity, 1000);
 
   const сhangeQuantity = (value: number | string) => {
     if (!value || value === "0") {
@@ -47,6 +47,13 @@ const CartItem = ({
     }
   }, [isErrorAddProduct]);
 
+  const description =
+    isFullestItem && item.product.description ? item.product.description : null;
+  const rating =
+    isFullestItem && item.product.averageRating
+      ? item.product.averageRating
+      : null;
+
   return (
     <div className={styles["cart-item"]} key={item.product.id}>
       <div className={styles["product"]}>
@@ -54,12 +61,16 @@ const CartItem = ({
           <Image
             src={item.product.mainImage.path}
             alt={item.product.name}
-            width={100}
-            height={100}
+            width={150}
+            height={150}
           />
         </div>
         <div className={styles["product-info"]}>
+          {rating && <Rating initialValue={rating} />}
           <p className={styles["product-name"]}>{item.product.name}</p>
+          {description && (
+            <div className={styles["product-description"]}>{description}</div>
+          )}
           <p className={styles["product-price"]}>${item.product.price}</p>
           <ProductQuantity
             quantityValue={quantity}

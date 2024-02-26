@@ -32,8 +32,9 @@
     .dropdown {
       position: relative;
       max-height: 50vh;
+      max-width: 240px;
       overflow-y: auto;
-      padding: 10px;
+      padding: 10px 25px 10px 10px;
       border-bottom-left-radius: var(--common-br);
       border-top-left-radius: var(--common-br);
       animation: showDropdown 0.3s ease-in-out forwards;

@@ -1,5 +1,3 @@
-import { useCart } from "@/hooks/cart/useCart";
-
 import { FaTrash } from "react-icons/fa";
 
 import styles from "./ProductQuantity.module.scss";

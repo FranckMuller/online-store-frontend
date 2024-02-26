@@ -20,8 +20,8 @@ const CartDropdown = forwardRef<HTMLDivElement, DropdownProps>(
     const fetchCart = useFetchCart();
     const addProduct = useAddProduct();
     const removeCartItem = useRemoveCartItem();
+    
     const cartItems = fetchCart.cart?.items ? fetchCart.cart?.items : null;
-
     const isLoading =
       fetchCart.isLoading || addProduct.isLoading || removeCartItem.isLoading;
 
