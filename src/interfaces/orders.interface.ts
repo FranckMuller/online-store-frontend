@@ -1,7 +1,7 @@
 export interface IOrderItem {
   id: string;
   product: {
-    _id: string;
+    id: string;
     name: string;
     mainImage: {
       path: string;
@@ -9,7 +9,15 @@ export interface IOrderItem {
     price: string;
   };
   quantity: number;
-  amount: number;
+  total: number;
+}
+
+export enum EOrderStatuses {
+  Pending = "pending",
+  Payed = "payed",
+  Shipped = "shipped",
+  Delivered = "delivered",
+  Canceled = "canceled"
 }
 
 export interface IOrder {
@@ -17,7 +25,7 @@ export interface IOrder {
   items: Array<IOrderItem>;
   paymentUrl: string;
   amount: number;
-  status: string;
+  status: EOrderStatuses;
 }
 
 export interface IOrderData {

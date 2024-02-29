@@ -6,6 +6,7 @@
   .products {
     margin-right: 10px;
     padding: 10px 15px;
+    flex-basis: 65%;
     .product {
       padding-bottom: 5px;
       margin-bottom: 5px;
@@ -17,6 +18,7 @@
 
       .product-details {
         margin-right: 30px;
+        flex-grow: 1;
         .product-name {
           margin-bottom: 10px;
           font-size: 16px;
@@ -28,74 +30,18 @@
           color: var(--gray);
           font-weight: 700;
           font-style: italic;
+          margin-bottom: 10px;
+        }
+
+        .product-quantity,
+        .product-total {
+          font-size: 13px;
         }
       }
       .product-price {
         font-size: 16px;
         font-weight: 700;
       }
-    }
-  }
-
-  .payment-details {
-    flex-grow: 1;
-    flex-shrink: 1;
-    padding: 10px 15px;
-    border-radius: var(--common-br);
-
-    h3,
-    p {
-      display: flex;
-      justify-content: space-between;
-    }
-
-    h3 {
-      margin-bottom: 10px;
-    }
-
-    p {
-      font-size: 14px;
-      margin-bottom: 5px;
-    }
-
-    .order-controls {
-      margin-top: 20px;
-      display: flex;
-      justify-content: flex-end;
-      .payment-link {
-        margin-left: 10px;
-        flex-grow: 1;
-        text-align: center;
-      }
-    }
-  }
-
-  .order-details {
-    margin-right: 10px;
-    padding: 10px 15px;
-    flex-grow: 1;
-    background-color: var(--white);
-    p {
-      & + p {
-        margin-top: 5px;
-      }
-    }
-    .status {
-      display: flex;
-      align-items: center;
-
-      span {
-        margin-left: 10px;
-        font-size: 14px;
-        border-radius: var(--common-br);
-        display: block;
-        padding: 3px 5px;
-        color: var(--white);
-      }
-    }
-
-    .delete-btn {
-      margin-top: 15px;
     }
   }
 }

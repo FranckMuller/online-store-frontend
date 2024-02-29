@@ -9,8 +9,8 @@ export const useCreateOrder = () => {
 
   const { mutate, isLoading } = useMutation({
     mutationFn: Api.orders.createOrder,
-     onSuccess(data) {
-       router.push("/profile/checkout");
+    onSuccess: data => {
+      router.push("/profile/checkout");
     }
   });
 

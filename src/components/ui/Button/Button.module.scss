@@ -3,6 +3,7 @@
   padding: 5px 10px;
   border-radius: var(--button-br);
   position: relative;
+  white-space: nowrap;
 
   &.btn-loading {
     pointer-events: none;

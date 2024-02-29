@@ -1,6 +1,7 @@
 import cn from "clsx";
 import { useAppearanceDelay } from "@/hooks/useAppearanceDelay";
 
+import Link from 'next/link'
 import Spinner from "../Spinner/Spinner";
 
 import styles from "./Button.module.scss";
@@ -19,6 +20,7 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   customClass?: string;
   variant?: EButtonVariants;
   loading?: boolean;
+  src?: string;
 }
 
 const getBtnClassNames = (
@@ -49,11 +51,23 @@ const Button = ({
   variant,
   customClass,
   loading,
+  src,
   ...props
 }: Props) => {
   const classNames = getBtnClassNames(variant, customClass, size);
   const isLoading = loading ? useAppearanceDelay(loading) : false;
   const loadingClassName = isLoading ? styles["btn-loading"] : "";
+  
+  if(src) {
+    return (
+      <Link
+            className={cn(classNames, loadingClassName)}
+            href={src}
+          >
+            {text}
+          </Link>
+      )
+  }
 
   return (
     <button
